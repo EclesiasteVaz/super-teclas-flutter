@@ -8,16 +8,16 @@ ThemeData themeApp = ThemeData(
   useMaterial3: true,
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
-      minimumSize: MaterialStatePropertyAll(
+      minimumSize: WidgetStatePropertyAll(
         Size(120, 40),
       ),
-      padding: MaterialStatePropertyAll(
+      padding: WidgetStatePropertyAll(
         EdgeInsets.symmetric(
           horizontal: 15,
           vertical: 5,
         ),
       ),
-      shape: MaterialStatePropertyAll(
+      shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(8),

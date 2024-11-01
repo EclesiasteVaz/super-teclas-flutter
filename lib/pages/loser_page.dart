@@ -83,7 +83,7 @@ class LoserPage extends StatelessWidget {
                     ),
                     ElevatedButton.icon(
                       style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(
+                        padding: WidgetStatePropertyAll(
                           EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                         ),
                       ),
