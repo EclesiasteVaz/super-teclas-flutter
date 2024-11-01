@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:super_teclas/pages/home_page.dart';
-import 'package:super_teclas/shared/themes/theme_app.dart';
+import 'package:super_teclas/src/ui/pages/home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +14,34 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Super Teclas',
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      theme: themeApp,
+      scrollBehavior: const ScrollBehavior(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+            brightness: Brightness.dark,
+            seedColor: const Color.fromARGB(255, 3, 73, 131)),
+        useMaterial3: true,
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            minimumSize: WidgetStatePropertyAll(
+              Size(120, 40),
+            ),
+            padding: WidgetStatePropertyAll(
+              EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 5,
+              ),
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: const HomePage(),
     );

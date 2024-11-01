@@ -4,7 +4,7 @@ class GameSound {
   static final AudioPlayer _audioPlayer = AudioPlayer();
 
   static void playSound(String assetPath) async {
-    await _audioPlayer.play(AssetSource(assetPath));
+    await _audioPlayer.play(AssetSource(assetPath), volume: 0.6);
     //print('sim');
   }
 
