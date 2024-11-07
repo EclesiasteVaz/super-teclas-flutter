@@ -20,7 +20,6 @@ class GameService extends ChangeNotifier {
     WordModel(text: 'Legibilidade'),
     WordModel(text: 'Legislativamente'),
     WordModel(text: 'Expansionismo'),
-    WordModel(text: 'buckminsterfulereno'),
     WordModel(text: 'Guadamecileiro'),
     WordModel(text: 'Pan-africanismo'),
     WordModel(text: 'Humedecimento'),

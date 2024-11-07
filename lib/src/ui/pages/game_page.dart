@@ -12,7 +12,7 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   AudioPlayer audioPlayer = AudioPlayer();
   bool isPaused = false;
   late Timer _timer;
@@ -23,6 +23,7 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     lastIndex = gameService.currentIndex;
     time = gameService.currentWord.text.length;
     debugPrint(time.toString());
@@ -81,9 +82,22 @@ class _GamePageState extends State<GamePage> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     audioPlayer.dispose();
     _timer.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      isPaused = true;
+      audioPlayer.pause();
+    } else if (state == AppLifecycleState.resumed) {
+      audioPlayer.resume();
+    }
+    setState(() {});
+    super.didChangeAppLifecycleState(state);
   }
 
   @override
@@ -100,10 +114,15 @@ class _GamePageState extends State<GamePage> {
         actions: [
           IconButton(
             onPressed: () {
-              isPaused != isPaused;
+              isPaused = !isPaused;
+              if (isPaused == true) {
+                audioPlayer.pause();
+              } else {
+                audioPlayer.resume();
+              }
               setState(() {});
             },
-            icon: Icon(isPaused ? Icons.pause : Icons.play_arrow),
+            icon: Icon(!isPaused ? Icons.pause : Icons.play_arrow),
           )
         ],
       ),
@@ -166,7 +185,7 @@ class _GamePageState extends State<GamePage> {
                       enableSuggestions: false,
                       autofocus: true,
                       autocorrect: false,
-                      enabled: true,
+                      enabled: !isPaused,
                       controller: controllerInput,
                       onChanged: (text) {
                         gameService.writing(word: text);
