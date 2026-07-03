@@ -1,50 +1,43 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:super_teclas/src/data/models/word_model.dart';
+import 'package:super_teclas/src/data/words/word_bank.dart';
 
 class GameService extends ChangeNotifier {
-  List<WordModel> words = [
-    WordModel(text: 'Computador'),
-    WordModel(text: 'Telefone'),
-    WordModel(text: 'Democracia'),
-    WordModel(text: 'Esmiuçamento'),
-    WordModel(text: 'Incandescente'),
-    WordModel(text: 'Ministério'),
-    WordModel(text: 'Programação'),
-    WordModel(text: 'Unanimidade'),
-    WordModel(text: 'Geomagnetismo'),
-    WordModel(text: 'Quilialismo'),
-    WordModel(text: 'Argumentação'),
-    WordModel(text: 'Devastação'),
-    WordModel(text: 'Fobofóbico'),
-    WordModel(text: 'Legibilidade'),
-    WordModel(text: 'Legislativamente'),
-    WordModel(text: 'Expansionismo'),
-    WordModel(text: 'Guadamecileiro'),
-    WordModel(text: 'Pan-africanismo'),
-    WordModel(text: 'Humedecimento'),
-    WordModel(text: 'Unanimemente'),
-    WordModel(text: 'Dactiloscopia'),
-    WordModel(text: 'Tecnônimo'),
-    WordModel(text: 'Telecomunicação'),
-    WordModel(text: 'Engenharia')
-  ];
-  Random random = Random();
-  List<int> indexWordUseds = [];
+  List<WordModel> words = [];
+  final Random random = Random();
+  final List<int> indexWordUseds = [];
   late WordModel currentWord;
   bool isWin = false;
   int currentIndex = 0;
+  int totalKeystrokes = 0;
+  int correctKeystrokes = 0;
+  int totalWordsCompleted = 0;
+  DateTime? startTime;
 
-  GameService() {
+  GameService({String languageCode = 'pt'}) {
+    _init(languageCode);
+  }
+
+  void _init(String languageCode) {
+    words = WordBank.getWords(languageCode)
+        .map((text) => WordModel(text: text))
+        .toList();
     currentIndex = random.nextInt(words.length);
     indexWordUseds.add(currentIndex);
     currentWord = words[currentIndex];
+    startTime = DateTime.now();
     notifyListeners();
   }
 
-  writing({required String word}) {
+  void writing({required String word}) {
+    if (isWin) return;
+
     if (word.length != words[currentIndex].text.length) return;
     if (word != words[currentIndex].text) return;
+
+    totalWordsCompleted++;
+    correctKeystrokes += word.length;
 
     if (words.length == (indexWordUseds.length + 1)) {
       isWin = true;
@@ -61,5 +54,38 @@ class GameService extends ChangeNotifier {
     indexWordUseds.add(newIndex);
     currentIndex = newIndex;
     notifyListeners();
+  }
+
+  int getTimeForWord() {
+    return currentWord.text.length.clamp(8, 15);
+  }
+
+  double get accuracy {
+    if (totalKeystrokes == 0) return 100;
+    return (correctKeystrokes / totalKeystrokes) * 100;
+  }
+
+  double get wordsPerMinute {
+    if (startTime == null) return 0;
+    final elapsed = DateTime.now().difference(startTime!).inSeconds;
+    if (elapsed == 0) return 0;
+    return (totalWordsCompleted / elapsed) * 60;
+  }
+
+  int get score {
+    return switch (indexWordUseds.length) {
+      0 => 0,
+      1 => 0,
+      final int n when n == words.length - 1 => 100,
+      final int n => ((n / words.length) * 100).toInt(),
+    };
+  }
+
+  void recordKeystroke() {
+    totalKeystrokes++;
+  }
+
+  void addCorrectKeystroke() {
+    correctKeystrokes++;
   }
 }
