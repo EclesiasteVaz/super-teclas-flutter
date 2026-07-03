@@ -1,0 +1,6 @@
+{
+  "outputDirectory": "build/web",
+  "buildCommand": null,
+  "devCommand": null,
+  "installCommand": null
+}
