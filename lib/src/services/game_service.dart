@@ -43,24 +43,23 @@ class GameService extends ChangeNotifier {
   }
 
   writing({required String word}) {
-    if (word.length == words[currentIndex].text.length) {
-      if (word == words[currentIndex].text) {
-        if (words.length == (indexWordUseds.length + 1)) {
-          isWin = true;
-          notifyListeners();
-          return;
-        }
-        bool newIndexAvalaide = false;
-        do {
-          int newIndex = random.nextInt(words.length);
-          if (!indexWordUseds.contains(newIndex)) {
-            currentWord.text = words[newIndex].text;
-            indexWordUseds.add(newIndex);
-            currentIndex = newIndex;
-            notifyListeners();
-          }
-        } while (newIndexAvalaide == true);
-      }
+    if (word.length != words[currentIndex].text.length) return;
+    if (word != words[currentIndex].text) return;
+
+    if (words.length == (indexWordUseds.length + 1)) {
+      isWin = true;
+      notifyListeners();
+      return;
     }
+
+    int newIndex;
+    do {
+      newIndex = random.nextInt(words.length);
+    } while (indexWordUseds.contains(newIndex));
+
+    currentWord = words[newIndex];
+    indexWordUseds.add(newIndex);
+    currentIndex = newIndex;
+    notifyListeners();
   }
 }

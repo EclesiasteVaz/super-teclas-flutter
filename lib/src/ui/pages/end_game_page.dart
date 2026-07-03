@@ -13,12 +13,14 @@ class EndGamePage extends StatefulWidget {
   State<EndGamePage> createState() => _EndGamePageState();
 }
 
-class _EndGamePageState extends State<EndGamePage> {
+class _EndGamePageState extends State<EndGamePage>
+    with WidgetsBindingObserver {
   AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.isWin) {
         await audioPlayer.setSource(AssetSource(
@@ -31,16 +33,36 @@ class _EndGamePageState extends State<EndGamePage> {
   }
 
   @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      audioPlayer.pause();
+    } else if (state == AppLifecycleState.resumed) {
+      audioPlayer.resume();
+    }
+    super.didChangeAppLifecycleState(state);
+  }
+
+  void _navigateTo(Widget page) {
+    audioPlayer.stop();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => page),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ),
-            ),
+            onPressed: () => _navigateTo(const HomePage()),
             icon: const Icon(Icons.home),
           ),
         ],
@@ -94,11 +116,7 @@ class _EndGamePageState extends State<EndGamePage> {
               ),
               const SizedBox(height: 20),
               ButtonCostumWidget(
-                onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const GamePage(),
-                  ),
-                ),
+                onPressed: () => _navigateTo(const GamePage()),
                 text: "Recomeçar",
               )
             ],

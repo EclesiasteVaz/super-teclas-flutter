@@ -15,56 +15,45 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   AudioPlayer audioPlayer = AudioPlayer();
   bool isPaused = false;
+  bool _isNavigating = false;
   late Timer _timer;
   GameService gameService = GameService();
   final controllerInput = TextEditingController();
   late int lastIndex;
   late int time;
+  StreamSubscription? _playerCompleteSubscription;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     lastIndex = gameService.currentIndex;
     time = gameService.currentWord.text.length;
-    debugPrint(time.toString());
     audioPlayer.setReleaseMode(ReleaseMode.release);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await audioPlayer.setVolume(0.3);
       await audioPlayer
           .setSource(AssetSource("audios/stranger-things-124008.mp3"));
       await audioPlayer.resume();
-      audioPlayer.onPlayerComplete.listen((event) async {
+      _playerCompleteSubscription =
+          audioPlayer.onPlayerComplete.listen((event) async {
         await audioPlayer
             .setSource(AssetSource("audios/stranger-things-124008.mp3"));
         await audioPlayer.resume();
       });
     });
-    gameService.addListener(
-      () => setState(() {
-        if (gameService.isWin) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => EndGamePage(
-              isWin: true,
-              level: impressLevel(),
-            ),
-          ));
-          return;
-        }
-
-        if (gameService.currentIndex != lastIndex) {
-          controllerInput.text = '';
-          time = gameService.currentWord.text.length;
-        }
-        lastIndex = gameService.currentIndex;
-        setState(() {});
-      }),
-    );
+    gameService.addListener(_onGameEvent);
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
+        if (_isNavigating) return;
         if (!isPaused) {
           time--;
         }
         if (time == 0) {
+          _isNavigating = true;
+          _timer.cancel();
+          audioPlayer.stop();
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => EndGamePage(
               isWin: false,
@@ -80,11 +69,40 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     );
   }
 
+  void _onGameEvent() {
+    if (_isNavigating) return;
+    if (!mounted) return;
+
+    if (gameService.isWin) {
+      _isNavigating = true;
+      _timer.cancel();
+      audioPlayer.stop();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => EndGamePage(
+          isWin: true,
+          level: impressLevel(),
+        ),
+      ));
+      return;
+    }
+
+    if (gameService.currentIndex != lastIndex) {
+      controllerInput.text = '';
+      time = gameService.currentWord.text.length;
+    }
+    lastIndex = gameService.currentIndex;
+    setState(() {});
+  }
+
   @override
   void dispose() {
+    gameService.removeListener(_onGameEvent);
+    gameService.dispose();
+    _timer.cancel();
+    _playerCompleteSubscription?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     audioPlayer.dispose();
-    _timer.cancel();
+    controllerInput.dispose();
     super.dispose();
   }
 
@@ -93,7 +111,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     if (state == AppLifecycleState.paused) {
       isPaused = true;
       audioPlayer.pause();
-    } else if (state == AppLifecycleState.resumed) {
+    } else if (state == AppLifecycleState.resumed && !isPaused) {
       audioPlayer.resume();
     }
     setState(() {});
@@ -102,13 +120,6 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    if (gameService.isWin) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => EndGamePage(isWin: true, level: impressLevel()),
-        ),
-      );
-    }
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -209,9 +220,11 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   int impressLevel() {
-    int useds = gameService.indexWordUseds.length > 1
-        ? gameService.indexWordUseds.length
-        : gameService.indexWordUseds.length - 1;
-    return ((useds / gameService.words.length) * 100).toInt();
+    return switch (gameService.indexWordUseds.length) {
+      0 => 0,
+      1 => 0,
+      final int n when n == gameService.words.length - 1 => 100,
+      final int n => ((n / gameService.words.length) * 100).toInt(),
+    };
   }
 }

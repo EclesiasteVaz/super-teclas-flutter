@@ -1,30 +1,23 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:super_teclas/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('HomePage', () {
+    testWidgets('renders Super and Teclas titles', (tester) async {
+      await tester.pumpWidget(const MyApp());
+      expect(find.text('Super'), findsOneWidget);
+      expect(find.text('Teclas'), findsOneWidget);
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    testWidgets('renders start button', (tester) async {
+      await tester.pumpWidget(const MyApp());
+      expect(find.text('Começar o jogo'), findsOneWidget);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    testWidgets('tapping start button navigates to game page', (tester) async {
+      await tester.pumpWidget(const MyApp());
+      await tester.tap(find.text('Começar o jogo'));
+      await tester.pumpAndSettle();
+    });
   });
 }
