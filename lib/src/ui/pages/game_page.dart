@@ -204,23 +204,26 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         ],
       ),
       extendBody: true,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isWide ? 48 : 16,
-          vertical: 16,
-        ),
-        child: Column(
-          children: [
-            const Spacer(flex: 1),
-            _buildScoreAndTimer(strings, isWide),
-            const SizedBox(height: 24),
-            _buildWordDisplay(strings, isWide),
-            const SizedBox(height: 20),
-            _buildTimerProgress(),
-            const SizedBox(height: 20),
-            _buildInputField(strings, isWide),
-            const Spacer(flex: 2),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: isWide ? 48 : 16,
+              vertical: 24,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildScoreAndTimer(strings, isWide),
+                const SizedBox(height: 24),
+                _buildWordDisplay(strings, isWide),
+                const SizedBox(height: 20),
+                _buildTimerProgress(),
+                const SizedBox(height: 24),
+                _buildInputField(strings, isWide),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -334,9 +337,12 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Widget _buildInputField(AppStrings strings, bool isWide) {
-    return SizedBox(
-      width: isWide ? 400 : double.infinity,
-      child: TextFormField(
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: isWide ? 400 : double.infinity,
+      ),
+        child: TextFormField(
+        maxLines: 1,
         enableSuggestions: false,
         autofocus: true,
         autocorrect: false,
@@ -355,11 +361,13 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         },
         decoration: InputDecoration(
           hintText: strings.typeWord,
-          border: const OutlineInputBorder(
-            borderSide: BorderSide.none,
-          ),
+          border: const OutlineInputBorder(),
           fillColor: const Color.fromARGB(111, 37, 37, 37),
           filled: true,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
         ),
       ),
     );
