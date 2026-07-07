@@ -45,6 +45,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       await _audioPlayer.resume();
       _playerCompleteSubscription =
           _audioPlayer.onPlayerComplete.listen((event) async {
+        if (_isNavigating) return;
         await _audioPlayer
             .setSource(AssetSource("audios/stranger-things-124008.mp3"));
         await _audioPlayer.resume();
@@ -237,27 +238,31 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
           ],
         ),
         SizedBox(
-          width: 80,
-          height: 80,
+          width: 85,
+          height: 85,
           child: Stack(
             alignment: Alignment.center,
             children: [
-              CircularProgressIndicator(
-                value: _time / gameService.getTimeForWord(),
-                strokeWidth: 6,
-                backgroundColor: Colors.grey[800],
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  _time > 5
-                      ? Colors.green
-                      : _time > 3
-                          ? Colors.orange
-                          : Colors.red,
+              SizedBox(
+                width: 75,
+                height: 75,
+                child: CircularProgressIndicator(
+                  value: _time / gameService.getTimeForWord(),
+                  strokeWidth: 3,
+                  backgroundColor: Colors.grey[800],
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    _time > 5
+                        ? Colors.green
+                        : _time > 3
+                            ? Colors.orange
+                            : Colors.red,
+                  ),
                 ),
               ),
               Text(
                 _time.toString(),
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                   color: _time > 5
                       ? Colors.green
