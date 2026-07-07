@@ -52,6 +52,16 @@ class _HomePageState extends State<HomePage> {
   Future<void> _saveUsername() async {
     final name = _usernameController.text.trim();
     if (name.isEmpty) return;
+
+    final strings = AppStrings.from(context);
+    final exists = await RankingService.checkUsernameExists(name);
+    if (exists && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(strings.usernameTaken)),
+        );
+      return;
+    }
+
     await StorageService.saveUsername(name);
     if (mounted) {
       setState(() => _username = name);
@@ -195,10 +205,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(width: 8),
-          IconButton(
+          ElevatedButton.icon(
             onPressed: _saveUsername,
-            icon: const Icon(Icons.check),
-            tooltip: 'Save',
+            icon: const Icon(Icons.check, size: 20),
+            label: Text(strings.save),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+            ),
           ),
         ],
       ),

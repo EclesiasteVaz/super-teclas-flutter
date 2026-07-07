@@ -73,14 +73,11 @@ class RankingService {
           return;
         }
 
-        await Supabase.instance.client
-            .from(_tableName)
-            .update({
-              'score': score,
-              'words_completed': wordsCompleted,
-              'accuracy': accuracy,
-            })
-            .eq('username', username);
+        await Supabase.instance.client.from(_tableName).update({
+          'score': score,
+          'words_completed': wordsCompleted,
+          'accuracy': accuracy,
+        }).eq('username', username);
 
         debugPrint(
           '[RankingService] Updated record for $username to score=$score',
@@ -99,6 +96,25 @@ class RankingService {
       }
     } catch (e) {
       debugPrint('[RankingService] Submit error: $e');
+    }
+  }
+
+  static Future<bool> checkUsernameExists(String username) async {
+    if (!isAvailable) {
+      debugPrint('[RankingService] Supabase client not available');
+      return false;
+    }
+
+    try {
+      final existing = await Supabase.instance.client
+          .from(_tableName)
+          .select()
+          .eq('username', username)
+          .maybeSingle();
+      return existing != null;
+    } catch (e) {
+      debugPrint('[RankingService] Check username error: $e');
+      return false;
     }
   }
 
