@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:super_teclas/src/data/words/word_bank.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
+
+// TODO: Substituir pela URL e anonKey reais do projeto Supabase
+const _supabaseAnonKey = 'sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN';
+
+const _supabaseUrl = 'https://vstopwdfkoizsbveeicn.supabase.co';
 
 class LocaleProvider extends InheritedWidget {
   const LocaleProvider({
@@ -22,8 +31,18 @@ class LocaleProvider extends InheritedWidget {
   }
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: _supabaseUrl,
+    publishableKey: _supabaseAnonKey,
+  );
+
+  await SharedPreferences.getInstance();
+
+  await WordBank.load(languageCode: 'pt');
+
   runApp(const MyApp());
 }
 
@@ -49,38 +68,42 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return LocaleProvider(
+    return MaterialApp(
       locale: _locale,
-      onLocaleChanged: _setLocale,
-      child: MaterialApp(
-        locale: _locale,
-        title: 'Super Teclas',
-        supportedLocales: const [Locale('en'), Locale('pt')],
-        debugShowCheckedModeBanner: false,
-        scrollBehavior: const ScrollBehavior(),
-        theme: ThemeData(
+      title: 'Super Teclas',
+      supportedLocales: const [Locale('en'), Locale('pt')],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      debugShowCheckedModeBanner: false,
+      scrollBehavior: const ScrollBehavior(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          colorScheme: ColorScheme.fromSeed(
-            brightness: Brightness.dark,
-            seedColor: const Color.fromARGB(255, 3, 73, 131),
-          ),
-          useMaterial3: true,
-          elevatedButtonTheme: const ElevatedButtonThemeData(
-            style: ButtonStyle(
-              minimumSize: WidgetStatePropertyAll(Size(180, 48)),
-              padding: WidgetStatePropertyAll(
-                EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              ),
-              shape: WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                ),
+          seedColor: const Color.fromARGB(255, 3, 73, 131),
+        ),
+        useMaterial3: true,
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+          style: ButtonStyle(
+            minimumSize: WidgetStatePropertyAll(Size(180, 48)),
+            padding: WidgetStatePropertyAll(
+              EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            ),
+            shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
             ),
           ),
         ),
-        home: const HomePage(),
       ),
+      home: LocaleProvider(
+          locale: _locale,
+          onLocaleChanged: _setLocale,
+          child: const HomePage()),
     );
   }
 }

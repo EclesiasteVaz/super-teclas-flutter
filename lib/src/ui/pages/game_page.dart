@@ -68,10 +68,6 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       _togglePause();
       return true;
     }
-    if (event.logicalKey == LogicalKeyboardKey.keyM) {
-      _toggleMute();
-      return true;
-    }
     return false;
   }
 
