@@ -59,7 +59,16 @@ class _EndGamePageState extends State<EndGamePage>
 
   Future<void> _submitRanking() async {
     final username = await StorageService.getUsername();
-    if (username == null) return;
+    if (username == null) {
+      debugPrint('[EndGamePage] Username not set, skipping ranking');
+      return;
+    }
+
+    debugPrint(
+      '[EndGamePage] Submitting ranking for $username: '
+      'score=${widget.level}, words=${widget.totalWordsCompleted}, '
+      'accuracy=${widget.accuracy}',
+    );
 
     await RankingService.submitScore(
       username: username,

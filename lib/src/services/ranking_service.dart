@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RankingEntry {
@@ -45,20 +46,67 @@ class RankingService {
     required int wordsCompleted,
     required double accuracy,
   }) async {
-    if (!isAvailable) return;
+    if (!isAvailable) {
+      debugPrint('[RankingService] Supabase client not available');
+      return;
+    }
+
+    debugPrint(
+      '[RankingService] Submitting score: username=$username '
+      'score=$score words=$wordsCompleted accuracy=$accuracy',
+    );
 
     try {
-      await Supabase.instance.client.from(_tableName).insert({
-        'username': username,
-        'score': score,
-        'words_completed': wordsCompleted,
-        'accuracy': accuracy,
-      });
-    } catch (_) {}
+      final existing = await Supabase.instance.client
+          .from(_tableName)
+          .select()
+          .eq('username', username)
+          .maybeSingle();
+
+      if (existing != null) {
+        final existingScore = existing['score'] as int;
+        if (score <= existingScore) {
+          debugPrint(
+            '[RankingService] Score $score not higher than existing '
+            '$existingScore, skipping',
+          );
+          return;
+        }
+
+        await Supabase.instance.client
+            .from(_tableName)
+            .update({
+              'score': score,
+              'words_completed': wordsCompleted,
+              'accuracy': accuracy,
+            })
+            .eq('username', username);
+
+        debugPrint(
+          '[RankingService] Updated record for $username to score=$score',
+        );
+      } else {
+        await Supabase.instance.client.from(_tableName).insert({
+          'username': username,
+          'score': score,
+          'words_completed': wordsCompleted,
+          'accuracy': accuracy,
+        });
+
+        debugPrint(
+          '[RankingService] Inserted new record for $username with score=$score',
+        );
+      }
+    } catch (e) {
+      debugPrint('[RankingService] Submit error: $e');
+    }
   }
 
   static Future<List<RankingEntry>> getRankings() async {
-    if (!isAvailable) return [];
+    if (!isAvailable) {
+      debugPrint('[RankingService] Supabase client not available');
+      return [];
+    }
 
     try {
       final response = await Supabase.instance.client
@@ -70,7 +118,8 @@ class RankingService {
       return (response as List<dynamic>)
           .map((e) => RankingEntry.fromMap(e as Map<String, dynamic>))
           .toList();
-    } catch (_) {
+    } catch (e) {
+      debugPrint('[RankingService] Get rankings error: $e');
       return [];
     }
   }

@@ -100,10 +100,12 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: LocaleProvider(
-          locale: _locale,
-          onLocaleChanged: _setLocale,
-          child: const HomePage()),
+      builder: (context, child) => LocaleProvider(
+        locale: _locale,
+        onLocaleChanged: _setLocale,
+        child: child!,
+      ),
+      home: const HomePage(),
     );
   }
 }

@@ -89,6 +89,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
               builder: (context) => EndGamePage(
                 isWin: false,
                 level: gameService.score,
+                totalWordsCompleted: gameService.totalWordsCompleted,
+                accuracy: gameService.accuracy,
                 onGameEnd: widget.onGameEnd,
               ),
             ));
@@ -115,6 +117,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         builder: (context) => EndGamePage(
           isWin: true,
           level: gameService.score,
+          totalWordsCompleted: gameService.totalWordsCompleted,
+          accuracy: gameService.accuracy,
           onGameEnd: widget.onGameEnd,
         ),
       ));
