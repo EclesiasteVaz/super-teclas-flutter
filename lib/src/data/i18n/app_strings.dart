@@ -49,8 +49,10 @@ class AppStrings {
   String get accuracy => isPortuguese ? 'Precisão' : 'Accuracy';
   String get tryAgain => isPortuguese ? 'Tentar novamente' : 'Try again';
   String get shareResult => isPortuguese ? 'Partilhar resultado' : 'Share result';
+  String get save => isPortuguese ? 'Salvar' : 'Save';
   String get pressEnter => isPortuguese ? 'Enter para começar' : 'Press Enter to start';
   String get pressEsc => isPortuguese ? 'ESC para pausar' : 'ESC to pause';
   String get pressM => isPortuguese ? 'M para som' : 'M for sound';
+  String get usernameTaken => isPortuguese ? 'Nome já está sendo usado' : 'Username already in use';
   String get superTeclasTitle => isPortuguese ? 'Super Teclas' : 'Super Keys';
 }
