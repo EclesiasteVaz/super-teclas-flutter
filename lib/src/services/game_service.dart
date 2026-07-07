@@ -14,14 +14,15 @@ class GameService extends ChangeNotifier {
   int correctKeystrokes = 0;
   int totalWordsCompleted = 0;
   DateTime? startTime;
+  String languageCode;
 
-  GameService({String languageCode = 'pt'}) {
+  GameService({this.languageCode = 'pt'}) {
     _init(languageCode);
   }
 
   void _init(String languageCode) {
     words = WordBank.getWords(languageCode)
-        .map((text) => WordModel(text: text))
+        .map((model) => WordModel(text: model.text, difficulty: model.difficulty))
         .toList();
     currentIndex = random.nextInt(words.length);
     indexWordUseds.add(currentIndex);

@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
+import 'package:super_teclas/src/services/ranking_service.dart';
+import 'package:super_teclas/src/services/storage_service.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
 import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
@@ -13,11 +15,15 @@ class EndGamePage extends StatefulWidget {
     required this.isWin,
     required this.level,
     this.onGameEnd,
+    this.totalWordsCompleted = 0,
+    this.accuracy = 0,
   });
 
   final bool isWin;
   final int level;
   final void Function(int? score)? onGameEnd;
+  final int totalWordsCompleted;
+  final double accuracy;
 
   @override
   State<EndGamePage> createState() => _EndGamePageState();
@@ -37,6 +43,7 @@ class _EndGamePageState extends State<EndGamePage>
     WidgetsBinding.instance.addObserver(this);
     _setupConfetti();
     _navigateTo = _navigateToImpl;
+    _submitRanking();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.isWin) {
@@ -48,6 +55,27 @@ class _EndGamePageState extends State<EndGamePage>
       }
       await audioPlayer.resume();
     });
+  }
+
+  Future<void> _submitRanking() async {
+    final username = await StorageService.getUsername();
+    if (username == null) {
+      debugPrint('[EndGamePage] Username not set, skipping ranking');
+      return;
+    }
+
+    debugPrint(
+      '[EndGamePage] Submitting ranking for $username: '
+      'score=${widget.level}, words=${widget.totalWordsCompleted}, '
+      'accuracy=${widget.accuracy}',
+    );
+
+    await RankingService.submitScore(
+      username: username,
+      score: widget.level,
+      wordsCompleted: widget.totalWordsCompleted,
+      accuracy: widget.accuracy,
+    );
   }
 
   void _setupConfetti() {
