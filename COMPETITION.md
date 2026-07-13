@@ -273,3 +273,6 @@ TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
 - [ ] **Unique constraint** no username (com validação no registro)
 - [ ] **Sistema de dificuldade** baseado nas palavras escolhidas (easy/medium/hard)
 - [ ] **Filtro de ranking** por idioma (PT / EN)
+
+1116728895
+
