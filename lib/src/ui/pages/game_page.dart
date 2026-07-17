@@ -92,6 +92,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 level: gameService.score,
                 totalWordsCompleted: gameService.totalWordsCompleted,
                 accuracy: gameService.accuracy,
+                wordTimes: gameService.wordTimes,
+                words: gameService.words,
+                averageSpeed: gameService.averageTimePerWord,
                 onGameEnd: widget.onGameEnd,
               ),
             ));
@@ -120,6 +123,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
           level: gameService.score,
           totalWordsCompleted: gameService.totalWordsCompleted,
           accuracy: gameService.accuracy,
+          wordTimes: gameService.wordTimes,
+          words: gameService.words,
+          averageSpeed: gameService.averageTimePerWord,
           onGameEnd: widget.onGameEnd,
         ),
       ));
@@ -347,11 +353,11 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         controller: _controllerInput,
         onChanged: (text) {
           gameService.recordKeystroke();
-          for (var i = 0; i < text.length; i++) {
-            if (i < gameService.currentWord.text.length &&
-                text[i] == gameService.currentWord.text[i]) {
-              gameService.addCorrectKeystroke();
-            }
+          if (text.isNotEmpty &&
+              text.length <= gameService.currentWord.text.length &&
+              text[text.length - 1] ==
+                  gameService.currentWord.text[text.length - 1]) {
+            gameService.addCorrectKeystroke();
           }
           gameService.writing(word: text);
           setState(() {});

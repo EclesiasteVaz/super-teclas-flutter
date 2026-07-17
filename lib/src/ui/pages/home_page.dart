@@ -3,8 +3,10 @@ import 'package:super_teclas/main.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
+import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
+import 'package:super_teclas/src/ui/widgets/ranking_modal.dart';
 import 'package:super_teclas/src/ui/widgets/title_game_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -89,6 +91,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const DictionaryPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.book),
+            tooltip: strings.dictionary,
+          ),
           if (localeProvider != null)
             PopupMenuButton<Locale>(
               icon: const Icon(Icons.language),
@@ -222,69 +235,80 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildRankingSection(AppStrings strings) {
-    return Column(
-      children: [
-        const Divider(height: 32),
-        Text(
-          '🏆 Ranking',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.yellow[700],
+    return InkWell(
+      onTap: () => RankingModal.show(context),
+      child: Column(
+        children: [
+          const Divider(height: 32),
+          Text(
+            '🏆 Ranking',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.yellow[700],
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: ColoredBox(
-            color: const Color.fromARGB(85, 28, 28, 29),
-            child: SizedBox(
-              width: 320,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  children: [
-                    for (var i = 0; i < _rankings.length && i < 10; i++)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 4,
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              child: Text(
-                                '${i + 1}.',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.bold,
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: ColoredBox(
+              color: const Color.fromARGB(85, 28, 28, 29),
+              child: SizedBox(
+                width: 320,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    children: [
+                      for (var i = 0; i < _rankings.length && i < 10; i++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 4,
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                child: Text(
+                                  '${i + 1}.',
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                _rankings[i].username,
-                                overflow: TextOverflow.ellipsis,
+                              Expanded(
+                                child: Text(
+                                  _rankings[i].username,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${_rankings[i].score}%',
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue,
+                              Text(
+                                '${_rankings[i].score}%',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            strings.close,
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -14,6 +14,8 @@ class GameService extends ChangeNotifier {
   int correctKeystrokes = 0;
   int totalWordsCompleted = 0;
   DateTime? startTime;
+  DateTime? _currentWordStartTime;
+  final Map<int, double> _wordTimes = {};
   String languageCode;
 
   GameService({this.languageCode = 'pt'}) {
@@ -28,6 +30,7 @@ class GameService extends ChangeNotifier {
     indexWordUseds.add(currentIndex);
     currentWord = words[currentIndex];
     startTime = DateTime.now();
+    _currentWordStartTime = DateTime.now();
     notifyListeners();
   }
 
@@ -36,6 +39,11 @@ class GameService extends ChangeNotifier {
 
     if (word.length != words[currentIndex].text.length) return;
     if (word != words[currentIndex].text) return;
+
+    if (_currentWordStartTime != null) {
+      final elapsed = DateTime.now().difference(_currentWordStartTime!).inMilliseconds / 1000.0;
+      _wordTimes[currentIndex] = elapsed;
+    }
 
     totalWordsCompleted++;
     correctKeystrokes += word.length;
@@ -54,6 +62,7 @@ class GameService extends ChangeNotifier {
     currentWord = words[newIndex];
     indexWordUseds.add(newIndex);
     currentIndex = newIndex;
+    _currentWordStartTime = DateTime.now();
     notifyListeners();
   }
 
@@ -63,7 +72,7 @@ class GameService extends ChangeNotifier {
 
   double get accuracy {
     if (totalKeystrokes == 0) return 100;
-    return (correctKeystrokes / totalKeystrokes) * 100;
+    return ((correctKeystrokes / totalKeystrokes) * 100).clamp(0, 100);
   }
 
   double get wordsPerMinute {
@@ -74,12 +83,13 @@ class GameService extends ChangeNotifier {
   }
 
   int get score {
-    return switch (indexWordUseds.length) {
+    final raw = switch (indexWordUseds.length) {
       0 => 0,
       1 => 0,
       final int n when n == words.length - 1 => 100,
       final int n => ((n / words.length) * 100).toInt(),
     };
+    return raw.clamp(0, 100);
   }
 
   void recordKeystroke() {
@@ -88,5 +98,39 @@ class GameService extends ChangeNotifier {
 
   void addCorrectKeystroke() {
     correctKeystrokes++;
+  }
+
+  Map<int, double> get wordTimes => Map.unmodifiable(_wordTimes);
+
+  double get averageTimePerWord {
+    if (_wordTimes.isEmpty) return 0;
+    final total = _wordTimes.values.reduce((a, b) => a + b);
+    return total / _wordTimes.length;
+  }
+
+  String get fastestWordText {
+    if (_wordTimes.isEmpty) return '';
+    final minEntry = _wordTimes.entries.reduce(
+      (a, b) => a.value <= b.value ? a : b,
+    );
+    return words[minEntry.key].text;
+  }
+
+  String get slowestWordText {
+    if (_wordTimes.isEmpty) return '';
+    final maxEntry = _wordTimes.entries.reduce(
+      (a, b) => a.value >= b.value ? a : b,
+    );
+    return words[maxEntry.key].text;
+  }
+
+  double get fastestWordTime {
+    if (_wordTimes.isEmpty) return 0;
+    return _wordTimes.values.reduce((a, b) => a < b ? a : b);
+  }
+
+  double get slowestWordTime {
+    if (_wordTimes.isEmpty) return 0;
+    return _wordTimes.values.reduce((a, b) => a > b ? a : b);
   }
 }

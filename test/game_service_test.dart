@@ -109,5 +109,50 @@ void main() {
       expect(gameService.currentIndex, lastIndex);
       expect(gameService.isWin, isTrue);
     });
+
+    test('wordTimes records time for each completed word', () {
+      final index = gameService.currentIndex;
+      final correctWord = gameService.currentWord.text;
+      gameService.writing(word: correctWord);
+
+      expect(gameService.wordTimes.length, 1);
+      expect(gameService.wordTimes.containsKey(index), isTrue);
+    });
+
+    test('averageTimePerWord returns 0 when no words completed', () {
+      expect(gameService.averageTimePerWord, 0);
+    });
+
+    test('averageTimePerWord returns average after completing words', () {
+      for (var i = 0; i < 3; i++) {
+        final word = gameService.currentWord.text;
+        gameService.writing(word: word);
+      }
+
+      expect(gameService.wordTimes.length, 3);
+      expect(gameService.averageTimePerWord, isNonNegative);
+    });
+
+    test('fastestWordText returns empty when no words completed', () {
+      expect(gameService.fastestWordText, '');
+    });
+
+    test('slowestWordText returns empty when no words completed', () {
+      expect(gameService.slowestWordText, '');
+    });
+
+    test('fastestWordText returns a word after completing words', () {
+      gameService.writing(word: gameService.currentWord.text);
+      gameService.writing(word: gameService.currentWord.text);
+
+      expect(gameService.fastestWordText.isNotEmpty, isTrue);
+      expect(gameService.slowestWordText.isNotEmpty, isTrue);
+    });
+
+    test('wordTimes does not include current word before completion', () {
+      final initialLength = gameService.wordTimes.length;
+      gameService.recordKeystroke();
+      expect(gameService.wordTimes.length, initialLength);
+    });
   });
 }

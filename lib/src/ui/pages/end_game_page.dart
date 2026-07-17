@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
+import 'package:super_teclas/src/data/models/word_model.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
+import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
 import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
@@ -17,6 +19,9 @@ class EndGamePage extends StatefulWidget {
     this.onGameEnd,
     this.totalWordsCompleted = 0,
     this.accuracy = 0,
+    this.wordTimes = const {},
+    this.words = const [],
+    this.averageSpeed = 0,
   });
 
   final bool isWin;
@@ -24,6 +29,9 @@ class EndGamePage extends StatefulWidget {
   final void Function(int? score)? onGameEnd;
   final int totalWordsCompleted;
   final double accuracy;
+  final Map<int, double> wordTimes;
+  final List<WordModel> words;
+  final double averageSpeed;
 
   @override
   State<EndGamePage> createState() => _EndGamePageState();
@@ -75,6 +83,7 @@ class _EndGamePageState extends State<EndGamePage>
       score: widget.level,
       wordsCompleted: widget.totalWordsCompleted,
       accuracy: widget.accuracy,
+      averageSpeed: widget.averageSpeed,
     );
   }
 
@@ -131,6 +140,18 @@ class _EndGamePageState extends State<EndGamePage>
       appBar: AppBar(
         actions: [
           IconButton(
+            onPressed: () {
+              audioPlayer.stop();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const DictionaryPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.book),
+            tooltip: strings.dictionary,
+          ),
+          IconButton(
             onPressed: () => _navigateTo(const HomePage()),
             icon: const Icon(Icons.home),
             tooltip: strings.home,
@@ -180,6 +201,10 @@ class _EndGamePageState extends State<EndGamePage>
                       ),
                     const SizedBox(height: 20),
                     _buildScoreCard(strings, isWide),
+                    if (widget.wordTimes.isNotEmpty) ...[
+                      const SizedBox(height: 16),
+                      _buildSpeedStats(strings, isWide),
+                    ],
                     const SizedBox(height: 24),
                     ButtonCostumWidget(
                       onPressed: () => _navigateTo(const GamePage()),
@@ -225,6 +250,60 @@ class _EndGamePageState extends State<EndGamePage>
                     color: Colors.grey[400],
                   ),
                 ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSpeedStats(AppStrings strings, bool isWide) {
+    final avg = widget.averageSpeed;
+    final fastest = widget.wordTimes.entries.isNotEmpty
+        ? widget.wordTimes.entries.reduce((a, b) => a.value <= b.value ? a : b)
+        : null;
+    final slowest = widget.wordTimes.entries.isNotEmpty
+        ? widget.wordTimes.entries.reduce((a, b) => a.value >= b.value ? a : b)
+        : null;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: ColoredBox(
+        color: const Color.fromARGB(85, 28, 28, 29),
+        child: SizedBox(
+          width: isWide ? 300 : 200,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: Column(
+              children: [
+                Text(
+                  strings.typingSpeed,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[300],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${strings.averageTime}: ${avg.toStringAsFixed(1)}${strings.secondsUnit}',
+                  style: const TextStyle(fontSize: 14),
+                ),
+                if (fastest != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '${strings.fastestWord}: ${widget.words[fastest.key].text} (${fastest.value.toStringAsFixed(1)}${strings.secondsUnit})',
+                    style: TextStyle(fontSize: 13, color: Colors.green[400]),
+                  ),
+                ],
+                if (slowest != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '${strings.slowestWord}: ${widget.words[slowest.key].text} (${slowest.value.toStringAsFixed(1)}${strings.secondsUnit})',
+                    style: TextStyle(fontSize: 13, color: Colors.orange[400]),
+                  ),
+                ],
               ],
             ),
           ),

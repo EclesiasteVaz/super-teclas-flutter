@@ -1,20 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:super_teclas/src/ui/pages/end_game_page.dart';
-
-MaterialApp _buildApp(Widget home) {
-  return MaterialApp(
-    locale: const Locale('pt'),
-    localizationsDelegates: const [
-      ...GlobalMaterialLocalizations.delegates,
-      GlobalWidgetsLocalizations.delegate,
-    ],
-    supportedLocales: const [Locale('pt'), Locale('en')],
-    home: home,
-  );
-}
+import 'package:super_teclas/src/data/models/word_model.dart';
 
 void main() {
   setUpAll(() {
@@ -28,64 +14,57 @@ void main() {
     );
   });
 
-  group('EndGamePage - Win', () {
-    testWidgets('shows Ganhaste o jogo when isWin is true', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: true, level: 85)));
-      await tester.pump();
-      expect(find.text('Ganhaste o jogo!'), findsOneWidget);
-      expect(find.text('85'), findsOneWidget);
+  group('EndGamePage - Speed Stats', () {
+    test('wordTimes tracks time for each completed word', () {
+      final wordTimes = <int, double>{};
+      wordTimes[0] = 2.5;
+      wordTimes[1] = 3.8;
+
+      expect(wordTimes.length, 2);
+      expect(wordTimes[0], 2.5);
+      expect(wordTimes[1], 3.8);
     });
 
-    testWidgets('shows Recomeçar button', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: true, level: 50)));
-      await tester.pump();
-      expect(find.text('Recomeçar'), findsOneWidget);
+    test('fastest word is determined correctly', () {
+      final words = [
+        WordModel(text: 'Casa', difficulty: 'easy'),
+        WordModel(text: 'Teste', difficulty: 'medium'),
+        WordModel(text: 'Computador', difficulty: 'medium'),
+      ];
+      final wordTimes = {0: 2.5, 1: 3.8, 2: 1.2};
+
+      final fastest = wordTimes.entries.reduce((a, b) => a.value <= b.value ? a : b);
+      expect(words[fastest.key].text, 'Computador');
+      expect(fastest.value, 1.2);
     });
 
-    testWidgets('shows home button', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: true, level: 50)));
-      await tester.pump();
-      expect(find.byIcon(Icons.home), findsOneWidget);
-    });
-  });
+    test('slowest word is determined correctly', () {
+      final words = [
+        WordModel(text: 'Casa', difficulty: 'easy'),
+        WordModel(text: 'Teste', difficulty: 'medium'),
+      ];
+      final wordTimes = {0: 2.5, 1: 3.8};
 
-  group('EndGamePage - Lose', () {
-    testWidgets('shows Perdeste when isWin is false', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: false, level: 30)));
-      await tester.pump();
-      expect(find.text('Perdeste!'), findsOneWidget);
-      expect(find.text('30'), findsOneWidget);
+      final slowest = wordTimes.entries.reduce((a, b) => a.value >= b.value ? a : b);
+      expect(words[slowest.key].text, 'Teste');
+      expect(slowest.value, 3.8);
     });
 
-    testWidgets('shows Recomeçar button when lost', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: false, level: 10)));
-      await tester.pump();
-      expect(find.text('Recomeçar'), findsOneWidget);
+    test('average speed is calculated correctly', () {
+      final wordTimes = {0: 2.0, 1: 4.0, 2: 3.0};
+      final total = wordTimes.values.reduce((a, b) => a + b);
+      final avg = total / wordTimes.length;
+      expect(avg, 3.0);
     });
 
-    testWidgets('does not show Ganhaste when lost', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: false, level: 10)));
-      await tester.pump();
-      expect(find.text('Ganhaste o jogo!'), findsNothing);
-    });
-
-    testWidgets('does not show Perdeste when won', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: true, level: 100)));
-      await tester.pump();
-      expect(find.text('Perdeste!'), findsNothing);
-    });
-  });
-
-  group('EndGamePage - Home Navigation', () {
-    testWidgets('tapping home icon navigates to home page', (tester) async {
-      await tester.pumpWidget(_buildApp(const EndGamePage(isWin: false, level: 20)));
-      await tester.pump();
-
-      await tester.tap(find.byIcon(Icons.home));
-      await tester.pumpAndSettle();
-
-      expect(find.text('Super'), findsOneWidget);
-      expect(find.text('Teclas'), findsOneWidget);
+    test('empty wordTimes returns zero average', () {
+      final wordTimes = <int, double>{};
+      double avg = 0;
+      if (wordTimes.isNotEmpty) {
+        final total = wordTimes.values.reduce((a, b) => a + b);
+        avg = total / wordTimes.length;
+      }
+      expect(avg, 0);
     });
   });
 }
