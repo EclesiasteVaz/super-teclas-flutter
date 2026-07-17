@@ -353,11 +353,11 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
         controller: _controllerInput,
         onChanged: (text) {
           gameService.recordKeystroke();
-          for (var i = 0; i < text.length; i++) {
-            if (i < gameService.currentWord.text.length &&
-                text[i] == gameService.currentWord.text[i]) {
-              gameService.addCorrectKeystroke();
-            }
+          if (text.isNotEmpty &&
+              text.length <= gameService.currentWord.text.length &&
+              text[text.length - 1] ==
+                  gameService.currentWord.text[text.length - 1]) {
+            gameService.addCorrectKeystroke();
           }
           gameService.writing(word: text);
           setState(() {});

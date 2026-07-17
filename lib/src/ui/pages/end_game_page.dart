@@ -140,7 +140,14 @@ class _EndGamePageState extends State<EndGamePage>
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () => _navigateTo(const DictionaryPage()),
+            onPressed: () {
+              audioPlayer.stop();
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const DictionaryPage(),
+                ),
+              );
+            },
             icon: const Icon(Icons.book),
             tooltip: strings.dictionary,
           ),

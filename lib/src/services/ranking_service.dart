@@ -6,6 +6,7 @@ class RankingEntry {
   final int score;
   final int wordsCompleted;
   final double accuracy;
+  final double averageSpeed;
   final DateTime createdAt;
 
   RankingEntry({
@@ -13,6 +14,7 @@ class RankingEntry {
     required this.score,
     required this.wordsCompleted,
     required this.accuracy,
+    required this.averageSpeed,
     required this.createdAt,
   });
 
@@ -22,6 +24,7 @@ class RankingEntry {
       score: map['score'] as int,
       wordsCompleted: map['words_completed'] as int? ?? 0,
       accuracy: (map['accuracy'] as num?)?.toDouble() ?? 0.0,
+      averageSpeed: (map['average_speed'] as num?)?.toDouble() ?? 0.0,
       createdAt: DateTime.parse(map['created_at'] as String),
     );
   }
@@ -140,6 +143,32 @@ class RankingService {
           .toList();
     } catch (e) {
       debugPrint('[RankingService] Get rankings error: $e');
+      return [];
+    }
+  }
+
+  static Future<List<RankingEntry>> getRankingsPage({
+    required int offset,
+    int limit = 10,
+  }) async {
+    if (!isAvailable) {
+      debugPrint('[RankingService] Supabase client not available');
+      return [];
+    }
+
+    try {
+      final response = await Supabase.instance.client
+          .from(_tableName)
+          .select()
+          .order('score', ascending: false)
+          .order('created_at', ascending: false)
+          .range(offset, offset + limit - 1);
+
+      return (response as List<dynamic>)
+          .map((e) => RankingEntry.fromMap(e as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('[RankingService] Get rankings page error: $e');
       return [];
     }
   }

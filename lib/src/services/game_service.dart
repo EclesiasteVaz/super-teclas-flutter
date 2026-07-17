@@ -72,7 +72,7 @@ class GameService extends ChangeNotifier {
 
   double get accuracy {
     if (totalKeystrokes == 0) return 100;
-    return (correctKeystrokes / totalKeystrokes) * 100;
+    return ((correctKeystrokes / totalKeystrokes) * 100).clamp(0, 100);
   }
 
   double get wordsPerMinute {
@@ -83,12 +83,13 @@ class GameService extends ChangeNotifier {
   }
 
   int get score {
-    return switch (indexWordUseds.length) {
+    final raw = switch (indexWordUseds.length) {
       0 => 0,
       1 => 0,
       final int n when n == words.length - 1 => 100,
       final int n => ((n / words.length) * 100).toInt(),
     };
+    return raw.clamp(0, 100);
   }
 
   void recordKeystroke() {

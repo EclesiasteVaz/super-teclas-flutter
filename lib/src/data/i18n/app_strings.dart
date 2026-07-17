@@ -67,4 +67,7 @@ class AppStrings {
   String get fastestWord => isPortuguese ? 'Mais rápida' : 'Fastest';
   String get slowestWord => isPortuguese ? 'Mais lenta' : 'Slowest';
   String get secondsUnit => isPortuguese ? 'seg' : 'sec';
+  String get rankingEmpty => isPortuguese ? 'Nenhum registro encontrado' : 'No records found';
+  String get close => isPortuguese ? 'Fechar' : 'Close';
+  String get rankingTitle => isPortuguese ? 'Ranking' : 'Ranking';
 }
