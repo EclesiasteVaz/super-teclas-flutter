@@ -92,6 +92,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 level: gameService.score,
                 totalWordsCompleted: gameService.totalWordsCompleted,
                 accuracy: gameService.accuracy,
+                wordTimes: gameService.wordTimes,
+                words: gameService.words,
+                averageSpeed: gameService.averageTimePerWord,
                 onGameEnd: widget.onGameEnd,
               ),
             ));
@@ -120,6 +123,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
           level: gameService.score,
           totalWordsCompleted: gameService.totalWordsCompleted,
           accuracy: gameService.accuracy,
+          wordTimes: gameService.wordTimes,
+          words: gameService.words,
+          averageSpeed: gameService.averageTimePerWord,
           onGameEnd: widget.onGameEnd,
         ),
       ));

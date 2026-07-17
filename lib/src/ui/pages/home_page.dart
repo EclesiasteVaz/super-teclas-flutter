@@ -3,6 +3,7 @@ import 'package:super_teclas/main.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
+import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
 import 'package:super_teclas/src/ui/widgets/title_game_widget.dart';
@@ -89,6 +90,17 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const DictionaryPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.book),
+            tooltip: strings.dictionary,
+          ),
           if (localeProvider != null)
             PopupMenuButton<Locale>(
               icon: const Icon(Icons.language),

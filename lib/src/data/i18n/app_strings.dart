@@ -55,4 +55,16 @@ class AppStrings {
   String get pressM => isPortuguese ? 'M para som' : 'M for sound';
   String get usernameTaken => isPortuguese ? 'Nome já está sendo usado' : 'Username already in use';
   String get superTeclasTitle => isPortuguese ? 'Super Teclas' : 'Super Keys';
+  String get dictionary => isPortuguese ? 'Dicionário' : 'Dictionary';
+  String get searchHint => isPortuguese ? 'Pesquisar palavra...' : 'Search word...';
+  String get allWords => isPortuguese ? 'Todas' : 'All';
+  String get easy => isPortuguese ? 'Fácil' : 'Easy';
+  String get medium => isPortuguese ? 'Médio' : 'Medium';
+  String get hard => isPortuguese ? 'Difícil' : 'Hard';
+  String get noResults => isPortuguese ? 'Nenhuma palavra encontrada' : 'No words found';
+  String get typingSpeed => isPortuguese ? 'Velocidade de digitação' : 'Typing speed';
+  String get averageTime => isPortuguese ? 'Tempo médio' : 'Average time';
+  String get fastestWord => isPortuguese ? 'Mais rápida' : 'Fastest';
+  String get slowestWord => isPortuguese ? 'Mais lenta' : 'Slowest';
+  String get secondsUnit => isPortuguese ? 'seg' : 'sec';
 }

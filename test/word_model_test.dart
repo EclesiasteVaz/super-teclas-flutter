@@ -18,5 +18,25 @@ void main() {
       word.text = 'Expansionismo';
       expect(word.text, 'Expansionismo');
     });
+
+    test('has default empty definition', () {
+      final word = WordModel(text: 'Teste');
+      expect(word.definition, '');
+    });
+
+    test('stores definition when provided', () {
+      final word = WordModel(text: 'Casa', definition: 'Onde as pessoas moram');
+      expect(word.definition, 'Onde as pessoas moram');
+    });
+
+    test('stores difficulty when provided', () {
+      final word = WordModel(text: 'Teste', difficulty: 'hard');
+      expect(word.difficulty, 'hard');
+    });
+
+    test('has default medium difficulty', () {
+      final word = WordModel(text: 'Teste');
+      expect(word.difficulty, 'medium');
+    });
   });
 }

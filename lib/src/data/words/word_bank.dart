@@ -32,6 +32,7 @@ class WordBank {
         return WordModel(
           text: map['word'] as String,
           difficulty: map['difficulty'] as String? ?? 'medium',
+          definition: map['definition'] as String? ?? '',
         );
       }).toList();
     } catch (_) {

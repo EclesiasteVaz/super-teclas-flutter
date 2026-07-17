@@ -254,6 +254,22 @@ TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
 
 ---
 
+## 📊 Migration — Velocidade de Digitação
+
+Para adicionar a coluna `average_speed` à tabela `rankings` existente, executar no SQL Editor do Supabase:
+
+```sql
+-- Adicionar coluna de velocidade média de digitação
+ALTER TABLE rankings ADD COLUMN average_speed REAL DEFAULT 0.0;
+
+-- Índice para consultas de ranking por velocidade
+CREATE INDEX idx_rankings_average_speed ON rankings (average_speed ASC);
+```
+
+> **Nota:** A coluna `average_speed` armazena o tempo médio em segundos por palavra. Valores menores indicam digitação mais rápida.
+
+---
+
 ## ⚠️ Observações
 
 1. **Username sem edição:** Uma vez salvo, não há UI para alterar. Para trocar, apagar `SharedPreferences` manualmente.

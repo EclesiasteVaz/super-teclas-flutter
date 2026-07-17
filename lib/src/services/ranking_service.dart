@@ -45,6 +45,7 @@ class RankingService {
     required int score,
     required int wordsCompleted,
     required double accuracy,
+    double averageSpeed = 0,
   }) async {
     if (!isAvailable) {
       debugPrint('[RankingService] Supabase client not available');
@@ -53,7 +54,8 @@ class RankingService {
 
     debugPrint(
       '[RankingService] Submitting score: username=$username '
-      'score=$score words=$wordsCompleted accuracy=$accuracy',
+      'score=$score words=$wordsCompleted accuracy=$accuracy '
+      'speed=$averageSpeed',
     );
 
     try {
@@ -77,6 +79,7 @@ class RankingService {
           'score': score,
           'words_completed': wordsCompleted,
           'accuracy': accuracy,
+          'average_speed': averageSpeed,
         }).eq('username', username);
 
         debugPrint(
@@ -88,6 +91,7 @@ class RankingService {
           'score': score,
           'words_completed': wordsCompleted,
           'accuracy': accuracy,
+          'average_speed': averageSpeed,
         });
 
         debugPrint(
