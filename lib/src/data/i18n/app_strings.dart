@@ -70,4 +70,32 @@ class AppStrings {
   String get rankingEmpty => isPortuguese ? 'Nenhum registro encontrado' : 'No records found';
   String get close => isPortuguese ? 'Fechar' : 'Close';
   String get rankingTitle => isPortuguese ? 'Ranking' : 'Ranking';
+  String get practice => isPortuguese ? 'Praticar' : 'Practice';
+  String get leaderboard => isPortuguese ? 'Placar' : 'Leaderboard';
+  String get settings => isPortuguese ? 'Ajustes' : 'Settings';
+  String get play => isPortuguese ? 'Jogar' : 'Play';
+  String get saveProfile => isPortuguese ? 'Salvar Perfil' : 'Save Profile';
+  String get updatedJustNow => isPortuguese ? 'ATUALIZADO AGORA' : 'UPDATED JUST NOW';
+  String get player => isPortuguese ? 'Jogador' : 'Player';
+  String get seeFullRanking => isPortuguese ? 'Ver ranking completo' : 'View full ranking';
+  String get dailyGoal => isPortuguese ? 'Meta Diária' : 'Daily Goal';
+  String get timeTrial => 'Time Trial';
+  String get timeTrialSubtitle => isPortuguese ? '60 segundos' : '60 seconds';
+  String get suddenDeath => 'Sudden Death';
+  String get suddenDeathSubtitle => isPortuguese ? '1 Erro = Fim' : '1 Error = Game Over';
+  String get globalActivity => isPortuguese ? 'Atividade Global' : 'Global Activity';
+  String get session => isPortuguese ? 'Sessão' : 'Session';
+  String get difficultyLabel => isPortuguese ? 'Dificuldade' : 'Difficulty';
+  String get bonusLabel => isPortuguese ? 'Bônus' : 'Bonus';
+  String get resetKeyHint => isPortuguese ? 'Resetar' : 'Reset';
+  String get confirmKeyHint => isPortuguese ? 'Confirmar' : 'Confirm';
+  String get footerTagline => isPortuguese
+      ? '© 2024 Super Teclas. Alta Performance em Digitação.'
+      : '© 2024 Super Teclas. High Performance Typing.';
+  String get instructionsLine1 => isPortuguese
+      ? 'Digita a palavra antes do tempo acabar.'
+      : 'Type the word before time runs out.';
+  String get instructionsLine2 => isPortuguese
+      ? 'Cada palavra correta dá mais tempo!'
+      : 'Each correct word gives you more time!';
 }

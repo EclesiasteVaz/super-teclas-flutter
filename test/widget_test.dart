@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:super_teclas/main.dart';
@@ -21,6 +22,15 @@ Widget buildApp() {
 }
 
 void main() {
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      const MethodChannel('xyz.audioplayers.source'),
+      (methodCall) async => null,
+    );
+  });
+
   group('HomePage', () {
     testWidgets('renders Super and Teclas titles', (tester) async {
       await tester.pumpWidget(buildApp());

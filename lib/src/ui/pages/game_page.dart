@@ -1,11 +1,14 @@
 import 'dart:async';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/game_service.dart';
 import 'package:super_teclas/src/ui/pages/end_game_page.dart';
+import 'package:super_teclas/src/ui/theme/app_colors.dart';
+import 'package:super_teclas/src/ui/widgets/footer_widget.dart';
+import 'package:super_teclas/src/ui/widgets/ranking_modal.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key, this.onGameEnd});
@@ -23,7 +26,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   late Timer _timer;
   late GameService gameService;
   final _controllerInput = TextEditingController();
+  final _focusNode = FocusNode();
   late int _time;
+  late int _lastKnownIndex;
   StreamSubscription? _playerCompleteSubscription;
   bool _isMuted = false;
 
@@ -41,13 +46,13 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _audioPlayer.setVolume(0.3);
       await _audioPlayer
-          .setSource(AssetSource("audios/stranger-things-124008.mp3"));
+          .setSource(AssetSource('audios/stranger-things-124008.mp3'));
       await _audioPlayer.resume();
       _playerCompleteSubscription =
-          _audioPlayer.onPlayerComplete.listen((event) async {
+          _audioPlayer.onPlayerComplete.listen((_) async {
         if (_isNavigating) return;
         await _audioPlayer
-            .setSource(AssetSource("audios/stranger-things-124008.mp3"));
+            .setSource(AssetSource('audios/stranger-things-124008.mp3'));
         await _audioPlayer.resume();
       });
     });
@@ -66,16 +71,22 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   bool _onKeyEvent(KeyEvent event) {
     if (event is! KeyDownEvent) return false;
     if (event.logicalKey == LogicalKeyboardKey.escape) {
-      _togglePause();
+      _resetCurrentWord();
       return true;
     }
     return false;
   }
 
+  void _resetCurrentWord() {
+    setState(() {
+      _controllerInput.clear();
+    });
+  }
+
   void _startTimer() {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
-      (timer) {
+      (_) {
         if (_isNavigating) return;
         if (!isPaused) {
           _time--;
@@ -86,18 +97,20 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
           _audioPlayer.stop();
           widget.onGameEnd?.call(gameService.score);
           if (mounted) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => EndGamePage(
-                isWin: false,
-                level: gameService.score,
-                totalWordsCompleted: gameService.totalWordsCompleted,
-                accuracy: gameService.accuracy,
-                wordTimes: gameService.wordTimes,
-                words: gameService.words,
-                averageSpeed: gameService.averageTimePerWord,
-                onGameEnd: widget.onGameEnd,
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => EndGamePage(
+                  isWin: false,
+                  level: gameService.score,
+                  totalWordsCompleted: gameService.totalWordsCompleted,
+                  accuracy: gameService.accuracy,
+                  wordTimes: gameService.wordTimes,
+                  words: gameService.words,
+                  averageSpeed: gameService.averageTimePerWord,
+                  onGameEnd: widget.onGameEnd,
+                ),
               ),
-            ));
+            );
           }
           return;
         }
@@ -117,18 +130,20 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       _timer.cancel();
       _audioPlayer.stop();
       widget.onGameEnd?.call(gameService.score);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => EndGamePage(
-          isWin: true,
-          level: gameService.score,
-          totalWordsCompleted: gameService.totalWordsCompleted,
-          accuracy: gameService.accuracy,
-          wordTimes: gameService.wordTimes,
-          words: gameService.words,
-          averageSpeed: gameService.averageTimePerWord,
-          onGameEnd: widget.onGameEnd,
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => EndGamePage(
+            isWin: true,
+            level: gameService.score,
+            totalWordsCompleted: gameService.totalWordsCompleted,
+            accuracy: gameService.accuracy,
+            wordTimes: gameService.wordTimes,
+            words: gameService.words,
+            averageSpeed: gameService.averageTimePerWord,
+            onGameEnd: widget.onGameEnd,
+          ),
         ),
-      ));
+      );
       return;
     }
 
@@ -139,8 +154,6 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     _lastKnownIndex = gameService.currentIndex;
     setState(() {});
   }
-
-  late int _lastKnownIndex;
 
   @override
   void dispose() {
@@ -154,6 +167,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     _audioPlayer.dispose();
     _controllerInput.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -191,101 +205,271 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final strings = AppStrings.from(context);
     final screenWidth = MediaQuery.of(context).size.width;
-    final isWide = screenWidth > 600;
+    final isWide = screenWidth > 768;
 
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: _toggleMute,
-            icon: Icon(
-              _isMuted ? Icons.volume_off : Icons.volume_up,
-            ),
-            tooltip: _isMuted ? strings.soundOff : strings.soundOn,
-          ),
-          IconButton(
-            onPressed: _togglePause,
-            icon: Icon(!isPaused ? Icons.pause : Icons.play_arrow),
-            tooltip: strings.pause,
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: isWide ? 48 : 16,
-          vertical: 24,
-        ),
+      backgroundColor: AppColors.background,
+      body: SafeArea(
         child: Column(
           children: [
-            _buildScoreAndTimer(strings, isWide),
-            const SizedBox(height: 24),
-            _buildWordDisplay(strings, isWide),
-            const SizedBox(height: 20),
-            _buildTimerProgress(),
-            const SizedBox(height: 24),
-            _buildInputField(strings, isWide),
+            _buildTopBar(strings, isWide),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isWide ? 48 : 20,
+                  vertical: 24,
+                ),
+                child: Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 820),
+                    child: Column(
+                      children: [
+                        _buildMetricsHud(strings, isWide),
+                        const SizedBox(height: 28),
+                        _buildSessionProgress(strings),
+                        const SizedBox(height: 48),
+                        _buildWordPresentation(strings, isWide),
+                        const SizedBox(height: 36),
+                        _buildTypingInputBox(strings, isWide),
+                        const SizedBox(height: 24),
+                        _buildKeycapHints(strings),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const FooterWidget(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildScoreAndTimer(AppStrings strings, bool isWide) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            Text(
-              gameService.score.toString(),
-              style: const TextStyle(fontSize: 24),
-            ),
-            Text(strings.points),
-          ],
+  Widget _buildTopBar(AppStrings strings, bool isWide) {
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: isWide ? 48 : 20,
+        vertical: 16,
+      ),
+      decoration: const BoxDecoration(
+        color: AppColors.background,
+        border: Border(
+          bottom: BorderSide(color: AppColors.surfaceBorder, width: 0.5),
         ),
-        SizedBox(
-          width: 85,
-          height: 85,
-          child: Stack(
-            alignment: Alignment.center,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             children: [
-              SizedBox(
-                width: 75,
-                height: 75,
-                child: CircularProgressIndicator(
-                  value: _time / gameService.getTimeForWord(),
-                  strokeWidth: 3,
-                  backgroundColor: Colors.grey[800],
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    _time > 5
-                        ? Colors.green
-                        : _time > 3
-                            ? Colors.orange
-                            : Colors.red,
-                  ),
+              SvgPicture.asset(
+                'assets/icons/keyboard.svg',
+                width: 24,
+                height: 24,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.primary,
+                  BlendMode.srcIn,
                 ),
               ),
+              const SizedBox(width: 10),
               Text(
-                _time.toString(),
-                style: TextStyle(
-                  fontSize: 34,
+                strings.superTeclasTitle,
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: _time > 5
-                      ? Colors.green
-                      : _time > 3
-                          ? Colors.orange
-                          : Colors.red,
+                  letterSpacing: 1.2,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ],
           ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () => RankingModal.show(context),
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.textSecondary,
+                ),
+                child: Text(
+                  strings.rankingTitle,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                onPressed: _toggleMute,
+                icon: Icon(
+                  _isMuted ? Icons.volume_off : Icons.volume_up,
+                  color: AppColors.textSecondary,
+                  size: 22,
+                ),
+                tooltip: _isMuted ? strings.soundOff : strings.soundOn,
+              ),
+              IconButton(
+                onPressed: _togglePause,
+                icon: Icon(
+                  isPaused ? Icons.play_arrow : Icons.pause,
+                  color: AppColors.textSecondary,
+                  size: 22,
+                ),
+                tooltip: strings.pause,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMetricsHud(AppStrings strings, bool isWide) {
+    final points = (gameService.totalWordsCompleted * 100) + (gameService.score * 10);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              strings.points,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: AppColors.textMuted,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Text(
+                  _formatPoints(points),
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: isWide ? 38 : 28,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                const Text(
+                  '+50',
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.accentGreen,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-        const SizedBox(width: 80),
+        Container(
+          width: 84,
+          height: 84,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: AppColors.accentYellow,
+              width: 5,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            _time.toString(),
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 34,
+              fontWeight: FontWeight.bold,
+              color: AppColors.accentYellow,
+            ),
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              strings.accuracy,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: AppColors.textMuted,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${gameService.accuracy.toStringAsFixed(0)}%',
+              style: TextStyle(
+                fontFamily: 'monospace',
+                fontSize: isWide ? 38 : 28,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _buildWordDisplay(AppStrings strings, bool isWide) {
+  String _formatPoints(int score) {
+    if (score >= 1000) {
+      final thousands = score ~/ 1000;
+      final remainder = (score % 1000).toString().padLeft(3, '0');
+      return '$thousands.$remainder';
+    }
+    return score.toString();
+  }
+
+  Widget _buildSessionProgress(AppStrings strings) {
+    final current = gameService.indexWordUseds.length;
+    final total = gameService.words.isNotEmpty ? gameService.words.length : 200;
+    final progress = total > 0 ? (current / total).clamp(0.0, 1.0) : 0.0;
+
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              strings.session,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: AppColors.textMuted,
+              ),
+            ),
+            Text(
+              '$current / $total',
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 13,
+                color: AppColors.textMuted,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            backgroundColor: AppColors.surfaceElevated,
+            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWordPresentation(AppStrings strings, bool isWide) {
     final word = gameService.currentWord.text;
     final input = _controllerInput.text;
 
@@ -294,83 +478,199 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       final wordChar = word[i];
       Color color;
       if (i < input.length) {
-        color = input[i] == wordChar ? Colors.green : Colors.red;
+        color = input[i] == wordChar ? AppColors.accentGreen : AppColors.accentRed;
       } else {
-        color = Colors.white;
+        color = AppColors.textPrimary;
       }
       spans.add(TextSpan(
         text: wordChar,
-        style: TextStyle(color: color, fontSize: isWide ? 36 : 28),
+        style: TextStyle(
+          color: color,
+          fontSize: isWide ? 44 : 32,
+          fontWeight: FontWeight.bold,
+        ),
       ));
     }
 
-    return RichText(
-      text: TextSpan(
-        style: const TextStyle(
-          letterSpacing: 2,
-          fontFamily: 'monospace',
+    final difficultyText = _formatDifficulty(strings, gameService.currentWord.difficulty);
+    final bonusMultiplier = _getBonusMultiplier(gameService.currentWord.difficulty);
+
+    return Column(
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: const TextStyle(
+              letterSpacing: 2,
+              fontFamily: 'monospace',
+            ),
+            children: spans,
+          ),
         ),
-        children: spans,
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildMetadataBadge('${strings.difficultyLabel}: $difficultyText'),
+            const SizedBox(width: 10),
+            _buildMetadataBadge('${strings.bonusLabel}: $bonusMultiplier'),
+          ],
+        ),
+      ],
+    );
+  }
+
+  String _formatDifficulty(AppStrings strings, String diff) {
+    switch (diff.toLowerCase()) {
+      case 'easy':
+        return strings.easy;
+      case 'hard':
+        return strings.hard;
+      default:
+        return strings.medium;
+    }
+  }
+
+  String _getBonusMultiplier(String diff) {
+    switch (diff.toLowerCase()) {
+      case 'easy':
+        return '1.0x';
+      case 'hard':
+        return '2.0x';
+      default:
+        return '1.5x';
+    }
+  }
+
+  Widget _buildMetadataBadge(String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.badgeBackground,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.surfaceBorder),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontFamily: 'monospace',
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: AppColors.textSecondary,
+        ),
       ),
     );
   }
 
-  Widget _buildTimerProgress() {
-    final totalWords = gameService.words.length;
-    final currentProgress = gameService.indexWordUseds.length;
-    final progress = currentProgress / totalWords;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        children: [
-          LinearProgressIndicator(
-            value: progress,
-            backgroundColor: Colors.grey[800],
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
-            minHeight: 6,
-            borderRadius: BorderRadius.circular(3),
+  Widget _buildTypingInputBox(AppStrings strings, bool isWide) {
+    return Container(
+      width: isWide ? 560 : double.infinity,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.surfaceBorder, width: 1.5),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x221884FF),
+            blurRadius: 16,
+            spreadRadius: 2,
           ),
-          const SizedBox(height: 4),
-          Text(
-            '$currentProgress / $totalWords',
-            style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextFormField(
+              controller: _controllerInput,
+              focusNode: _focusNode,
+              autofocus: true,
+              enabled: !isPaused,
+              style: const TextStyle(
+                fontFamily: 'monospace',
+                fontSize: 18,
+                color: AppColors.textPrimary,
+              ),
+              decoration: InputDecoration(
+                hintText: strings.typeWord,
+                hintStyle: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 16,
+                  color: AppColors.textMuted,
+                ),
+                border: InputBorder.none,
+              ),
+              onChanged: (text) {
+                gameService.recordKeystroke();
+                if (text.isNotEmpty &&
+                    text.length <= gameService.currentWord.text.length &&
+                    text[text.length - 1] ==
+                        gameService.currentWord.text[text.length - 1]) {
+                  gameService.addCorrectKeystroke();
+                }
+                gameService.writing(word: text);
+                setState(() {});
+              },
+              onFieldSubmitted: (text) {
+                gameService.writing(word: text);
+              },
+            ),
+          ),
+          SvgPicture.asset(
+            'assets/icons/enter.svg',
+            width: 18,
+            height: 18,
+            colorFilter: const ColorFilter.mode(
+              AppColors.textMuted,
+              BlendMode.srcIn,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildInputField(AppStrings strings, bool isWide) {
-    return SizedBox(
-      width: isWide ? 400 : double.infinity,
-      child: TextFormField(
-        maxLines: 1,
-        enableSuggestions: false,
-        autofocus: true,
-        autocorrect: false,
-        enabled: !isPaused,
-        controller: _controllerInput,
-        onChanged: (text) {
-          gameService.recordKeystroke();
-          if (text.isNotEmpty &&
-              text.length <= gameService.currentWord.text.length &&
-              text[text.length - 1] ==
-                  gameService.currentWord.text[text.length - 1]) {
-            gameService.addCorrectKeystroke();
-          }
-          gameService.writing(word: text);
-          setState(() {});
-        },
-        decoration: InputDecoration(
-          hintText: strings.typeWord,
-          border: const OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 14,
+  Widget _buildKeycapHints(AppStrings strings) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildKeycap('ESC', strings.resetKeyHint),
+        const SizedBox(width: 24),
+        _buildKeycap('ENTER', strings.confirmKeyHint),
+      ],
+    );
+  }
+
+  Widget _buildKeycap(String keyLabel, String actionLabel) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: AppColors.surfaceElevated,
+            borderRadius: BorderRadius.circular(6),
+            border: Border.all(color: AppColors.surfaceBorder),
+          ),
+          child: Text(
+            keyLabel,
+            style: const TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 11,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textSecondary,
+            ),
           ),
         ),
-      ),
+        const SizedBox(width: 8),
+        Text(
+          actionLabel,
+          style: const TextStyle(
+            fontFamily: 'monospace',
+            fontSize: 13,
+            color: AppColors.textMuted,
+          ),
+        ),
+      ],
     );
   }
 }

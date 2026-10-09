@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:super_teclas/src/config/env.dart';
 import 'package:super_teclas/src/data/words/word_bank.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
+import 'package:super_teclas/src/ui/theme/app_colors.dart';
 
 class LocaleProvider extends InheritedWidget {
   const LocaleProvider({
@@ -81,9 +82,10 @@ class _MyAppState extends State<MyApp> {
       scrollBehavior: const ScrollBehavior(),
       theme: ThemeData(
         brightness: Brightness.dark,
+        scaffoldBackgroundColor: AppColors.background,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          seedColor: const Color.fromARGB(255, 3, 73, 131),
+          seedColor: AppColors.primary,
         ),
         useMaterial3: true,
         elevatedButtonTheme: const ElevatedButtonThemeData(

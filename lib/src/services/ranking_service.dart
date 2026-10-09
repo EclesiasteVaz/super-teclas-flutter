@@ -172,4 +172,26 @@ class RankingService {
       return [];
     }
   }
+
+  static Future<List<RankingEntry>> getRecentGames({int limit = 2}) async {
+    if (!isAvailable) {
+      debugPrint('[RankingService] Supabase client not available');
+      return [];
+    }
+
+    try {
+      final response = await Supabase.instance.client
+          .from(_tableName)
+          .select()
+          .order('created_at', ascending: false)
+          .limit(limit);
+
+      return (response as List<dynamic>)
+          .map((e) => RankingEntry.fromMap(e as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      debugPrint('[RankingService] Get recent games error: $e');
+      return [];
+    }
+  }
 }

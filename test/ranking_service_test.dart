@@ -58,6 +58,11 @@ void main() {
       expect(rankings, isEmpty);
     });
 
+    test('getRecentGames returns empty list when not available', () async {
+      final recent = await RankingService.getRecentGames();
+      expect(recent, isEmpty);
+    });
+
     test('submitScore does nothing when not available', () async {
       await RankingService.submitScore(
         username: 'test',
