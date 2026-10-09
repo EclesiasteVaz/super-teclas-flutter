@@ -46,7 +46,6 @@ class GameService extends ChangeNotifier {
     }
 
     totalWordsCompleted++;
-    correctKeystrokes += word.length;
 
     if (words.length == (indexWordUseds.length + 1)) {
       isWin = true;

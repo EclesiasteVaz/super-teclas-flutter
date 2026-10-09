@@ -5,7 +5,7 @@ import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
 import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
-import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
+import 'package:super_teclas/src/ui/widgets/button_custom_widget.dart';
 import 'package:super_teclas/src/ui/widgets/ranking_modal.dart';
 import 'package:super_teclas/src/ui/widgets/title_game_widget.dart';
 
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 24),
               _buildUsernameSection(strings),
               const SizedBox(height: 16),
-              ButtonCostumWidget(
+              ButtonCustomWidget(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(

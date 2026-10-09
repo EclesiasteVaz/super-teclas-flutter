@@ -373,8 +373,4 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       ),
     );
   }
-
-  int impressLevel() {
-    return gameService.score;
-  }
 }

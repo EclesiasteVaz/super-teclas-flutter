@@ -9,7 +9,7 @@ import 'package:super_teclas/src/services/storage_service.dart';
 import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
-import 'package:super_teclas/src/ui/widgets/button_costum_widget.dart';
+import 'package:super_teclas/src/ui/widgets/button_custom_widget.dart';
 
 class EndGamePage extends StatefulWidget {
   const EndGamePage({
@@ -206,7 +206,7 @@ class _EndGamePageState extends State<EndGamePage>
                       _buildSpeedStats(strings, isWide),
                     ],
                     const SizedBox(height: 24),
-                    ButtonCostumWidget(
+                    ButtonCustomWidget(
                       onPressed: () => _navigateTo(const GamePage()),
                       text: strings.restart,
                     ),

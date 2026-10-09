@@ -8,14 +8,14 @@ Widget buildApp() {
   return LocaleProvider(
     locale: const Locale('pt'),
     onLocaleChanged: (_) {},
-    child: MaterialApp(
-      locale: const Locale('pt'),
-      localizationsDelegates: const [
+    child: const MaterialApp(
+      locale: Locale('pt'),
+      localizationsDelegates: [
         ...GlobalMaterialLocalizations.delegates,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: const [Locale('pt'), Locale('en')],
-      home: const HomePage(),
+      supportedLocales: [Locale('pt'), Locale('en')],
+      home: HomePage(),
     ),
   );
 }

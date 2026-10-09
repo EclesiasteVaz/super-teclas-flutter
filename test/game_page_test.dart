@@ -5,14 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 
 MaterialApp _buildApp() {
-  return MaterialApp(
-    locale: const Locale('pt'),
-    localizationsDelegates: const [
+  return const MaterialApp(
+    locale: Locale('pt'),
+    localizationsDelegates: [
       ...GlobalMaterialLocalizations.delegates,
       GlobalWidgetsLocalizations.delegate,
     ],
-    supportedLocales: const [Locale('pt'), Locale('en')],
-    home: const GamePage(),
+    supportedLocales: [Locale('pt'), Locale('en')],
+    home: GamePage(),
   );
 }
 

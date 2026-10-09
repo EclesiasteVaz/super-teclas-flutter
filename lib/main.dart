@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:super_teclas/src/config/env.dart';
 import 'package:super_teclas/src/data/words/word_bank.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
-
-// TODO: Substituir pela URL e anonKey reais do projeto Supabase
-const _supabaseAnonKey = 'sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN';
-
-const _supabaseUrl = 'https://vstopwdfkoizsbveeicn.supabase.co';
 
 class LocaleProvider extends InheritedWidget {
   const LocaleProvider({
@@ -34,10 +30,14 @@ class LocaleProvider extends InheritedWidget {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Supabase.initialize(
-    url: _supabaseUrl,
-    publishableKey: _supabaseAnonKey,
-  );
+  await Env.load();
+
+  if (Env.supabaseUrl.isNotEmpty && Env.supabaseAnonKey.isNotEmpty) {
+    await Supabase.initialize(
+      url: Env.supabaseUrl,
+      publishableKey: Env.supabaseAnonKey,
+    );
+  }
 
   await SharedPreferences.getInstance();
 

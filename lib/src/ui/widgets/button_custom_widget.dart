@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 
-class ButtonCostumWidget extends StatelessWidget {
-  const ButtonCostumWidget({super.key, required this.onPressed, this.text});
+class ButtonCustomWidget extends StatelessWidget {
+  const ButtonCustomWidget({super.key, required this.onPressed, this.text});
   final Function()? onPressed;
   final String? text;
 

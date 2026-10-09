@@ -18,23 +18,26 @@
 ```
 lib/
 ├── main.dart                         # Entry point, LocaleProvider, tema
-├── utils/
-│   ├── game_color_status.dart        # Cores por "nível" (verde/azul/laranja/cinza)
-│   └── game_time.dart                # Formatação MM:SS
 └── src/
+    ├── config/
+    │   └── env.dart                  # Configuração de ambiente (.env)
     ├── data/
-    │   ├── i18n/app_strings.dart     # 56 strings PT/EN com AppStrings
+    │   ├── i18n/app_strings.dart     # Strings PT/EN com AppStrings
     │   ├── models/word_model.dart    # WordModel (faz trim no construtor)
-    │   └── words/word_bank.dart      # 48 palavras PT + 48 EN
+    │   └── words/word_bank.dart      # Palavras PT e EN
     ├── services/
-    │   └── game_service.dart         # ChangeNotifier com lógica do jogo
+    │   ├── game_service.dart         # ChangeNotifier com lógica do jogo
+    │   ├── ranking_service.dart      # Serviço de ranking Supabase
+    │   └── storage_service.dart      # Persistência local criptografada
     └── ui/
         ├── pages/
+        │   ├── dictionary_page.dart  # Consulta de vocabulário
         │   ├── home_page.dart        # Tela inicial com high score
-        │   ├── game_page.dart        # Tela principal do jogo (369 linhas)
-        │   └── end_game_page.dart    # Resultado com confete (285 linhas)
+        │   ├── game_page.dart        # Tela principal do jogo
+        │   └── end_game_page.dart    # Resultado com confete
         └── widgets/
-            ├── button_costum_widget.dart  # Botão azul escuro reutilizável
+            ├── button_custom_widget.dart  # Botão azul escuro reutilizável
+            ├── ranking_modal.dart         # Modal de pontuações
             └── title_game_widget.dart     # Título "Super" azul + "Teclas" branco
 ```
 
@@ -267,16 +270,11 @@ vercel --prod
 
 ## ⚠️ Problemas Conhecidos & Observações
 
-1. **Typo no nome do arquivo:** `button_costum_widget.dart` — "Costum" em vez de "Custom". Classe: `ButtonCostumWidget`. Manter como está para consistência, a menos que o usuário peça correção.
-2. **Sem persistência:** High score é apenas em memória (`_highScore` em `_HomePageState`) — perdido ao reiniciar o app.
-3. **Sem tratamento de erro de áudio:** Se `audioplayers` falha ao carregar asset, o erro é silencioso.
-4. **`onChanged` chama `writing()` a cada tecla:** Mas `writing()` só processa quando `word.length == currentWord.text.length`. Isso significa que `recordKeystroke()` e `addCorrectKeystroke()` são chamados em cada `onChanged`, mas `addCorrectKeystroke()` conta PARA CADA caractere correto no texto inteiro a cada chamada (pode supercontar).
-5. **Confete:** Animação customizada com `CustomPainter` (60 partículas), sem pacote externo.
-6. **Música de fundo (5MB):** Pode impactar tempo de carregamento inicial, especialmente na Web.
-7. **`GameColorStatus`** e **`GameTime`** não são usados em lugar nenhum do código — são utilitários não referenciados.
-8. **`impressLevel()`** em `game_page.dart` (linha 366-368) é um método público que só retorna `gameService.score` — provavelmente não utilizado.
-9. **`_navigateTo`** em `end_game_page.dart` é uma função tardia (`late`) apenas para permitir `stop()` do áudio antes de navegar.
-10. **Navegação com `pushReplacement`** — não há pilha de navegação, todas as transições substituem a rota atual.
+1. **Persistência de High Score:** High score local é apenas em memória (`_highScore` em `_HomePageState`) — o ranking persistido é salvo no Supabase.
+2. **Sem tratamento de erro de áudio:** Se `audioplayers` falha ao carregar asset, o erro é silencioso.
+3. **Confete:** Animação customizada com `CustomPainter` (60 partículas), sem pacote externo.
+4. **Música de fundo (5MB):** Pode impactar tempo de carregamento inicial, especialmente na Web.
+5. **Navegação com `pushReplacement`** — não há pilha de navegação principal, transições de partida substituem a rota atual.
 
 ---
 
