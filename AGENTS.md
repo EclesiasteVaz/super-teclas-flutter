@@ -243,7 +243,18 @@ flutter test --coverage && genhtml coverage/lcov.info  # Cobertura
 
 ---
 
-## 🚀 Deploy
+### Execução Local (Web / Mobile)
+```bash
+# Web com Supabase
+flutter run -d chrome \
+  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+
+# Mobile / Desktop (lê automaticamente de .env se existir)
+flutter run -d android
+flutter run -d ios
+flutter run -d macos
+```
 
 ### Vercel
 ```json
@@ -252,7 +263,10 @@ flutter test --coverage && genhtml coverage/lcov.info  # Cobertura
 
 Passos:
 ```bash
-flutter build web
+flutter build web --release \
+  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+
 vercel --prod
 ```
 

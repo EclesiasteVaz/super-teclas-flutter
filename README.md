@@ -18,7 +18,7 @@ Challenge yourself to type words accurately before time runs out. Compete on the
 ## Features
 
 - **Dual Language** — Full support for Portuguese and English with automatic locale detection
-- **200+ Words per Language** — Curated word banks across 3 difficulty levels (easy, medium, hard)
+- **500+ Words per Language** — Curated word banks across 3 difficulty levels (easy, medium, hard)
 - **Real-time Feedback** — Character-by-character coloring as you type (green = correct, red = wrong)
 - **Countdown Timer** — Color-coded urgency: green (>5s), orange (>3s), red (≤3s)
 - **Online Ranking** — Supabase-powered global leaderboard with encrypted local username storage
@@ -81,32 +81,48 @@ Challenge yourself to type words accurately before time runs out. Compete on the
    flutter pub get
    ```
 
-3. **Configure Supabase** (optional — game works offline without it)
+3. **Configure Environment Variables** (optional — game works offline without Supabase)
 
-   Open `lib/main.dart` and replace the placeholder credentials:
+   Copy the `.env.example` template:
 
-   ```dart
-   const _supabaseUrl = 'https://your-project.supabase.co';
-   const _supabaseAnonKey = 'your-anon-key';
+   ```bash
+   cp .env.example .env
+   ```
+
+   Fill in your Supabase project credentials in `.env`:
+   ```env
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_ANON_KEY=your-anon-key
    ```
 
    See [COMPETITION.md](COMPETITION.md) for detailed Supabase setup including table creation and RLS policies.
 
 4. **Run the app**
 
+   **Option A: Web (Chrome with `--dart-define`)**
    ```bash
-   # Web (quickest)
-   flutter run -d chrome
+   flutter run -d chrome \
+     --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
+     --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+   ```
 
+   **Option B: Mobile / Desktop (using `.env`)**
+   ```bash
    # Android
    flutter run -d android
 
    # iOS
    flutter run -d ios
 
-   # Linux / Windows
+   # macOS / Linux / Windows
+   flutter run -d macos
    flutter run -d linux
    flutter run -d windows
+   ```
+
+   **Option C: Offline Mode (no ranking backend)**
+   ```bash
+   flutter run -d chrome
    ```
 
 ---
@@ -271,7 +287,10 @@ open coverage/html/index.html
 ### Web (Vercel)
 
 ```bash
-flutter build web
+flutter build web --release \
+  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+
 vercel --prod
 ```
 

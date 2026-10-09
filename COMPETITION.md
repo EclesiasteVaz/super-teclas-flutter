@@ -79,13 +79,23 @@ CREATE TRIGGER trigger_rankings_updated_at
    - `Project URL`
    - `anon public key` (também chamado `publishableKey`)
 
-### 2. Código
+### 2. Variáveis de Ambiente
 
-Em `lib/main.dart:4-5`, substituir os placeholders:
+As credenciais do Supabase não ficam mais hardcoded no código. Configure-as de duas formas:
 
-```dart
-const _supabaseUrl = 'https://your-project.supabase.co';    // ← colocar URL real
-const _supabaseAnonKey = 'your-anon-key';                    // ← colocar anon key real
+**Para desenvolvimento local (Mobile / Desktop):**
+Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`:
+```env
+SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co
+SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+```
+
+**Para Web e CI/CD (Chrome / Vercel):**
+Injete em tempo de compilação com `--dart-define`:
+```bash
+flutter run -d chrome \
+  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
 ```
 
 ### 3. Row Level Security (RLS)
