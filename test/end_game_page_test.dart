@@ -33,7 +33,8 @@ void main() {
       ];
       final wordTimes = {0: 2.5, 1: 3.8, 2: 1.2};
 
-      final fastest = wordTimes.entries.reduce((a, b) => a.value <= b.value ? a : b);
+      final fastest =
+          wordTimes.entries.reduce((a, b) => a.value <= b.value ? a : b);
       expect(words[fastest.key].text, 'Computador');
       expect(fastest.value, 1.2);
     });
@@ -45,7 +46,8 @@ void main() {
       ];
       final wordTimes = {0: 2.5, 1: 3.8};
 
-      final slowest = wordTimes.entries.reduce((a, b) => a.value >= b.value ? a : b);
+      final slowest =
+          wordTimes.entries.reduce((a, b) => a.value >= b.value ? a : b);
       expect(words[slowest.key].text, 'Teste');
       expect(slowest.value, 3.8);
     });

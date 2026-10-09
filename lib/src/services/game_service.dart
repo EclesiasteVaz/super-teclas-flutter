@@ -24,7 +24,8 @@ class GameService extends ChangeNotifier {
 
   void _init(String languageCode) {
     words = WordBank.getWords(languageCode)
-        .map((model) => WordModel(text: model.text, difficulty: model.difficulty))
+        .map((model) =>
+            WordModel(text: model.text, difficulty: model.difficulty))
         .toList();
     currentIndex = random.nextInt(words.length);
     indexWordUseds.add(currentIndex);
@@ -41,7 +42,9 @@ class GameService extends ChangeNotifier {
     if (word != words[currentIndex].text) return;
 
     if (_currentWordStartTime != null) {
-      final elapsed = DateTime.now().difference(_currentWordStartTime!).inMilliseconds / 1000.0;
+      final elapsed =
+          DateTime.now().difference(_currentWordStartTime!).inMilliseconds /
+              1000.0;
       _wordTimes[currentIndex] = elapsed;
     }
 

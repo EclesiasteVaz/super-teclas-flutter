@@ -6,9 +6,12 @@ import 'package:url_launcher/url_launcher.dart';
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
 
-  static const _githubUrl = 'https://github.com/EclesiasteVaz/super-teclas-flutter';
-  static const _facebookUrl = 'https://www.facebook.com/profile.php?id=61556754993346';
-  static const _supportUrl = 'https://github.com/EclesiasteVaz/super-teclas-flutter/issues';
+  static const _githubUrl =
+      'https://github.com/EclesiasteVaz/super-teclas-flutter';
+  static const _facebookUrl =
+      'https://www.facebook.com/profile.php?id=61556754993346';
+  static const _supportUrl =
+      'https://github.com/EclesiasteVaz/super-teclas-flutter/issues';
 
   Future<void> _openUrl(String url) async {
     final uri = Uri.parse(url);

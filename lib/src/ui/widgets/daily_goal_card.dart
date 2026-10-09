@@ -96,7 +96,8 @@ class DailyGoalCard extends StatelessWidget {
               value: percentage / 100.0,
               minHeight: 6,
               backgroundColor: AppColors.surfaceElevated,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+              valueColor:
+                  const AlwaysStoppedAnimation<Color>(AppColors.primary),
             ),
           ),
         ],

@@ -84,7 +84,8 @@ void main() {
 
   group('RankingCard', () {
     testWidgets('renders fallback ranking rows when empty', (tester) async {
-      await tester.pumpWidget(_buildTestWrapper(const RankingCard(rankings: [])));
+      await tester
+          .pumpWidget(_buildTestWrapper(const RankingCard(rankings: [])));
       expect(find.text('Ranking'), findsOneWidget);
       expect(find.text('Amarildo'), findsOneWidget);
       expect(find.text('Ver ranking completo'), findsOneWidget);

@@ -328,7 +328,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Widget _buildMetricsHud(AppStrings strings, bool isWide) {
-    final points = (gameService.totalWordsCompleted * 100) + (gameService.score * 10);
+    final points =
+        (gameService.totalWordsCompleted * 100) + (gameService.score * 10);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -478,7 +479,8 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       final wordChar = word[i];
       Color color;
       if (i < input.length) {
-        color = input[i] == wordChar ? AppColors.accentGreen : AppColors.accentRed;
+        color =
+            input[i] == wordChar ? AppColors.accentGreen : AppColors.accentRed;
       } else {
         color = AppColors.textPrimary;
       }
@@ -492,8 +494,10 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       ));
     }
 
-    final difficultyText = _formatDifficulty(strings, gameService.currentWord.difficulty);
-    final bonusMultiplier = _getBonusMultiplier(gameService.currentWord.difficulty);
+    final difficultyText =
+        _formatDifficulty(strings, gameService.currentWord.difficulty);
+    final bonusMultiplier =
+        _getBonusMultiplier(gameService.currentWord.difficulty);
 
     return Column(
       children: [

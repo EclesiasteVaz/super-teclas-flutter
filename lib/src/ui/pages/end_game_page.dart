@@ -182,9 +182,8 @@ class _EndGamePageState extends State<EndGamePage>
                       style: TextStyle(
                         fontSize: isWide ? 32 : 24,
                         fontWeight: FontWeight.bold,
-                        color: widget.isWin
-                            ? Colors.green[500]
-                            : Colors.red[500],
+                        color:
+                            widget.isWin ? Colors.green[500] : Colors.red[500],
                       ),
                     ),
                     if (isNewBest)
@@ -368,7 +367,8 @@ class _ConfettiPainter extends CustomPainter {
       final currentY = (p.y + progress * p.speed) * size.height;
       if (currentY > size.height) continue;
 
-      final paint = Paint()..color = p.color.withValues(alpha: 1 - progress * 0.5);
+      final paint = Paint()
+        ..color = p.color.withValues(alpha: 1 - progress * 0.5);
 
       canvas.save();
       canvas.translate(p.x * size.width, currentY);

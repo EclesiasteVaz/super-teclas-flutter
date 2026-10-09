@@ -482,7 +482,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 if (localeProvider != null) ...[
                   ListTile(
-                    leading: const Icon(Icons.language, color: AppColors.primary),
+                    leading:
+                        const Icon(Icons.language, color: AppColors.primary),
                     title: Text(strings.portuguese,
                         style: const TextStyle(color: AppColors.textPrimary)),
                     trailing: localeProvider.locale.languageCode == 'pt'
@@ -494,7 +495,8 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.language, color: AppColors.primary),
+                    leading:
+                        const Icon(Icons.language, color: AppColors.primary),
                     title: Text(strings.english,
                         style: const TextStyle(color: AppColors.textPrimary)),
                     trailing: localeProvider.locale.languageCode == 'en'

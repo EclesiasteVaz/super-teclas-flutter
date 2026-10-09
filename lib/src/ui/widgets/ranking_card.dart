@@ -109,7 +109,8 @@ class RankingCard extends StatelessWidget {
           const Divider(height: 1, color: AppColors.surfaceBorder),
           InkWell(
             onTap: () => RankingModal.show(context),
-            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
+            borderRadius:
+                const BorderRadius.vertical(bottom: Radius.circular(12)),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 14),
               child: Center(
