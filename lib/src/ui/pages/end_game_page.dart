@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
+import 'package:super_teclas/src/data/models/game_session_model.dart';
 import 'package:super_teclas/src/data/models/word_model.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
@@ -24,6 +26,7 @@ class EndGamePage extends StatefulWidget {
     this.wordTimes = const {},
     this.words = const [],
     this.averageSpeed = 0,
+    this.gameSession,
   });
 
   final bool isWin;
@@ -34,6 +37,7 @@ class EndGamePage extends StatefulWidget {
   final Map<int, double> wordTimes;
   final List<WordModel> words;
   final double averageSpeed;
+  final GameSessionModel? gameSession;
 
   @override
   State<EndGamePage> createState() => _EndGamePageState();
@@ -69,23 +73,25 @@ class _EndGamePageState extends State<EndGamePage>
 
   Future<void> _submitRanking() async {
     final username = await StorageService.getUsername();
-    if (username == null) {
-      debugPrint('[EndGamePage] Username not set, skipping ranking');
+    if (username == null && widget.gameSession == null) {
+      debugPrint('[EndGamePage] Username and session not set, skipping ranking');
       return;
     }
 
+    final resolvedUsername = username ?? widget.gameSession?.username ?? '';
     debugPrint(
-      '[EndGamePage] Submitting ranking for $username: '
+      '[EndGamePage] Submitting ranking for $resolvedUsername: '
       'score=${widget.level}, words=${widget.totalWordsCompleted}, '
       'accuracy=${widget.accuracy}',
     );
 
     await RankingService.submitScore(
-      username: username,
+      username: resolvedUsername,
       score: widget.level,
       wordsCompleted: widget.totalWordsCompleted,
       accuracy: widget.accuracy,
       averageSpeed: widget.averageSpeed,
+      session: widget.gameSession,
     );
   }
 
@@ -136,7 +142,7 @@ class _EndGamePageState extends State<EndGamePage>
     final strings = AppStrings.from(context);
     final screenWidth = MediaQuery.of(context).size.width;
     final isWide = screenWidth > 720;
-    final isNewBest = widget.level == 100;
+    final isNewBest = widget.isWin || widget.level >= 100;
 
     return Scaffold(
       backgroundColor: AppColors.background,

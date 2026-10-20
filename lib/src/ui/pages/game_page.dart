@@ -1,10 +1,16 @@
 import 'dart:async';
+import 'dart:ui';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
+import 'package:super_teclas/src/data/models/game_session_model.dart';
 import 'package:super_teclas/src/services/game_service.dart';
+import 'package:super_teclas/src/services/ranking_service.dart';
+import 'package:super_teclas/src/services/storage_service.dart';
 import 'package:super_teclas/src/ui/pages/end_game_page.dart';
 import 'package:super_teclas/src/ui/theme/app_colors.dart';
 import 'package:super_teclas/src/ui/widgets/footer_widget.dart';
@@ -23,6 +29,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   late AudioPlayer _audioPlayer;
   bool isPaused = false;
   bool _isNavigating = false;
+  bool _isHandlingTimeout = false;
   late Timer _timer;
   late GameService gameService;
   final _controllerInput = TextEditingController();
@@ -30,7 +37,10 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   late int _time;
   late int _lastKnownIndex;
   StreamSubscription? _playerCompleteSubscription;
+  StreamSubscription<ServerGameStepResult>? _gameSessionSubscription;
   bool _isMuted = false;
+  String _userId = 'anonymous';
+  String _username = '';
 
   @override
   void initState() {
@@ -44,6 +54,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
     _audioPlayer.setReleaseMode(ReleaseMode.release);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _initRemoteGameSession();
       await _audioPlayer.setVolume(0.3);
       await _audioPlayer
           .setSource(AssetSource('audios/stranger-things-124008.mp3'));
@@ -62,6 +73,76 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     _setupKeyboardHandler();
   }
 
+  Future<void> _initRemoteGameSession() async {
+    final storedUser = await StorageService.getUsername();
+    final uid = await RankingService.ensureAuthenticatedUser();
+    _userId = uid;
+    _username = storedUser ?? '';
+
+    final stepResult = await RankingService.startServerGameSession(
+      languageCode: gameService.languageCode,
+      username: _username,
+    );
+    if (!mounted || _isNavigating) return;
+
+    if (stepResult != null && stepResult.gameId.isNotEmpty) {
+      gameService.applyServerStart(stepResult);
+      _lastKnownIndex = gameService.currentIndex;
+      _controllerInput.clear();
+      _time = gameService.getTimeForWord();
+
+      await _gameSessionSubscription?.cancel();
+      _gameSessionSubscription = RankingService.watchGameSession(
+        gameId: stepResult.gameId,
+        languageCode: gameService.languageCode,
+      )?.listen(_onRemoteGameSnapshot);
+
+      if (mounted) {
+        setState(() {});
+      }
+    }
+  }
+
+  void _onRemoteGameSnapshot(ServerGameStepResult snapshot) {
+    if (_isNavigating || !mounted) return;
+
+    if (snapshot.status == GameStatus.finished) {
+      gameService.applyServerStep(snapshot);
+      _navigateToEndGame(isWin: snapshot.isWin);
+    }
+  }
+
+  void _navigateToEndGame({required bool isWin}) {
+    if (_isNavigating) return;
+    _isNavigating = true;
+    gameService.finishGame(win: isWin);
+    _timer.cancel();
+    _gameSessionSubscription?.cancel();
+    _audioPlayer.stop();
+    widget.onGameEnd?.call(gameService.score);
+
+    if (!mounted) return;
+    final session = gameService.toSessionModel(
+      userId: _userId,
+      username: _username,
+    );
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => EndGamePage(
+          isWin: isWin,
+          level: gameService.score,
+          totalWordsCompleted: gameService.totalWordsCompleted,
+          accuracy: gameService.accuracy,
+          wordTimes: gameService.wordTimes,
+          words: gameService.words,
+          averageSpeed: gameService.averageTimePerWord,
+          gameSession: session,
+          onGameEnd: widget.onGameEnd,
+        ),
+      ),
+    );
+  }
+
   void _setupKeyboardHandler() {
     try {
       HardwareKeyboard.instance.addHandler(_onKeyEvent);
@@ -71,6 +152,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   bool _onKeyEvent(KeyEvent event) {
     if (event is! KeyDownEvent) return false;
     if (event.logicalKey == LogicalKeyboardKey.escape) {
+      if (!gameService.isRunning || gameService.isSubmittingWord) return true;
       _resetCurrentWord();
       return true;
     }
@@ -78,6 +160,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   void _resetCurrentWord() {
+    if (!gameService.isRunning || gameService.isSubmittingWord) return;
     setState(() {
       _controllerInput.clear();
     });
@@ -87,30 +170,22 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {
-        if (_isNavigating) return;
-        if (!isPaused) {
-          _time--;
+        if (_isNavigating || _isHandlingTimeout) return;
+        if (gameService.isRunning && !gameService.isSubmittingWord) {
+          if (gameService.isServerAuthoritative &&
+              gameService.wordDeadlineAt != null) {
+            _time = gameService.getRemainingSecondsFromDeadline();
+          } else {
+            _time--;
+          }
         }
-        if (_time == 0) {
-          _isNavigating = true;
-          _timer.cancel();
-          _audioPlayer.stop();
-          widget.onGameEnd?.call(gameService.score);
-          if (mounted) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => EndGamePage(
-                  isWin: false,
-                  level: gameService.score,
-                  totalWordsCompleted: gameService.totalWordsCompleted,
-                  accuracy: gameService.accuracy,
-                  wordTimes: gameService.wordTimes,
-                  words: gameService.words,
-                  averageSpeed: gameService.averageTimePerWord,
-                  onGameEnd: widget.onGameEnd,
-                ),
-              ),
-            );
+        if (_time <= 0 && !gameService.isSubmittingWord) {
+          if (gameService.isServerAuthoritative &&
+              gameService.gameId != null &&
+              gameService.gameId!.isNotEmpty) {
+            _handleServerTimeout();
+          } else {
+            _navigateToEndGame(isWin: false);
           }
           return;
         }
@@ -121,29 +196,95 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     );
   }
 
+  Future<void> _handleServerTimeout() async {
+    if (_isNavigating || _isHandlingTimeout) return;
+    _isHandlingTimeout = true;
+    try {
+      final activeGameId = gameService.gameId;
+      if (activeGameId != null && activeGameId.isNotEmpty) {
+        final result = await RankingService.timeoutGameOnServer(
+          gameId: activeGameId,
+          wordSequence: gameService.wordSequence,
+          accuracy: gameService.accuracy,
+          languageCode: gameService.languageCode,
+        );
+        if (!mounted || _isNavigating) return;
+        if (result != null) {
+          gameService.applyServerStep(result);
+          if (_isNavigating) return;
+          if (result.status != GameStatus.finished) {
+            _time = gameService.getTimeForWord();
+            setState(() {});
+            return;
+          }
+        }
+      }
+      if (mounted && !_isNavigating) {
+        _navigateToEndGame(isWin: false);
+      }
+    } finally {
+      _isHandlingTimeout = false;
+    }
+  }
+
+  Future<void> _submitWordToServer(String typedWord) async {
+    if (_isNavigating ||
+        !gameService.isRunning ||
+        gameService.isSubmittingWord) {
+      return;
+    }
+    final activeGameId = gameService.gameId;
+    if (activeGameId == null || activeGameId.isEmpty) {
+      gameService.writing(word: typedWord);
+      return;
+    }
+
+    setState(() {
+      gameService.isSubmittingWord = true;
+    });
+
+    final result = await RankingService.submitWordToServer(
+      gameId: activeGameId,
+      word: typedWord,
+      accuracy: gameService.accuracy,
+      languageCode: gameService.languageCode,
+    );
+
+    if (!mounted || _isNavigating) return;
+
+    if (result == null) {
+      setState(() {
+        gameService.isSubmittingWord = false;
+      });
+      return;
+    }
+
+    gameService.applyServerStep(result);
+    if (_isNavigating) return;
+
+    if (result.status == GameStatus.finished) {
+      _navigateToEndGame(isWin: result.isWin);
+      return;
+    }
+
+    _controllerInput.clear();
+    _lastKnownIndex = gameService.currentIndex;
+    _time = gameService.getTimeForWord();
+    setState(() {});
+    _focusNode.requestFocus();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_isNavigating && gameService.isRunning) {
+        _focusNode.requestFocus();
+      }
+    });
+  }
+
   void _onGameEvent() {
     if (_isNavigating) return;
     if (!mounted) return;
 
-    if (gameService.isWin) {
-      _isNavigating = true;
-      _timer.cancel();
-      _audioPlayer.stop();
-      widget.onGameEnd?.call(gameService.score);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => EndGamePage(
-            isWin: true,
-            level: gameService.score,
-            totalWordsCompleted: gameService.totalWordsCompleted,
-            accuracy: gameService.accuracy,
-            wordTimes: gameService.wordTimes,
-            words: gameService.words,
-            averageSpeed: gameService.averageTimePerWord,
-            onGameEnd: widget.onGameEnd,
-          ),
-        ),
-      );
+    if (gameService.isWin || gameService.isFinished) {
+      _navigateToEndGame(isWin: gameService.isWin);
       return;
     }
 
@@ -163,6 +304,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
     gameService.removeListener(_onGameEvent);
     gameService.dispose();
     _timer.cancel();
+    _gameSessionSubscription?.cancel();
     _playerCompleteSubscription?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _audioPlayer.dispose();
@@ -172,26 +314,114 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final localeCode = Localizations.localeOf(context).languageCode;
+    gameService.languageCode = localeCode == 'en' ? 'en' : 'pt';
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
-      isPaused = true;
+      if (gameService.isRunning && gameService.canPause) {
+        gameService.pauseGame();
+        isPaused = gameService.isPaused;
+        _focusNode.unfocus();
+        _syncRemoteGameState();
+      }
       _audioPlayer.pause();
-    } else if (state == AppLifecycleState.resumed && !isPaused) {
+    } else if (state == AppLifecycleState.resumed && !gameService.isPaused) {
       _audioPlayer.resume();
     }
     setState(() {});
     super.didChangeAppLifecycleState(state);
   }
 
-  void _togglePause() {
+  Future<void> _togglePause() async {
+    if (gameService.isFinished || gameService.isSubmittingWord) return;
+
+    final activeGameId = gameService.gameId;
+    if (gameService.isServerAuthoritative &&
+        activeGameId != null &&
+        activeGameId.isNotEmpty) {
+      if (gameService.isPaused) {
+        setState(() {
+          gameService.resumeGame();
+          isPaused = false;
+          _audioPlayer.resume();
+          _focusNode.requestFocus();
+        });
+        final result = await RankingService.resumeGameOnServer(
+          gameId: activeGameId,
+          languageCode: gameService.languageCode,
+        );
+        if (!mounted || _isNavigating || result == null) return;
+        gameService.applyServerStep(result);
+        if (result.status == GameStatus.finished) {
+          _navigateToEndGame(isWin: result.isWin);
+        } else {
+          setState(() {
+            isPaused = gameService.isPaused;
+            _time = gameService.getTimeForWord();
+          });
+        }
+      } else if (gameService.canPause) {
+        setState(() {
+          gameService.pauseGame();
+          isPaused = true;
+          _audioPlayer.pause();
+          _focusNode.unfocus();
+        });
+        final result = await RankingService.pauseGameOnServer(
+          gameId: activeGameId,
+          languageCode: gameService.languageCode,
+        );
+        if (!mounted || _isNavigating || result == null) return;
+        gameService.applyServerStep(result);
+        if (result.status == GameStatus.finished) {
+          _navigateToEndGame(isWin: result.isWin);
+        } else {
+          setState(() {
+            isPaused = gameService.isPaused;
+            _time = gameService.getTimeForWord();
+          });
+        }
+      }
+      return;
+    }
+
+    var changed = false;
     setState(() {
-      isPaused = !isPaused;
-      if (isPaused) {
-        _audioPlayer.pause();
-      } else {
+      if (gameService.isPaused) {
+        changed = gameService.resumeGame();
+        isPaused = false;
         _audioPlayer.resume();
+        _focusNode.requestFocus();
+      } else if (gameService.canPause) {
+        changed = gameService.pauseGame();
+        isPaused = true;
+        _audioPlayer.pause();
+        _focusNode.unfocus();
       }
     });
+
+    if (changed) {
+      _syncRemoteGameState();
+    }
+  }
+
+  void _syncRemoteGameState() {
+    final activeGameId = gameService.gameId;
+    if (activeGameId != null && activeGameId.isNotEmpty) {
+      RankingService.syncGameSessionState(
+        gameId: activeGameId,
+        status: gameService.status,
+        pauseCount: gameService.pauseCount,
+        totalPausedDurationMs: gameService.totalPausedDurationMs,
+        wordsCompleted: gameService.totalWordsCompleted,
+        score: gameService.score,
+      );
+    }
   }
 
   void _toggleMute() {
@@ -247,6 +477,17 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Widget _buildTopBar(AppStrings strings, bool isWide) {
+    final statusLabel = gameService.isPaused
+        ? strings.gamePausedStatus
+        : gameService.isFinished
+            ? strings.gameFinishedStatus
+            : strings.gameRunningStatus;
+    final statusColor = gameService.isPaused
+        ? AppColors.accentYellow
+        : gameService.isFinished
+            ? AppColors.accentRed
+            : AppColors.accentGreen;
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: isWide ? 48 : 20,
@@ -283,6 +524,25 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   color: AppColors.textPrimary,
                 ),
               ),
+              const SizedBox(width: 12),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: statusColor.withAlpha(25),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: statusColor.withAlpha(90)),
+                ),
+                child: Text(
+                  statusLabel,
+                  style: TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                    color: statusColor,
+                  ),
+                ),
+              ),
             ],
           ),
           Row(
@@ -312,13 +572,19 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 tooltip: _isMuted ? strings.soundOff : strings.soundOn,
               ),
               IconButton(
-                onPressed: _togglePause,
+                onPressed:
+                    (gameService.isPaused || gameService.canPause)
+                        ? _togglePause
+                        : null,
                 icon: Icon(
-                  isPaused ? Icons.play_arrow : Icons.pause,
-                  color: AppColors.textSecondary,
+                  gameService.isPaused ? Icons.play_arrow : Icons.pause,
+                  color: (gameService.isPaused || gameService.canPause)
+                      ? AppColors.textSecondary
+                      : AppColors.textMuted,
                   size: 22,
                 ),
-                tooltip: strings.pause,
+                tooltip:
+                    '${strings.pause} (${gameService.remainingPauses}/${GameService.maxPauses})',
               ),
             ],
           ),
@@ -328,8 +594,10 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Widget _buildMetricsHud(AppStrings strings, bool isWide) {
-    final points =
-        (gameService.totalWordsCompleted * 100) + (gameService.score * 10);
+    final points = gameService.score;
+    final deltaPoints = gameService.lastWordPoints > 0
+        ? gameService.lastWordPoints
+        : gameService.currentWord.basePoints;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -358,9 +626,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  '+50',
-                  style: TextStyle(
+                Text(
+                  '+$deltaPoints',
+                  style: const TextStyle(
                     fontFamily: 'monospace',
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -430,7 +698,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
   Widget _buildSessionProgress(AppStrings strings) {
     final current = gameService.indexWordUseds.length;
-    final total = gameService.words.isNotEmpty ? gameService.words.length : 200;
+    final total = gameService.sessionTotalWords;
     final progress = total > 0 ? (current / total).clamp(0.0, 1.0) : 0.0;
 
     return Column(
@@ -476,9 +744,11 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
     final spans = <TextSpan>[];
     for (var i = 0; i < word.length; i++) {
-      final wordChar = word[i];
+      final wordChar = gameService.isPaused ? '•' : word[i];
       Color color;
-      if (i < input.length) {
+      if (gameService.isPaused) {
+        color = AppColors.textMuted;
+      } else if (i < input.length) {
         color =
             input[i] == wordChar ? AppColors.accentGreen : AppColors.accentRed;
       } else {
@@ -501,15 +771,45 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
 
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: const TextStyle(
-              letterSpacing: 2,
-              fontFamily: 'monospace',
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            ImageFiltered(
+              imageFilter: ImageFilter.blur(
+                sigmaX: gameService.isPaused ? 8 : 0,
+                sigmaY: gameService.isPaused ? 8 : 0,
+              ),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: const TextStyle(
+                    letterSpacing: 2,
+                    fontFamily: 'monospace',
+                  ),
+                  children: spans,
+                ),
+              ),
             ),
-            children: spans,
-          ),
+            if (gameService.isPaused)
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceElevated,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: AppColors.accentYellow),
+                ),
+                child: Text(
+                  strings.pausedWordHidden,
+                  style: const TextStyle(
+                    fontFamily: 'monospace',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.accentYellow,
+                  ),
+                ),
+              ),
+          ],
         ),
         const SizedBox(height: 16),
         Row(
@@ -589,14 +889,17 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
               controller: _controllerInput,
               focusNode: _focusNode,
               autofocus: true,
-              enabled: !isPaused,
+              enabled: gameService.isRunning,
+              readOnly: gameService.isSubmittingWord,
               style: const TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 18,
                 color: AppColors.textPrimary,
               ),
               decoration: InputDecoration(
-                hintText: strings.typeWord,
+                hintText: gameService.isPaused
+                    ? strings.pausedWordHidden
+                    : strings.typeWord,
                 hintStyle: const TextStyle(
                   fontFamily: 'monospace',
                   fontSize: 16,
@@ -605,6 +908,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 border: InputBorder.none,
               ),
               onChanged: (text) {
+                if (!gameService.isRunning || gameService.isSubmittingWord) {
+                  return;
+                }
                 gameService.recordKeystroke();
                 if (text.isNotEmpty &&
                     text.length <= gameService.currentWord.text.length &&
@@ -612,10 +918,26 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                         gameService.currentWord.text[text.length - 1]) {
                   gameService.addCorrectKeystroke();
                 }
+                if (gameService.isServerAuthoritative) {
+                  setState(() {});
+                  if (text.trim() == gameService.currentWord.text) {
+                    _submitWordToServer(text.trim());
+                  }
+                  return;
+                }
                 gameService.writing(word: text);
                 setState(() {});
               },
               onFieldSubmitted: (text) {
+                if (!gameService.isRunning || gameService.isSubmittingWord) {
+                  return;
+                }
+                if (gameService.isServerAuthoritative) {
+                  if (text.trim() == gameService.currentWord.text) {
+                    _submitWordToServer(text.trim());
+                  }
+                  return;
+                }
                 gameService.writing(word: text);
               },
             ),

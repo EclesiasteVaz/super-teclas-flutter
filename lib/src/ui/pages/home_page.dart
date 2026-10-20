@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:super_teclas/main.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
@@ -80,6 +81,7 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
+    await RankingService.ensureAuthenticatedUser();
     await StorageService.saveUsername(name);
     if (mounted) {
       setState(() => _username = name);

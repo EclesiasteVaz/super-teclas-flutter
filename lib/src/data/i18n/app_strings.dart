@@ -109,4 +109,9 @@ class AppStrings {
   String get instructionsLine2 => isPortuguese
       ? 'Cada palavra correta dá mais tempo!'
       : 'Each correct word gives you more time!';
+  String get gameRunningStatus => isPortuguese ? 'Decorrendo' : 'Running';
+  String get gamePausedStatus => isPortuguese ? 'Pausado' : 'Paused';
+  String get gameFinishedStatus => isPortuguese ? 'Terminado' : 'Finished';
+  String get pausedWordHidden =>
+      isPortuguese ? 'JOGO PAUSADO' : 'GAME PAUSED';
 }

@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:super_teclas/src/config/env.dart';
 import 'package:super_teclas/src/data/words/word_bank.dart';
+import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/ui/pages/home_page.dart';
 import 'package:super_teclas/src/ui/theme/app_colors.dart';
 
@@ -33,11 +35,27 @@ void main() async {
 
   await Env.load();
 
-  if (Env.supabaseUrl.isNotEmpty && Env.supabaseAnonKey.isNotEmpty) {
-    await Supabase.initialize(
-      url: Env.supabaseUrl,
-      publishableKey: Env.supabaseAnonKey,
-    );
+  if (Env.isFirebaseConfigured) {
+    try {
+      await Firebase.initializeApp(
+        options: FirebaseOptions(
+          apiKey: Env.firebaseApiKey,
+          appId: Env.firebaseAppId,
+          messagingSenderId: Env.firebaseMessagingSenderId,
+          projectId: Env.firebaseProjectId,
+          storageBucket: Env.firebaseStorageBucket.isNotEmpty
+              ? Env.firebaseStorageBucket
+              : null,
+          authDomain: Env.firebaseAuthDomain.isNotEmpty
+              ? Env.firebaseAuthDomain
+              : null,
+          measurementId: Env.firebaseMeasurementId.isNotEmpty
+              ? Env.firebaseMeasurementId
+              : null,
+        ),
+      );
+      await RankingService.ensureAuthenticatedUser();
+    } catch (_) {}
   }
 
   await SharedPreferences.getInstance();
@@ -64,6 +82,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _setLocale(Locale locale) {
+    WordBank.load(languageCode: locale.languageCode);
     setState(() => _locale = locale);
   }
 
