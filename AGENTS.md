@@ -26,9 +26,9 @@ lib/
     │   ├── models/word_model.dart    # WordModel (faz trim no construtor)
     │   └── words/word_bank.dart      # Palavras PT e EN
     ├── services/
-    │   ├── game_service.dart         # ChangeNotifier com lógica do jogo
-    │   ├── ranking_service.dart      # Serviço de ranking Supabase
-    │   └── storage_service.dart      # Persistência local criptografada
+    │   ├── game_service.dart         # ChangeNotifier com lógica do jogo e estados
+    │   ├── ranking_service.dart      # Serviço de ranking e sessões Firebase
+    │   └── storage_service.dart      # Persistência local (SharedPreferences)
     └── ui/
         ├── pages/
         │   ├── dictionary_page.dart  # Consulta de vocabulário
@@ -245,10 +245,15 @@ flutter test --coverage && genhtml coverage/lcov.info  # Cobertura
 
 ### Execução Local (Web / Mobile)
 ```bash
-# Web com Supabase
+# Web com Firebase
 flutter run -d chrome \
-  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+  --dart-define=FIREBASE_API_KEY=your-firebase-api-key \
+  --dart-define=FIREBASE_APP_ID=your-firebase-app-id \
+  --dart-define=FIREBASE_PROJECT_ID=your-firebase-project-id \
+  --dart-define=FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id \
+  --dart-define=FIREBASE_STORAGE_BUCKET=your-project.appspot.com \
+  --dart-define=FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com \
+  --dart-define=API_BASE_URL=https://your-project.vercel.app
 
 # Mobile / Desktop (lê automaticamente de .env se existir)
 flutter run -d android
@@ -264,8 +269,13 @@ flutter run -d macos
 Passos:
 ```bash
 flutter build web --release \
-  --dart-define=SUPABASE_URL=https://vstopwdfkoizsbveeicn.supabase.co \
-  --dart-define=SUPABASE_ANON_KEY=sb_publishable_QTy4SSQFlj7L9WIK3HabvQ_KP3EFXSN
+  --dart-define=FIREBASE_API_KEY=your-firebase-api-key \
+  --dart-define=FIREBASE_APP_ID=your-firebase-app-id \
+  --dart-define=FIREBASE_PROJECT_ID=your-firebase-project-id \
+  --dart-define=FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id \
+  --dart-define=FIREBASE_STORAGE_BUCKET=your-project.appspot.com \
+  --dart-define=FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com \
+  --dart-define=API_BASE_URL=https://your-project.vercel.app
 
 vercel --prod
 ```
@@ -284,7 +294,7 @@ vercel --prod
 
 ## ⚠️ Problemas Conhecidos & Observações
 
-1. **Persistência de High Score:** High score local é apenas em memória (`_highScore` em `_HomePageState`) — o ranking persistido é salvo no Supabase.
+1. **Persistência de High Score:** High score local é em memória (`_highScore` em `_HomePageState`) — o ranking persistido é validado pelo backend e salvo no Firestore.
 2. **Sem tratamento de erro de áudio:** Se `audioplayers` falha ao carregar asset, o erro é silencioso.
 3. **Confete:** Animação customizada com `CustomPainter` (60 partículas), sem pacote externo.
 4. **Música de fundo (5MB):** Pode impactar tempo de carregamento inicial, especialmente na Web.
