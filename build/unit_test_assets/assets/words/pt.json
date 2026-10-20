@@ -1,0 +1,2627 @@
+[
+  {
+    "word": "Supercalifragilístico",
+    "difficulty": "hard",
+    "definition": "Palavra inventada que significa algo extremamente bom ou maravilhoso"
+  },
+  {
+    "word": "Eletroencefalograma",
+    "difficulty": "hard",
+    "definition": "Exame que registra a atividade elétrica do cérebro"
+  },
+  {
+    "word": "Idiossincrasia",
+    "difficulty": "hard",
+    "definition": "Característica peculiar ou individual de uma pessoa"
+  },
+  {
+    "word": "Inconstitucional",
+    "difficulty": "hard",
+    "definition": "Que vai contra a constituição de um país"
+  },
+  {
+    "word": "Anticonstitucional",
+    "difficulty": "hard",
+    "definition": "Oposto aos princípios da constituição"
+  },
+  {
+    "word": "Paralelepípedo",
+    "difficulty": "hard",
+    "definition": "Bloco retangular de pedra ou concreto usado em pavimentação"
+  },
+  {
+    "word": "Desnecessário",
+    "difficulty": "hard",
+    "definition": "Que não é preciso ou que poderia ser evitado"
+  },
+  {
+    "word": "Estabelecimento",
+    "difficulty": "hard",
+    "definition": "Local ou instituição onde se desenvolve uma atividade"
+  },
+  {
+    "word": "Desenvolvimento",
+    "difficulty": "hard",
+    "definition": "Processo de crescer, evoluir ou progredir"
+  },
+  {
+    "word": "Conhecimento",
+    "difficulty": "hard",
+    "definition": "Ato de saber algo através de estudo ou experiência"
+  },
+  {
+    "word": "Companheirismo",
+    "difficulty": "hard",
+    "definition": "Espírito de amizade e solidariedade entre pessoas"
+  },
+  {
+    "word": "Responsabilidade",
+    "difficulty": "hard",
+    "definition": "Obrigaçãoo ou encargo que se tem com algo ou alguém"
+  },
+  {
+    "word": "Vulnerabilidade",
+    "difficulty": "hard",
+    "definition": "Estado de ser suscetível a danos ou ataques"
+  },
+  {
+    "word": "Complexidade",
+    "difficulty": "hard",
+    "definition": "Qualidade de ser complicado ou difícil de entender"
+  },
+  {
+    "word": "Criatividade",
+    "difficulty": "hard",
+    "definition": "Capacidade de criar coisas novas ou solucionar problemas de forma original"
+  },
+  {
+    "word": "Independência",
+    "difficulty": "hard",
+    "definition": "Estado de ser livre e autônomo, sem depender de outros"
+  },
+  {
+    "word": "Correspondência",
+    "difficulty": "hard",
+    "definition": "Relação de semelhança entre duas coisas; também cartas trocadas"
+  },
+  {
+    "word": "Participação",
+    "difficulty": "hard",
+    "definition": "Ato de tomar parte em algo ou de contribuir"
+  },
+  {
+    "word": "Complementaridade",
+    "difficulty": "hard",
+    "definition": "Qualidade de completar algo que estava incompleto"
+  },
+  {
+    "word": "Investigação",
+    "difficulty": "hard",
+    "definition": "Ato de apurar fatos ou descobrir verdades através de pesquisa"
+  },
+  {
+    "word": "Transformação",
+    "difficulty": "hard",
+    "definition": "Ato ou efeito de mudar de forma ou características"
+  },
+  {
+    "word": "Internacional",
+    "difficulty": "hard",
+    "definition": "Que envolve ou ultrapassa as fronteiras de um país"
+  },
+  {
+    "word": "Contemporâneo",
+    "difficulty": "hard",
+    "definition": "Que vive ou existe no mesmo período de tempo"
+  },
+  {
+    "word": "Surpreendente",
+    "difficulty": "hard",
+    "definition": "Que causa admiração ou espanto por ser inesperado"
+  },
+  {
+    "word": "Impressionante",
+    "difficulty": "hard",
+    "definition": "Que causa grande impacto ou admiração"
+  },
+  {
+    "word": "Inesquecível",
+    "difficulty": "hard",
+    "definition": "Que não pode ser esquecido; memorável"
+  },
+  {
+    "word": "Inacreditável",
+    "difficulty": "hard",
+    "definition": "Difícil de acreditar; extraordinário"
+  },
+  {
+    "word": "Incontestável",
+    "difficulty": "hard",
+    "definition": "Que não pode ser contestado ou discutido"
+  },
+  {
+    "word": "Inexplicável",
+    "difficulty": "hard",
+    "definition": "Que não pode ser explicado ou compreendido"
+  },
+  {
+    "word": "Reconhecimento",
+    "difficulty": "hard",
+    "definition": "Ato de identificar algo ou de agradecer por um mérito"
+  },
+  {
+    "word": "Agradecimento",
+    "difficulty": "hard",
+    "definition": "Expressão de gratidão por algo recebido"
+  },
+  {
+    "word": "Esclarecimento",
+    "difficulty": "hard",
+    "definition": "Ato de explicar ou tornar claro algo obscuro"
+  },
+  {
+    "word": "Comportamento",
+    "difficulty": "hard",
+    "definition": "Maneira como uma pessoa age ou se conduz"
+  },
+  {
+    "word": "Funcionamento",
+    "difficulty": "hard",
+    "definition": "Modo como algo opera ou trabalha"
+  },
+  {
+    "word": "Relacionamento",
+    "difficulty": "hard",
+    "definition": "Laço afetivo ou de convivência entre pessoas"
+  },
+  {
+    "word": "Comprometimento",
+    "difficulty": "hard",
+    "definition": "Ato de se comprometer com algo; envolvimento"
+  },
+  {
+    "word": "Entretenimento",
+    "difficulty": "hard",
+    "definition": "Atividade que diverte ou distrai"
+  },
+  {
+    "word": "Biodiversidade",
+    "difficulty": "hard",
+    "definition": "Variety de seres vivos em um determinado ecossistema"
+  },
+  {
+    "word": "Fotossíntese",
+    "difficulty": "hard",
+    "definition": "Processo pelo qual plantas convertem luz em energia"
+  },
+  {
+    "word": "Paleontologia",
+    "difficulty": "hard",
+    "definition": "Estudo dos seres vivos que existiram em eras passadas"
+  },
+  {
+    "word": "Cardiovascular",
+    "difficulty": "hard",
+    "definition": "Relativo ao coração e aos vasos sanguíneos"
+  },
+  {
+    "word": "Neurocientista",
+    "difficulty": "hard",
+    "definition": "Profissional que estuda o sistema nervoso"
+  },
+  {
+    "word": "Extraordinário",
+    "difficulty": "hard",
+    "definition": "Que vai além do comum; excepcional"
+  },
+  {
+    "word": "Insubstituível",
+    "difficulty": "hard",
+    "definition": "Que não pode ser substituído por outro"
+  },
+  {
+    "word": "Multidisciplinar",
+    "difficulty": "hard",
+    "definition": "Que envolve várias áreas do conhecimento"
+  },
+  {
+    "word": "Ininterrupto",
+    "difficulty": "hard",
+    "definition": "Que não tem interrupção; contínuo"
+  },
+  {
+    "word": "Simultaneamente",
+    "difficulty": "hard",
+    "definition": "Ao mesmo tempo; de forma concorrente"
+  },
+  {
+    "word": "Constantemente",
+    "difficulty": "hard",
+    "definition": "De forma contínua e sem parar"
+  },
+  {
+    "word": "Aparentemente",
+    "difficulty": "hard",
+    "definition": "Pelo que parece à primeira vista"
+  },
+  {
+    "word": "Definitivamente",
+    "difficulty": "hard",
+    "definition": "De forma permanente e sem possibilidade de mudança"
+  },
+  {
+    "word": "Automaticamente",
+    "difficulty": "hard",
+    "definition": "De forma automática, sem intervenção manual"
+  },
+  {
+    "word": "Espetacularmente",
+    "difficulty": "hard",
+    "definition": "De forma admirável e surpreendente"
+  },
+  {
+    "word": "Otorrinolaringologista",
+    "difficulty": "hard",
+    "definition": "Médico especialista em ouvido, nariz e garganta"
+  },
+  {
+    "word": "Gastroenterologista",
+    "difficulty": "hard",
+    "definition": "Médico especialista no sistema digestivo"
+  },
+  {
+    "word": "Parlamentarismo",
+    "difficulty": "hard",
+    "definition": "Sistema de governo baseado no parlamento"
+  },
+  {
+    "word": "Descontentamento",
+    "difficulty": "hard",
+    "definition": "Estado de insatisfação com algo ou alguém"
+  },
+  {
+    "word": "Constitucional",
+    "difficulty": "hard",
+    "definition": "Que está de acordo com a constituição"
+  },
+  {
+    "word": "Revolucionário",
+    "difficulty": "hard",
+    "definition": "Que provoca ou representa uma revolução; inovador"
+  },
+  {
+    "word": "Tradicionalmente",
+    "difficulty": "hard",
+    "definition": "De acordo com o costume ou tradição"
+  },
+  {
+    "word": "Posicionamento",
+    "difficulty": "hard",
+    "definition": "Ato de se posicionar ou de definir uma posição"
+  },
+  {
+    "word": "Acompanhamento",
+    "difficulty": "hard",
+    "definition": "Ato de acompanhar ou monitorar algo"
+  },
+  {
+    "word": "Acontecimento",
+    "difficulty": "hard",
+    "definition": "Evento ou fato que acontece"
+  },
+  {
+    "word": "Aprimoramento",
+    "difficulty": "hard",
+    "definition": "Ato de tornar algo melhor ou mais refinado"
+  },
+  {
+    "word": "Questionamento",
+    "difficulty": "hard",
+    "definition": "Ato de duvidar ou de fazer perguntas"
+  },
+  {
+    "word": "Individualismo",
+    "difficulty": "hard",
+    "definition": "Tendência de valorizar o indivíduo sobre o grupo"
+  },
+  {
+    "word": "Desnacionalização",
+    "difficulty": "hard",
+    "definition": "Ato de transferir bens do Estado para o setor privado"
+  },
+  {
+    "word": "Desmistificação",
+    "difficulty": "hard",
+    "definition": "Ato de tirar o misticismo ou os mitos de algo"
+  },
+  {
+    "word": "Interdisciplinar",
+    "difficulty": "hard",
+    "definition": "Que integra conhecimentos de diferentes disciplinas"
+  },
+  {
+    "word": "Contraditório",
+    "difficulty": "hard",
+    "definition": "Que apresenta contradições ou oposições"
+  },
+  {
+    "word": "Despretensioso",
+    "difficulty": "hard",
+    "definition": "Simples, sem afetação ou pretensão"
+  },
+  {
+    "word": "Especificamente",
+    "difficulty": "hard",
+    "definition": "De forma particular e determinada"
+  },
+  {
+    "word": "Característica",
+    "difficulty": "hard",
+    "definition": "Traço ou qualidade que distingue algo ou alguém"
+  },
+  {
+    "word": "Beneficiamento",
+    "difficulty": "hard",
+    "definition": "Processo de melhorar ou aperfeiçoar uma matéria-prima"
+  },
+  {
+    "word": "Contabilidade",
+    "difficulty": "hard",
+    "definition": "Ciência que estuda os registros financeiros de uma empresa"
+  },
+  {
+    "word": "Determinístico",
+    "difficulty": "hard",
+    "definition": "Que é determinado por causas anteriores; previsível"
+  },
+  {
+    "word": "Manteiga",
+    "difficulty": "medium",
+    "definition": "Produto alimentício feito de gordura de leite batida"
+  },
+  {
+    "word": "Macarrão",
+    "difficulty": "medium",
+    "definition": "Massa alimentícia feita de farinha de trigo"
+  },
+  {
+    "word": "Professor",
+    "difficulty": "medium",
+    "definition": "Pessoa que ensina em uma escola ou instituição"
+  },
+  {
+    "word": "Cachorro",
+    "difficulty": "medium",
+    "definition": "Animal doméstico da família dos cães"
+  },
+  {
+    "word": "Borboleta",
+    "difficulty": "medium",
+    "definition": "Inseto com asas coloridas que voa de forma suave"
+  },
+  {
+    "word": "Biblioteca",
+    "difficulty": "medium",
+    "definition": "Local onde se guardam livros para consulta ou empréstimo"
+  },
+  {
+    "word": "Estudante",
+    "difficulty": "medium",
+    "definition": "Pessoa que se dedica aos estudos em uma instituição"
+  },
+  {
+    "word": "Caminhão",
+    "difficulty": "medium",
+    "definition": "Veículo grande utilizado para transportar cargas"
+  },
+  {
+    "word": "Floresta",
+    "difficulty": "medium",
+    "definition": "Grande extensão de terra coberta de árvores"
+  },
+  {
+    "word": "Montanha",
+    "difficulty": "medium",
+    "definition": "Elevação natural do terreno maior que uma colina"
+  },
+  {
+    "word": "Sobremesa",
+    "difficulty": "medium",
+    "definition": "Doce ou fruta servido no final de uma refeição"
+  },
+  {
+    "word": "Chocolate",
+    "difficulty": "medium",
+    "definition": "Doce feito de cacau, leite e açúcar"
+  },
+  {
+    "word": "Amendoim",
+    "difficulty": "medium",
+    "definition": "Fruto da planta leguminosa, comestível e nutritivo"
+  },
+  {
+    "word": "Framboesa",
+    "difficulty": "medium",
+    "definition": "Fruto vermelho e pequeno de arbusto espinhoso"
+  },
+  {
+    "word": "Brócolis",
+    "difficulty": "medium",
+    "definition": "Hortaliça verde comestível da família das crucíferas"
+  },
+  {
+    "word": "Aprender",
+    "difficulty": "medium",
+    "definition": "Adquirir conhecimento ou habilidade através de estudo"
+  },
+  {
+    "word": "Escrever",
+    "difficulty": "medium",
+    "definition": "Formar letras e palavras em um suporte"
+  },
+  {
+    "word": "Desenhar",
+    "difficulty": "medium",
+    "definition": "Representar imagens usando traços e linhas"
+  },
+  {
+    "word": "Caminhar",
+    "difficulty": "medium",
+    "definition": "Andar a pé de um lugar para outro"
+  },
+  {
+    "word": "Conversar",
+    "difficulty": "medium",
+    "definition": "Trocars palavras com outra pessoa; dialogar"
+  },
+  {
+    "word": "Mergulhar",
+    "difficulty": "medium",
+    "definition": "Entrar debaixo d'água mantendo a respiração"
+  },
+  {
+    "word": "Telefonar",
+    "difficulty": "medium",
+    "definition": "Ligar para alguém usando o telefone"
+  },
+  {
+    "word": "Brilhante",
+    "difficulty": "medium",
+    "definition": "Que emite muita luz; também significa muito talentoso"
+  },
+  {
+    "word": "Silencioso",
+    "difficulty": "medium",
+    "definition": "Que não faz barulho; calmo"
+  },
+  {
+    "word": "Barulhento",
+    "difficulty": "medium",
+    "definition": "Que faz muito barulho ou ruído"
+  },
+  {
+    "word": "Delicioso",
+    "difficulty": "medium",
+    "definition": "Muito gostoso; aprazível ao paladar"
+  },
+  {
+    "word": "Precioso",
+    "difficulty": "medium",
+    "definition": "De grande valor; estimado"
+  },
+  {
+    "word": "Carinhoso",
+    "difficulty": "medium",
+    "definition": "Que demonstra afeto e ternura"
+  },
+  {
+    "word": "Cansativo",
+    "difficulty": "medium",
+    "definition": "Que causa cansaço ou fadiga"
+  },
+  {
+    "word": "Perigoso",
+    "difficulty": "medium",
+    "definition": "Que oferece risco ou pode causar dano"
+  },
+  {
+    "word": "Generoso",
+    "difficulty": "medium",
+    "definition": "Que dá com liberalidade; bondoso"
+  },
+  {
+    "word": "Sabedoria",
+    "difficulty": "medium",
+    "definition": "Qualidade de quem tem sapiência e bom juízo"
+  },
+  {
+    "word": "Paciência",
+    "difficulty": "medium",
+    "definition": "Capacidade de esperar sem se irritar"
+  },
+  {
+    "word": "Humildade",
+    "difficulty": "medium",
+    "definition": "Qualidade de quem não se julga superior aos outros"
+  },
+  {
+    "word": "Sinceridade",
+    "difficulty": "medium",
+    "definition": "Qualidade de ser franco e honesto"
+  },
+  {
+    "word": "Disciplina",
+    "difficulty": "medium",
+    "definition": "Ordem e método no cumprimento de deveres"
+  },
+  {
+    "word": "Tolerância",
+    "difficulty": "medium",
+    "definition": "Respeito pelas opiniões e comportamentos alheios"
+  },
+  {
+    "word": "Maravilhoso",
+    "difficulty": "medium",
+    "definition": "Que causa admiração ou espanto; extraordinário"
+  },
+  {
+    "word": "Engenheiro",
+    "difficulty": "medium",
+    "definition": "Profissional que aplica ciência para projetar e construir"
+  },
+  {
+    "word": "Advogado",
+    "difficulty": "medium",
+    "definition": "Profissional que defende direitos em juízo"
+  },
+  {
+    "word": "Policial",
+    "difficulty": "medium",
+    "definition": "Profissional responsável pela manutenção da ordem pública"
+  },
+  {
+    "word": "Bombeiro",
+    "difficulty": "medium",
+    "definition": "Profissional que combate incêndios e presta socorro"
+  },
+  {
+    "word": "Dentista",
+    "difficulty": "medium",
+    "definition": "Profissional que cuida da saúde bucal"
+  },
+  {
+    "word": "Cientista",
+    "difficulty": "medium",
+    "definition": "Pessoa que dedica sua vida à pesquisa científica"
+  },
+  {
+    "word": "Escritor",
+    "difficulty": "medium",
+    "definition": "Pessoa que escreve livros, textos ou obras literárias"
+  },
+  {
+    "word": "Elefante",
+    "difficulty": "medium",
+    "definition": "Maior mamífero terrestre, com tromba e presas grandes"
+  },
+  {
+    "word": "Dinossauro",
+    "difficulty": "medium",
+    "definition": "Réptil gigante que habitou a Terra milhões de anos atrás"
+  },
+  {
+    "word": "Camaleão",
+    "difficulty": "medium",
+    "definition": "Réptil que muda de cor conforme o ambiente"
+  },
+  {
+    "word": "Tartaruga",
+    "difficulty": "medium",
+    "definition": "Réptil com casco duro que se move lentamente"
+  },
+  {
+    "word": "Passarinho",
+    "difficulty": "medium",
+    "definition": "Ave pequena que costuma cantar"
+  },
+  {
+    "word": "Cachoeira",
+    "difficulty": "medium",
+    "definition": "Queda d'água em um curso de rio"
+  },
+  {
+    "word": "Relâmpago",
+    "difficulty": "medium",
+    "definition": "Flash de luz no céu durante uma tempestade"
+  },
+  {
+    "word": "Trovoada",
+    "difficulty": "medium",
+    "definition": "Fenômeno atmosférico com relâmpagos e trovões"
+  },
+  {
+    "word": "Terremoto",
+    "difficulty": "medium",
+    "definition": "Tremor de terra causado por movimento das placas tectônicas"
+  },
+  {
+    "word": "Amanhecer",
+    "difficulty": "medium",
+    "definition": "Momento em que o sol começa a nascer"
+  },
+  {
+    "word": "Anoitecer",
+    "difficulty": "medium",
+    "definition": "Momento em que a noite começa a cair"
+  },
+  {
+    "word": "Telefone",
+    "difficulty": "medium",
+    "definition": "Aparato usado para se comunicar à distância por voz"
+  },
+  {
+    "word": "Calculadora",
+    "difficulty": "medium",
+    "definition": "Máquina eletrônica para realizar cálculos matemáticos"
+  },
+  {
+    "word": "Computador",
+    "difficulty": "medium",
+    "definition": "Máquina eletrônica que processa dados e informações"
+  },
+  {
+    "word": "Microfone",
+    "difficulty": "medium",
+    "definition": "Aparelho que transforma som em sinal elétrico"
+  },
+  {
+    "word": "Travesseiro",
+    "difficulty": "medium",
+    "definition": "Almofada usada para apoiar a cabeça ao dormir"
+  },
+  {
+    "word": "Lanterna",
+    "difficulty": "medium",
+    "definition": "Aparelho portátil que emite luz"
+  },
+  {
+    "word": "Ventilador",
+    "difficulty": "medium",
+    "definition": "Aparelho que movimenta o ar para refrescar"
+  },
+  {
+    "word": "Almofada",
+    "difficulty": "medium",
+    "definition": "Saco de tecido reenchido para apoiar o corpo"
+  },
+  {
+    "word": "Geladeira",
+    "difficulty": "medium",
+    "definition": "Eletrodoméstico que mantém alimentos refrigerados"
+  },
+  {
+    "word": "Fogareiro",
+    "difficulty": "medium",
+    "definition": "Aparelho portátil para cozinhar usando gás"
+  },
+  {
+    "word": "Chuveiro",
+    "difficulty": "medium",
+    "definition": "Aparelho que jorra água para o banho"
+  },
+  {
+    "word": "Alimento",
+    "difficulty": "medium",
+    "definition": "Toda substância que serve de nutrição ao corpo"
+  },
+  {
+    "word": "Sanduíche",
+    "difficulty": "medium",
+    "definition": "Alimento feito com pão recheado com diversos ingredientes"
+  },
+  {
+    "word": "Açougueiro",
+    "difficulty": "medium",
+    "definition": "Profissional que vende carnes em um açougue"
+  },
+  {
+    "word": "Acontecer",
+    "difficulty": "medium",
+    "definition": "Ocorrer ou suceder-se um fato"
+  },
+  {
+    "word": "Repórter",
+    "difficulty": "medium",
+    "definition": "Profissional que pesquisa e noticia fatos jornalísticos"
+  },
+  {
+    "word": "Jornalismo",
+    "difficulty": "medium",
+    "definition": "Profissão e ciência de produzir notícias"
+  },
+  {
+    "word": "Fotografia",
+    "difficulty": "medium",
+    "definition": "Arte e técnica de capturar imagens com uma câmera"
+  },
+  {
+    "word": "Arco-íris",
+    "difficulty": "medium",
+    "definition": "Arco de sete cores que surge no céu após a chuva"
+  },
+  {
+    "word": "Casa",
+    "difficulty": "easy",
+    "definition": "Edificação onde as pessoas moram"
+  },
+  {
+    "word": "Livro",
+    "difficulty": "easy",
+    "definition": "Conjunto de páginas encadernadas com conteúdo escrito"
+  },
+  {
+    "word": "Gato",
+    "difficulty": "easy",
+    "definition": "Animal doméstico felino, pequeno e ágil"
+  },
+  {
+    "word": "Árvore",
+    "difficulty": "easy",
+    "definition": "Planta grande com tronco, galhos e folhas"
+  },
+  {
+    "word": "Flor",
+    "difficulty": "easy",
+    "definition": "Parte colorida da planta que produz sementes"
+  },
+  {
+    "word": "Peixe",
+    "difficulty": "easy",
+    "definition": "Animal que vive na água e respira por guelras"
+  },
+  {
+    "word": "Tempo",
+    "difficulty": "easy",
+    "definition": "Medida em que se sucedem os acontecimentos"
+  },
+  {
+    "word": "Amigo",
+    "difficulty": "easy",
+    "definition": "Pessoa com quem se tem afeto e confiança"
+  },
+  {
+    "word": "Mundo",
+    "difficulty": "easy",
+    "definition": "O planeta Terra e todos os seus seres vivos"
+  },
+  {
+    "word": "Noite",
+    "difficulty": "easy",
+    "definition": "Período do dia entre o pôr do sol e o amanhecer"
+  },
+  {
+    "word": "Fogo",
+    "difficulty": "easy",
+    "definition": "Combustão que produz chamas e calor"
+  },
+  {
+    "word": "Água",
+    "difficulty": "easy",
+    "definition": "Líquido transparente essencial para a vida"
+  },
+  {
+    "word": "Terra",
+    "difficulty": "easy",
+    "definition": "Solo; também o planeta que habitamos"
+  },
+  {
+    "word": "Vento",
+    "difficulty": "easy",
+    "definition": "Movimento do ar na atmosfera"
+  },
+  {
+    "word": "Rosto",
+    "difficulty": "easy",
+    "definition": "Parte frontal da cabeça com olhos, nariz e boca"
+  },
+  {
+    "word": "Olho",
+    "difficulty": "easy",
+    "definition": "Órgão da visão localizado no rosto"
+  },
+  {
+    "word": "Boca",
+    "difficulty": "easy",
+    "definition": "Órgão usado para falar, comer e sentir o paladar"
+  },
+  {
+    "word": "Sangue",
+    "difficulty": "easy",
+    "definition": "Líquido vermelho que circula pelo corpo"
+  },
+  {
+    "word": "Fruta",
+    "difficulty": "easy",
+    "definition": "Parte comestível de plantas que contém sementes"
+  },
+  {
+    "word": "Leite",
+    "difficulty": "easy",
+    "definition": "Líquido branco nutritivo produzido pelas fêmeas de mamíferos"
+  },
+  {
+    "word": "Queijo",
+    "difficulty": "easy",
+    "definition": "Alimento feito de leite coalhado e curado"
+  },
+  {
+    "word": "Arroz",
+    "difficulty": "easy",
+    "definition": "Cereal alimentício muito consumido no mundo"
+  },
+  {
+    "word": "Doce",
+    "difficulty": "easy",
+    "definition": "Alimento preparado com açúcar e sabores variados"
+  },
+  {
+    "word": "Festa",
+    "difficulty": "easy",
+    "definition": "Celebração com música, dança e diversão"
+  },
+  {
+    "word": "Dança",
+    "difficulty": "easy",
+    "definition": "Movimentos rítmicos do corpo ao som de música"
+  },
+  {
+    "word": "Sonho",
+    "difficulty": "easy",
+    "definition": "Imagens que aparecem durante o sono; também desejo"
+  },
+  {
+    "word": "Caneta",
+    "difficulty": "easy",
+    "definition": "Instrumento usado para escrever ou desenhar"
+  },
+  {
+    "word": "Papel",
+    "difficulty": "easy",
+    "definition": "Material fino feito de celulose para escrever ou imprimir"
+  },
+  {
+    "word": "Caderno",
+    "difficulty": "easy",
+    "definition": "Conjunto de páginas de papel encadernadas para anotar"
+  },
+  {
+    "word": "Escola",
+    "difficulty": "easy",
+    "definition": "Instituição onde se ministra ensino e educação"
+  },
+  {
+    "word": "Aluno",
+    "difficulty": "easy",
+    "definition": "Pessoa que estuda em uma instituição de ensino"
+  },
+  {
+    "word": "Língua",
+    "difficulty": "easy",
+    "definition": "Órgão da boca; também sistema de comunicação verbal"
+  },
+  {
+    "word": "Falar",
+    "difficulty": "easy",
+    "definition": "Expressar ideias por meio de palavras"
+  },
+  {
+    "word": "Verbo",
+    "difficulty": "easy",
+    "definition": "Classe de palavra que indica ação, estado ou fenômeno"
+  },
+  {
+    "word": "Ação",
+    "difficulty": "easy",
+    "definition": "Ato de fazer algo; movimento com propósito"
+  },
+  {
+    "word": "Beleza",
+    "difficulty": "easy",
+    "definition": "Qualidade de ser belo ou agradável de ver"
+  },
+  {
+    "word": "Grande",
+    "difficulty": "easy",
+    "definition": "Que tem muita extensão, tamanho ou importância"
+  },
+  {
+    "word": "Pequeno",
+    "difficulty": "easy",
+    "definition": "Que tem pouca extensão ou tamanho"
+  },
+  {
+    "word": "Veloz",
+    "difficulty": "easy",
+    "definition": "Que se move com rapidez"
+  },
+  {
+    "word": "Lento",
+    "difficulty": "easy",
+    "definition": "Que se move com pouca velocidade"
+  },
+  {
+    "word": "Claro",
+    "difficulty": "easy",
+    "definition": "Que tem luz abundante; também fácil de entender"
+  },
+  {
+    "word": "Escuro",
+    "difficulty": "easy",
+    "definition": "Que tem pouca ou nenhuma luz"
+  },
+  {
+    "word": "Fácil",
+    "difficulty": "easy",
+    "definition": "Que não é difícil; que se faz sem esforço"
+  },
+  {
+    "word": "Difícil",
+    "difficulty": "easy",
+    "definition": "Que não é fácil; que exige esforço ou habilidade"
+  },
+  {
+    "word": "Simples",
+    "difficulty": "easy",
+    "definition": "Que não é complicado; básico e direto"
+  },
+  {
+    "word": "Tarde",
+    "difficulty": "easy",
+    "definition": "Período do dia depois do meio-dia; também com atraso"
+  },
+  {
+    "word": "Cedo",
+    "difficulty": "easy",
+    "definition": "Em início de período; com antecedência"
+  },
+  {
+    "word": "Amanhã",
+    "difficulty": "easy",
+    "definition": "O dia que se segue ao de hoje"
+  },
+  {
+    "word": "Chave",
+    "difficulty": "easy",
+    "definition": "Objeto que serve para abrir ou fechar uma fechadura"
+  },
+  {
+    "word": "Mesa",
+    "difficulty": "easy",
+    "definition": "Mobília com tampa plana e pernas para apoiar objetos"
+  },
+  {
+    "word": "Foco",
+    "difficulty": "easy",
+    "definition": "Concentração total em um objetivo ou atividade"
+  },
+  {
+    "word": "Ritmo",
+    "difficulty": "easy",
+    "definition": "Cadência e padrão regular de repetição"
+  },
+  {
+    "word": "Teclar",
+    "difficulty": "easy",
+    "definition": "Ato de pressionar teclas no teclado"
+  },
+  {
+    "word": "Mouse",
+    "difficulty": "easy",
+    "definition": "Dispositivo periférico de apontamento"
+  },
+  {
+    "word": "Tela",
+    "difficulty": "easy",
+    "definition": "Superfície onde as imagens são exibidas"
+  },
+  {
+    "word": "Voz",
+    "difficulty": "easy",
+    "definition": "Som produzido pela vibração das cordas vocais"
+  },
+  {
+    "word": "Som",
+    "difficulty": "easy",
+    "definition": "Sensação auditiva produzida pela vibração do ar"
+  },
+  {
+    "word": "Dado",
+    "difficulty": "easy",
+    "definition": "Elemento base de informação"
+  },
+  {
+    "word": "Rede",
+    "difficulty": "easy",
+    "definition": "Sistema interconectado de comunicação"
+  },
+  {
+    "word": "Pixel",
+    "difficulty": "easy",
+    "definition": "Menor unidade de uma imagem digital"
+  },
+  {
+    "word": "Nuvem",
+    "difficulty": "easy",
+    "definition": "Serviços de computação distribuídos online"
+  },
+  {
+    "word": "Web",
+    "difficulty": "easy",
+    "definition": "Rede mundial de computadores e páginas"
+  },
+  {
+    "word": "Bot",
+    "difficulty": "easy",
+    "definition": "Software automatizado para tarefas repetitivas"
+  },
+  {
+    "word": "Código",
+    "difficulty": "easy",
+    "definition": "Conjunto de instruções escritas para computadores"
+  },
+  {
+    "word": "App",
+    "difficulty": "easy",
+    "definition": "Aplicativo ou software para dispositivos"
+  },
+  {
+    "word": "Byte",
+    "difficulty": "easy",
+    "definition": "Unidade padrão de informação digital"
+  },
+  {
+    "word": "Bit",
+    "difficulty": "easy",
+    "definition": "Menor unidade binária de dados (0 ou 1)"
+  },
+  {
+    "word": "Site",
+    "difficulty": "easy",
+    "definition": "Local na rede que reúne páginas da web"
+  },
+  {
+    "word": "Plano",
+    "difficulty": "easy",
+    "definition": "Estratégia organizada para alcançar um fim"
+  },
+  {
+    "word": "Meta",
+    "difficulty": "easy",
+    "definition": "Alvo ou objetivo pretendido"
+  },
+  {
+    "word": "Jogo",
+    "difficulty": "easy",
+    "definition": "Atividade lúdica com regras e desafios"
+  },
+  {
+    "word": "Luz",
+    "difficulty": "easy",
+    "definition": "Radiação eletromagnética visível ao olho"
+  },
+  {
+    "word": "Sol",
+    "difficulty": "easy",
+    "definition": "Estrela central do nosso sistema planetário"
+  },
+  {
+    "word": "Lua",
+    "difficulty": "easy",
+    "definition": "Satélite natural que orbita a Terra"
+  },
+  {
+    "word": "Mar",
+    "difficulty": "easy",
+    "definition": "Grande extensão de água salgada"
+  },
+  {
+    "word": "Rio",
+    "difficulty": "easy",
+    "definition": "Curso natural de água doce em movimento"
+  },
+  {
+    "word": "Ar",
+    "difficulty": "easy",
+    "definition": "Mistura gasosa que envolve o planeta"
+  },
+  {
+    "word": "Arte",
+    "difficulty": "easy",
+    "definition": "Expressão criativa e estética humana"
+  },
+  {
+    "word": "Cor",
+    "difficulty": "easy",
+    "definition": "Impressão visual da luz refletida"
+  },
+  {
+    "word": "Vida",
+    "difficulty": "easy",
+    "definition": "Estado de atividade dos organismos biológicos"
+  },
+  {
+    "word": "Paz",
+    "difficulty": "easy",
+    "definition": "Estado de harmonia, serenidade e tranquilidade"
+  },
+  {
+    "word": "Amor",
+    "difficulty": "easy",
+    "definition": "Sentimento profundo de afeto e dedicação"
+  },
+  {
+    "word": "Hora",
+    "difficulty": "easy",
+    "definition": "Unidade de tempo correspondente a 60 minutos"
+  },
+  {
+    "word": "Ano",
+    "difficulty": "easy",
+    "definition": "Período orbital da Terra em torno do Sol"
+  },
+  {
+    "word": "Dia",
+    "difficulty": "easy",
+    "definition": "Período de vinte e quatro horas terrestres"
+  },
+  {
+    "word": "Mês",
+    "difficulty": "easy",
+    "definition": "Divisão temporal do calendário anual"
+  },
+  {
+    "word": "Fase",
+    "difficulty": "easy",
+    "definition": "Etapa ou estágio em um processo"
+  },
+  {
+    "word": "Mapa",
+    "difficulty": "easy",
+    "definition": "Representação gráfica do espaço geográfico"
+  },
+  {
+    "word": "Rota",
+    "difficulty": "easy",
+    "definition": "Trajeto ou itinerário a ser percorrido"
+  },
+  {
+    "word": "Salto",
+    "difficulty": "easy",
+    "definition": "Movimento de impulso para o ar"
+  },
+  {
+    "word": "Ponto",
+    "difficulty": "easy",
+    "definition": "Marca gráfica elementar ou score no jogo"
+  },
+  {
+    "word": "Topo",
+    "difficulty": "easy",
+    "definition": "Parte mais alta ou primeira posição"
+  },
+  {
+    "word": "Mente",
+    "difficulty": "easy",
+    "definition": "Conjunto de faculdades cognitivas e psíquicas"
+  },
+  {
+    "word": "Corpo",
+    "difficulty": "easy",
+    "definition": "Estrutura física material do ser vivo"
+  },
+  {
+    "word": "Mão",
+    "difficulty": "easy",
+    "definition": "Extremidade dos membros superiores"
+  },
+  {
+    "word": "Dedo",
+    "difficulty": "easy",
+    "definition": "Prolongamento móvel articulado das mãos"
+  },
+  {
+    "word": "Novo",
+    "difficulty": "easy",
+    "definition": "Algo recente ou recém-criado"
+  },
+  {
+    "word": "Rápido",
+    "difficulty": "easy",
+    "definition": "Que se move com grande velocidade"
+  },
+  {
+    "word": "Ágil",
+    "difficulty": "easy",
+    "definition": "Que tem destreza, flexibilidade e ligeireza"
+  },
+  {
+    "word": "Belo",
+    "difficulty": "easy",
+    "definition": "Que agrada aos sentidos e tem harmonia"
+  },
+  {
+    "word": "Puro",
+    "difficulty": "easy",
+    "definition": "Sem mistura, autêntico e genuíno"
+  },
+  {
+    "word": "Calmo",
+    "difficulty": "easy",
+    "definition": "Sereno, tranquilo e sem agitação"
+  },
+  {
+    "word": "Firme",
+    "difficulty": "easy",
+    "definition": "Sólido, constante e seguro"
+  },
+  {
+    "word": "Vivo",
+    "difficulty": "easy",
+    "definition": "Dotado de vitalidade, energia e atividade"
+  },
+  {
+    "word": "Certo",
+    "difficulty": "easy",
+    "definition": "Correto, exato e sem enganos"
+  },
+  {
+    "word": "Justo",
+    "difficulty": "easy",
+    "definition": "Equitativo, correto e honesto"
+  },
+  {
+    "word": "Forte",
+    "difficulty": "easy",
+    "definition": "Dotado de vigor, potência e resistência"
+  },
+  {
+    "word": "Livre",
+    "difficulty": "easy",
+    "definition": "Que tem autonomia e liberdade"
+  },
+  {
+    "word": "Pleno",
+    "difficulty": "easy",
+    "definition": "Totalmente preenchido, completo e pleno"
+  },
+  {
+    "word": "Sábio",
+    "difficulty": "easy",
+    "definition": "Pessoa dotada de conhecimento e prudência"
+  },
+  {
+    "word": "Apto",
+    "difficulty": "easy",
+    "definition": "Capaz e preparado para uma função"
+  },
+  {
+    "word": "Breve",
+    "difficulty": "easy",
+    "definition": "De curta duração ou sucinto"
+  },
+  {
+    "word": "Grato",
+    "difficulty": "easy",
+    "definition": "Que reconhece um benefício com gratidão"
+  },
+  {
+    "word": "Nobre",
+    "difficulty": "easy",
+    "definition": "De sentimentos elevados e generosos"
+  },
+  {
+    "word": "Leal",
+    "difficulty": "easy",
+    "definition": "Fiel aos compromissos e princípios"
+  },
+  {
+    "word": "Sutil",
+    "difficulty": "easy",
+    "definition": "Delicado, engenhoso e pouco perceptível"
+  },
+  {
+    "word": "Texto",
+    "difficulty": "easy",
+    "definition": "Conjunto coerente de palavras escritas"
+  },
+  {
+    "word": "Frase",
+    "difficulty": "easy",
+    "definition": "Enunciado que transmite sentido completo"
+  },
+  {
+    "word": "Linha",
+    "difficulty": "easy",
+    "definition": "Traço contínuo ou sequência de caracteres"
+  },
+  {
+    "word": "Página",
+    "difficulty": "easy",
+    "definition": "Lado de uma folha ou documento web"
+  },
+  {
+    "word": "Tema",
+    "difficulty": "easy",
+    "definition": "Assunto central ou padrão estético visual"
+  },
+  {
+    "word": "Ícone",
+    "difficulty": "easy",
+    "definition": "Símbolo gráfico representativo em interfaces"
+  },
+  {
+    "word": "Menu",
+    "difficulty": "easy",
+    "definition": "Lista de opções ou comandos disponíveis"
+  },
+  {
+    "word": "Barra",
+    "difficulty": "easy",
+    "definition": "Elemento retangular de interface ou controle"
+  },
+  {
+    "word": "Aba",
+    "difficulty": "easy",
+    "definition": "Guia para navegação entre visões"
+  },
+  {
+    "word": "Pasta",
+    "difficulty": "easy",
+    "definition": "Diretório de organização de arquivos"
+  },
+  {
+    "word": "Disco",
+    "difficulty": "easy",
+    "definition": "Unidade magnética ou sólida de armazenamento"
+  },
+  {
+    "word": "Porta",
+    "difficulty": "easy",
+    "definition": "Ponto de comunicação em redes de dados"
+  },
+  {
+    "word": "Cabo",
+    "difficulty": "easy",
+    "definition": "Condutor elétrico ou óptico de sinais"
+  },
+  {
+    "word": "Fio",
+    "difficulty": "easy",
+    "definition": "Filamento fino para condução de corrente"
+  },
+  {
+    "word": "Pilha",
+    "difficulty": "easy",
+    "definition": "Fonte de energia portátil ou estrutura LIFO"
+  },
+  {
+    "word": "Fila",
+    "difficulty": "easy",
+    "definition": "Sequência ordenada do tipo FIFO"
+  },
+  {
+    "word": "Grafo",
+    "difficulty": "easy",
+    "definition": "Estrutura composta por nós e arestas"
+  },
+  {
+    "word": "Lista",
+    "difficulty": "easy",
+    "definition": "Coleção linear de elementos ou itens"
+  },
+  {
+    "word": "Nó",
+    "difficulty": "easy",
+    "definition": "Elemento de uma estrutura interligada"
+  },
+  {
+    "word": "Valor",
+    "difficulty": "easy",
+    "definition": "Conteúdo associado a uma variável ou chave"
+  },
+  {
+    "word": "Tipo",
+    "difficulty": "easy",
+    "definition": "Classificação de uma entidade ou dado"
+  },
+  {
+    "word": "Loop",
+    "difficulty": "easy",
+    "definition": "Repetição contínua de um bloco de código"
+  },
+  {
+    "word": "Vetor",
+    "difficulty": "easy",
+    "definition": "Arranjo sequencial de dados em memória"
+  },
+  {
+    "word": "Bug",
+    "difficulty": "easy",
+    "definition": "Falha ou defeito inesperado em software"
+  },
+  {
+    "word": "Teclado",
+    "difficulty": "medium",
+    "definition": "Conjunto ordenado de teclas alfanuméricas"
+  },
+  {
+    "word": "Terminal",
+    "difficulty": "medium",
+    "definition": "Interface de linha de comando para texto"
+  },
+  {
+    "word": "Software",
+    "difficulty": "medium",
+    "definition": "Conjunto de programas e rotinas digitais"
+  },
+  {
+    "word": "Hardware",
+    "difficulty": "medium",
+    "definition": "Componentes físicos e eletrônicos do sistema"
+  },
+  {
+    "word": "Memória",
+    "difficulty": "medium",
+    "definition": "Capacidade de armazenamento e retenção de dados"
+  },
+  {
+    "word": "Processo",
+    "difficulty": "medium",
+    "definition": "Conjunto de ações ordenadas em execução"
+  },
+  {
+    "word": "Conexão",
+    "difficulty": "medium",
+    "definition": "Ligação comunicativa entre dois nós ou pontos"
+  },
+  {
+    "word": "Servidor",
+    "difficulty": "medium",
+    "definition": "Sistema que fornece recursos e serviços na rede"
+  },
+  {
+    "word": "Cliente",
+    "difficulty": "medium",
+    "definition": "Aplicação que solicita serviços ao servidor"
+  },
+  {
+    "word": "Arquivo",
+    "difficulty": "medium",
+    "definition": "Coleção estruturada de dados gravados em disco"
+  },
+  {
+    "word": "Sistema",
+    "difficulty": "medium",
+    "definition": "Conjunto integrado de partes que interagem"
+  },
+  {
+    "word": "Projeto",
+    "difficulty": "medium",
+    "definition": "Esforço temporário para criar um produto único"
+  },
+  {
+    "word": "Função",
+    "difficulty": "medium",
+    "definition": "Bloco de instruções que processa entradas"
+  },
+  {
+    "word": "Método",
+    "difficulty": "medium",
+    "definition": "Procedimento sistemático ou função de classe"
+  },
+  {
+    "word": "Objeto",
+    "difficulty": "medium",
+    "definition": "Instância concreta de uma classe em programação"
+  },
+  {
+    "word": "Módulo",
+    "difficulty": "medium",
+    "definition": "Unidade independente e reutilizável de código"
+  },
+  {
+    "word": "Pacote",
+    "difficulty": "medium",
+    "definition": "Agrupamento de bibliotecas e recursos afins"
+  },
+  {
+    "word": "Variável",
+    "difficulty": "medium",
+    "definition": "Espaço nomeado em memória para guardar valores"
+  },
+  {
+    "word": "Constante",
+    "difficulty": "medium",
+    "definition": "Valor imutável durante o ciclo do programa"
+  },
+  {
+    "word": "Estrutura",
+    "difficulty": "medium",
+    "definition": "Organização e disposição de partes de um todo"
+  },
+  {
+    "word": "Algoritmo",
+    "difficulty": "medium",
+    "definition": "Sequência lógica e finita de passos para cálculo"
+  },
+  {
+    "word": "Gramática",
+    "difficulty": "medium",
+    "definition": "Conjunto de regras de estruturação da linguagem"
+  },
+  {
+    "word": "Sintaxe",
+    "difficulty": "medium",
+    "definition": "Regras formais que regem combinações válidas"
+  },
+  {
+    "word": "Semântica",
+    "difficulty": "medium",
+    "definition": "Significado e interpretação das expressões"
+  },
+  {
+    "word": "Interface",
+    "difficulty": "medium",
+    "definition": "Ponto de interação entre usuário e sistema"
+  },
+  {
+    "word": "Gráfico",
+    "difficulty": "medium",
+    "definition": "Representação visual de dados e relações"
+  },
+  {
+    "word": "Diagrama",
+    "difficulty": "medium",
+    "definition": "Desenho esquemático para ilustrar processos"
+  },
+  {
+    "word": "Controle",
+    "difficulty": "medium",
+    "definition": "Mecanismo de monitoramento e direcionamento"
+  },
+  {
+    "word": "Evento",
+    "difficulty": "medium",
+    "definition": "Acontecimento detectável por sistemas ou código"
+  },
+  {
+    "word": "Suporte",
+    "difficulty": "medium",
+    "definition": "Auxílio técnico e manutenção prestada"
+  },
+  {
+    "word": "Serviço",
+    "difficulty": "medium",
+    "definition": "Trabalho ou funcionalidade provida a terceiros"
+  },
+  {
+    "word": "Usuário",
+    "difficulty": "medium",
+    "definition": "Pessoa que interage com uma aplicação"
+  },
+  {
+    "word": "Perfil",
+    "difficulty": "medium",
+    "definition": "Conjunto de dados que caracterizam um usuário"
+  },
+  {
+    "word": "Histórico",
+    "difficulty": "medium",
+    "definition": "Registro cronológico de ações passadas"
+  },
+  {
+    "word": "Métrica",
+    "difficulty": "medium",
+    "definition": "Medida quantitativa de desempenho e avaliação"
+  },
+  {
+    "word": "Estatística",
+    "difficulty": "medium",
+    "definition": "Ciência que coleta, analisa e interpreta dados"
+  },
+  {
+    "word": "Precisão",
+    "difficulty": "medium",
+    "definition": "Exatidão rigorosa na execução de uma ação"
+  },
+  {
+    "word": "Agilidade",
+    "difficulty": "medium",
+    "definition": "Capacidade de mudar de direção rapidamente"
+  },
+  {
+    "word": "Destreza",
+    "difficulty": "medium",
+    "definition": "Habilidade manual e coordenação motora fina"
+  },
+  {
+    "word": "Evolução",
+    "difficulty": "medium",
+    "definition": "Desenvolvimento gradual para um estado superior"
+  },
+  {
+    "word": "Desafio",
+    "difficulty": "medium",
+    "definition": "Situação complexa que exige superação e perícia"
+  },
+  {
+    "word": "Conquista",
+    "difficulty": "medium",
+    "definition": "Realização bem-sucedida de um objetivo árduo"
+  },
+  {
+    "word": "Vitória",
+    "difficulty": "medium",
+    "definition": "Êxito final obtido em competição ou disputa"
+  },
+  {
+    "word": "Derrota",
+    "difficulty": "medium",
+    "definition": "Resultado adverso que serve de aprendizado"
+  },
+  {
+    "word": "Treinamento",
+    "difficulty": "medium",
+    "definition": "Prática orientada para aperfeiçoar habilidades"
+  },
+  {
+    "word": "Exercício",
+    "difficulty": "medium",
+    "definition": "Atividade física ou mental de aprimoramento"
+  },
+  {
+    "word": "Prática",
+    "difficulty": "medium",
+    "definition": "Aplicação repetida de teorias e técnicas"
+  },
+  {
+    "word": "Habilidade",
+    "difficulty": "medium",
+    "definition": "Capacidade aprendida de realizar tarefas com perícia"
+  },
+  {
+    "word": "Talento",
+    "difficulty": "medium",
+    "definition": "Aptidão natural ou facilidade para realizar algo"
+  },
+  {
+    "word": "Reflexo",
+    "difficulty": "medium",
+    "definition": "Resposta involuntária e veloz a um estímulo"
+  },
+  {
+    "word": "Atenção",
+    "difficulty": "medium",
+    "definition": "Concentração seletiva em determinado foco"
+  },
+  {
+    "word": "Cadência",
+    "difficulty": "medium",
+    "definition": "Compasso rítmico harmônico e consistente"
+  },
+  {
+    "word": "Estabilidade",
+    "difficulty": "medium",
+    "definition": "Capacidade de manter o equilíbrio sob pressão"
+  },
+  {
+    "word": "Segurança",
+    "difficulty": "medium",
+    "definition": "Estado de proteção contra perigos e vulnerabilidades"
+  },
+  {
+    "word": "Privacidade",
+    "difficulty": "medium",
+    "definition": "Direito de manter informações pessoais reservadas"
+  },
+  {
+    "word": "Criptografia",
+    "difficulty": "medium",
+    "definition": "Técnica de codificação para proteger dados"
+  },
+  {
+    "word": "Protocolo",
+    "difficulty": "medium",
+    "definition": "Conjunto formal de regras de comunicação em redes"
+  },
+  {
+    "word": "Roteador",
+    "difficulty": "medium",
+    "definition": "Dispositivo que encaminha pacotes entre redes"
+  },
+  {
+    "word": "Navegador",
+    "difficulty": "medium",
+    "definition": "Programa utilizado para visualizar páginas na web"
+  },
+  {
+    "word": "Renderizar",
+    "difficulty": "medium",
+    "definition": "Gerar visualmente elementos gráficos na tela"
+  },
+  {
+    "word": "Compilador",
+    "difficulty": "medium",
+    "definition": "Tradutor de código fonte para linguagem de máquina"
+  },
+  {
+    "word": "Depurador",
+    "difficulty": "medium",
+    "definition": "Ferramenta para encontrar e sanar falhas em código"
+  },
+  {
+    "word": "Framework",
+    "difficulty": "medium",
+    "definition": "Estrutura pré-fabricada de suporte a desenvolvimento"
+  },
+  {
+    "word": "Parâmetro",
+    "difficulty": "medium",
+    "definition": "Variável informada como argumento a uma função"
+  },
+  {
+    "word": "Retorno",
+    "difficulty": "medium",
+    "definition": "Valor fornecido de volta ao término da função"
+  },
+  {
+    "word": "Comando",
+    "difficulty": "medium",
+    "definition": "Ordem expressa digitada para execução imediata"
+  },
+  {
+    "word": "Operador",
+    "difficulty": "medium",
+    "definition": "Símbolo que executa cálculo ou lógica entre dados"
+  },
+  {
+    "word": "Expressão",
+    "difficulty": "medium",
+    "definition": "Combinação de valores e operadores que gera um dado"
+  },
+  {
+    "word": "Condição",
+    "difficulty": "medium",
+    "definition": "Cláusula lógica que determina o fluxo do programa"
+  },
+  {
+    "word": "Ponteiro",
+    "difficulty": "medium",
+    "definition": "Variável que armazena endereço de memória"
+  },
+  {
+    "word": "Recursão",
+    "difficulty": "medium",
+    "definition": "Técnica em que uma função invoca a si mesma"
+  },
+  {
+    "word": "Iteração",
+    "difficulty": "medium",
+    "definition": "Execução repetida de um passo em um algoritmo"
+  },
+  {
+    "word": "Dicionário",
+    "difficulty": "medium",
+    "definition": "Coleção de termos com definições e explicações"
+  },
+  {
+    "word": "Vocabulário",
+    "difficulty": "medium",
+    "definition": "Conjunto de palavras conhecidas e dominadas"
+  },
+  {
+    "word": "Linguagem",
+    "difficulty": "medium",
+    "definition": "Sistema de signos usado na comunicação humana"
+  },
+  {
+    "word": "Discurso",
+    "difficulty": "medium",
+    "definition": "Exposição verbal ou textual articulada"
+  },
+  {
+    "word": "Contexto",
+    "difficulty": "medium",
+    "definition": "Ambiente ou circunstâncias em que algo ocorre"
+  },
+  {
+    "word": "Conceito",
+    "difficulty": "medium",
+    "definition": "Ideia abstrata que sintetiza um entendimento"
+  },
+  {
+    "word": "Princípio",
+    "difficulty": "medium",
+    "definition": "Fundamento ou regra essencial que orienta ações"
+  },
+  {
+    "word": "Teorema",
+    "difficulty": "medium",
+    "definition": "Proposição matemática demonstrada por axiomas"
+  },
+  {
+    "word": "Hipótese",
+    "difficulty": "medium",
+    "definition": "Suposição formulada como base para investigação"
+  },
+  {
+    "word": "Pesquisa",
+    "difficulty": "medium",
+    "definition": "Investigação sistemática para descobrir conhecimentos"
+  },
+  {
+    "word": "Ciência",
+    "difficulty": "medium",
+    "definition": "Corpo de conhecimento metódico sobre o universo"
+  },
+  {
+    "word": "Física",
+    "difficulty": "medium",
+    "definition": "Estudo da matéria, energia, espaço e tempo"
+  },
+  {
+    "word": "Química",
+    "difficulty": "medium",
+    "definition": "Ciência que estuda substâncias e suas transformações"
+  },
+  {
+    "word": "Biologia",
+    "difficulty": "medium",
+    "definition": "Ciência da vida e dos organismos vivos"
+  },
+  {
+    "word": "História",
+    "difficulty": "medium",
+    "definition": "Estudo crítico dos acontecimentos do passado humano"
+  },
+  {
+    "word": "Geografia",
+    "difficulty": "medium",
+    "definition": "Ciência da superfície terrestre e populações"
+  },
+  {
+    "word": "Filosofia",
+    "difficulty": "medium",
+    "definition": "Investigação reflexiva da existência e conhecimento"
+  },
+  {
+    "word": "Sociologia",
+    "difficulty": "medium",
+    "definition": "Estudo científico da sociedade e relações humanas"
+  },
+  {
+    "word": "Economia",
+    "difficulty": "medium",
+    "definition": "Ciência da produção, distribuição e consumo"
+  },
+  {
+    "word": "Ecologia",
+    "difficulty": "medium",
+    "definition": "Relações entre seres vivos e seu meio ambiente"
+  },
+  {
+    "word": "Universo",
+    "difficulty": "medium",
+    "definition": "Totalidade do espaço, tempo, matéria e energia"
+  },
+  {
+    "word": "Galáxia",
+    "difficulty": "medium",
+    "definition": "Vasto sistema estelar mantido por forças gravitacionais"
+  },
+  {
+    "word": "Planeta",
+    "difficulty": "medium",
+    "definition": "Corpo celeste esférico que orbita uma estrela"
+  },
+  {
+    "word": "Satélite",
+    "difficulty": "medium",
+    "definition": "Corpo natural ou artificial que orbita um planeta"
+  },
+  {
+    "word": "Cometa",
+    "difficulty": "medium",
+    "definition": "Corpo gelado do sistema solar que libera gases"
+  },
+  {
+    "word": "Asteroide",
+    "difficulty": "medium",
+    "definition": "Pequeno corpo rochoso que orbita o Sol"
+  },
+  {
+    "word": "Gravidade",
+    "difficulty": "medium",
+    "definition": "Força fundamental de atração entre corpos com massa"
+  },
+  {
+    "word": "Sustentabilidade",
+    "difficulty": "hard",
+    "definition": "Capacidade de suprir o presente sem esgotar o futuro"
+  },
+  {
+    "word": "Interoperabilidade",
+    "difficulty": "hard",
+    "definition": "Habilidade de sistemas diversos operarem em conjunto"
+  },
+  {
+    "word": "Escalabilidade",
+    "difficulty": "hard",
+    "definition": "Aptidão para expandir capacidade sob maior demanda"
+  },
+  {
+    "word": "Acessibilidade",
+    "difficulty": "hard",
+    "definition": "Condição de alcance e uso por pessoas diversas"
+  },
+  {
+    "word": "Usabilidade",
+    "difficulty": "hard",
+    "definition": "Facilidade e intuitividade com que usuários operam sistemas"
+  },
+  {
+    "word": "Compatibilidade",
+    "difficulty": "hard",
+    "definition": "Qualidade de coexistir e integrar sem conflitos"
+  },
+  {
+    "word": "Produtividade",
+    "difficulty": "hard",
+    "definition": "Relação eficiente entre esforço aplicado e resultado gerado"
+  },
+  {
+    "word": "Autenticação",
+    "difficulty": "hard",
+    "definition": "Verificação rigorosa da identidade declarada"
+  },
+  {
+    "word": "Autorização",
+    "difficulty": "hard",
+    "definition": "Concessão formal de permissões e privilégios de acesso"
+  },
+  {
+    "word": "Confidencialidade",
+    "difficulty": "hard",
+    "definition": "Garantia de que dados sigilosos não serão divulgados"
+  },
+  {
+    "word": "Rastreabilidade",
+    "difficulty": "hard",
+    "definition": "Capacidade de acompanhar o histórico de um item"
+  },
+  {
+    "word": "Implementação",
+    "difficulty": "hard",
+    "definition": "Execução prática e concretização de um planejamento"
+  },
+  {
+    "word": "Otimização",
+    "difficulty": "hard",
+    "definition": "Aperfeiçoamento sistemático para máximo rendimento"
+  },
+  {
+    "word": "Refatoração",
+    "difficulty": "hard",
+    "definition": "Reestruturação interna de código sem alterar seu efeito"
+  },
+  {
+    "word": "Arquitetura",
+    "difficulty": "hard",
+    "definition": "Concepção estrutural global de edificações ou softwares"
+  },
+  {
+    "word": "Infraestrutura",
+    "difficulty": "hard",
+    "definition": "Conjunto de instalações e serviços que apoiam a produção"
+  },
+  {
+    "word": "Paralelismo",
+    "difficulty": "hard",
+    "definition": "Execução simultânea de múltiplas tarefas computacionais"
+  },
+  {
+    "word": "Assincronismo",
+    "difficulty": "hard",
+    "definition": "Operação independente sem sincronização temporal fixa"
+  },
+  {
+    "word": "Determinismo",
+    "difficulty": "hard",
+    "definition": "Princípio onde mesmas causas produzem sempre mesmos efeitos"
+  },
+  {
+    "word": "Modularidade",
+    "difficulty": "hard",
+    "definition": "Propriedade de sistemas decompostos em partes autônomas"
+  },
+  {
+    "word": "Polimorfismo",
+    "difficulty": "hard",
+    "definition": "Capacidade de objetos distintos responderem à mesma mensagem"
+  },
+  {
+    "word": "Encapsulamento",
+    "difficulty": "hard",
+    "definition": "Ocultamento dos detalhes internos de um componente"
+  },
+  {
+    "word": "Herança",
+    "difficulty": "hard",
+    "definition": "Mecanismo pelo qual classes adquirem atributos de outras"
+  },
+  {
+    "word": "Abstração",
+    "difficulty": "hard",
+    "definition": "Isolamento das características essenciais de um problema"
+  },
+  {
+    "word": "Concorrência",
+    "difficulty": "hard",
+    "definition": "Gestão de múltiplos fluxos de execução no mesmo período"
+  },
+  {
+    "word": "Sincronização",
+    "difficulty": "hard",
+    "definition": "Coordenação temporal entre múltiplos processos concorrentes"
+  },
+  {
+    "word": "Virtualização",
+    "difficulty": "hard",
+    "definition": "Criação de versões virtuais de recursos computacionais"
+  },
+  {
+    "word": "Contêinerização",
+    "difficulty": "hard",
+    "definition": "Empacotamento de software e dependências em isolamento"
+  },
+  {
+    "word": "Inteligência",
+    "difficulty": "hard",
+    "definition": "Capacidade cognitiva de aprender, raciocinar e adaptar"
+  },
+  {
+    "word": "Neurociência",
+    "difficulty": "hard",
+    "definition": "Estudo interdisciplinar da estrutura e função do cérebro"
+  },
+  {
+    "word": "Biotecnologia",
+    "difficulty": "hard",
+    "definition": "Aplicação tecnológica de organismos e sistemas vivos"
+  },
+  {
+    "word": "Nanotecnologia",
+    "difficulty": "hard",
+    "definition": "Manipulação da matéria em escala atômica e molecular"
+  },
+  {
+    "word": "Eletromagnetismo",
+    "difficulty": "hard",
+    "definition": "Ramo da física que unifica campos elétricos e magnéticos"
+  },
+  {
+    "word": "Termodinâmica",
+    "difficulty": "hard",
+    "definition": "Ramo da física que estuda calor, trabalho e temperatura"
+  },
+  {
+    "word": "Relatividade",
+    "difficulty": "hard",
+    "definition": "Teoria de Einstein que descreve espaço, tempo e gravidade"
+  },
+  {
+    "word": "Mecânica Quântica",
+    "difficulty": "hard",
+    "definition": "Teoria física que rege o comportamento subatômico"
+  },
+  {
+    "word": "Microbiologia",
+    "difficulty": "hard",
+    "definition": "Estudo detalhado dos microrganismos invisíveis a olho nu"
+  },
+  {
+    "word": "Astrofísica",
+    "difficulty": "hard",
+    "definition": "Aplicação da física ao estudo das estrelas e do cosmos"
+  },
+  {
+    "word": "Meteorologia",
+    "difficulty": "hard",
+    "definition": "Ciência que estuda a atmosfera terrestre e clima"
+  },
+  {
+    "word": "Antropologia",
+    "difficulty": "hard",
+    "definition": "Ciência que investiga o homem, sua cultura e origens"
+  },
+  {
+    "word": "Epistemologia",
+    "difficulty": "hard",
+    "definition": "Ramo da filosofia que estuda a natureza do conhecimento"
+  },
+  {
+    "word": "Hermeneutica",
+    "difficulty": "hard",
+    "definition": "Arte e teoria da interpretação de textos e sentidos"
+  },
+  {
+    "word": "Transcendental",
+    "difficulty": "hard",
+    "definition": "Que ultrapassa os limites da experiência comum"
+  },
+  {
+    "word": "Inquestionável",
+    "difficulty": "hard",
+    "definition": "Tão evidente e firme que não admite dúvida"
+  },
+  {
+    "word": "Superação",
+    "difficulty": "hard",
+    "definition": "Ato de vencer dificuldades mediante esforço contínuo"
+  },
+  {
+    "word": "Perseverança",
+    "difficulty": "hard",
+    "definition": "Constância firme em direção a um propósito nobre"
+  },
+  {
+    "word": "Determinação",
+    "difficulty": "hard",
+    "definition": "Firmeza de vontade e resolução inabalável"
+  },
+  {
+    "word": "Tranquilidade",
+    "difficulty": "hard",
+    "definition": "Estado de espírito pacífico, sem aflições ou perturbações"
+  },
+  {
+    "word": "Concentração",
+    "difficulty": "hard",
+    "definition": "Fixação mental intencional em um foco exclusivo"
+  },
+  {
+    "word": "Memorização",
+    "difficulty": "hard",
+    "definition": "Ato de fixar e reter dados na memória para evocação"
+  },
+  {
+    "word": "Compreensão",
+    "difficulty": "hard",
+    "definition": "Ato de perceber o sentido profundo de uma mensagem"
+  },
+  {
+    "word": "Discernimento",
+    "difficulty": "hard",
+    "definition": "Capacidade de julgar situações com clareza e sensatez"
+  },
+  {
+    "word": "Clarividência",
+    "difficulty": "hard",
+    "definition": "Percepção aguçada e previsão precisa dos fatos"
+  },
+  {
+    "word": "Estratégico",
+    "difficulty": "hard",
+    "definition": "Relativo ao planejamento cuidadoso de longo prazo"
+  },
+  {
+    "word": "Metodologia",
+    "difficulty": "hard",
+    "definition": "Conjunto de métodos e regras aplicadas a uma pesquisa"
+  },
+  {
+    "word": "Sistemático",
+    "difficulty": "hard",
+    "definition": "Que opera segundo método organizado e constante"
+  },
+  {
+    "word": "Padronização",
+    "difficulty": "hard",
+    "definition": "Estabelecimento de normas e referências uniformes"
+  },
+  {
+    "word": "Classificação",
+    "difficulty": "hard",
+    "definition": "Ordenação de elementos em grupos segundo critérios"
+  },
+  {
+    "word": "Quantificação",
+    "difficulty": "hard",
+    "definition": "Ato de expressar grandeza por meio de números e medidas"
+  },
+  {
+    "word": "Qualificação",
+    "difficulty": "hard",
+    "definition": "Atribuição de propriedades e competências comprovadas"
+  },
+  {
+    "word": "Capacitação",
+    "difficulty": "hard",
+    "definition": "Treinamento que habilita indivíduos para certas tarefas"
+  },
+  {
+    "word": "Sensibilidade",
+    "difficulty": "hard",
+    "definition": "Faculdade de perceber impressões táteis e emotivas"
+  },
+  {
+    "word": "Versatilidade",
+    "difficulty": "hard",
+    "definition": "Capacidade de se adaptar prontamente a múltiplas funções"
+  },
+  {
+    "word": "Flexibilidade",
+    "difficulty": "hard",
+    "definition": "Propriedade de vergar sem quebrar ou de se ajustar fácil"
+  },
+  {
+    "word": "Inventividade",
+    "difficulty": "hard",
+    "definition": "Capacidade engenhosa de criar novos inventos e ideias"
+  },
+  {
+    "word": "Espontaneidade",
+    "difficulty": "hard",
+    "definition": "Comportamento natural que surge sem imposição externa"
+  },
+  {
+    "word": "Originalidade",
+    "difficulty": "hard",
+    "definition": "Qualidade do que é autêntico e não imitado"
+  },
+  {
+    "word": "Autossuficiente",
+    "difficulty": "hard",
+    "definition": "Capaz de se manter por seus próprios meios"
+  },
+  {
+    "word": "Efervescência",
+    "difficulty": "hard",
+    "definition": "Estado de intensa animação, agitação ou entusiasmo"
+  },
+  {
+    "word": "Magnificência",
+    "difficulty": "hard",
+    "definition": "Grandeza esplêndida e suntuosidade deslumbrante"
+  },
+  {
+    "word": "Grandiosidade",
+    "difficulty": "hard",
+    "definition": "Caráter do que é grandioso, imponente e nobre"
+  },
+  {
+    "word": "Excepcional",
+    "difficulty": "hard",
+    "definition": "Que se desvia da regra geral por sua qualidade superior"
+  },
+  {
+    "word": "Incomparável",
+    "difficulty": "hard",
+    "definition": "De magnitude tão alta que não tem termo de comparação"
+  },
+  {
+    "word": "Indispensável",
+    "difficulty": "hard",
+    "definition": "Essencial à existência ou funcionamento de algo"
+  },
+  {
+    "word": "Fundamental",
+    "difficulty": "hard",
+    "definition": "Que serve de fundação e esteio primário"
+  },
+  {
+    "word": "Significativo",
+    "difficulty": "hard",
+    "definition": "Dotado de valor relevante e sentido marcante"
+  },
+  {
+    "word": "Representativo",
+    "difficulty": "hard",
+    "definition": "Que expressa com fidelidade um grupo ou conjunto"
+  },
+  {
+    "word": "Particularidade",
+    "difficulty": "hard",
+    "definition": "Detalhe específico exclusivo de dada situação"
+  },
+  {
+    "word": "Individualidade",
+    "difficulty": "hard",
+    "definition": "Conjunto de atributos que tornam um ser único"
+  },
+  {
+    "word": "Coletividade",
+    "difficulty": "hard",
+    "definition": "Conjunto de pessoas ligadas por interesses comuns"
+  },
+  {
+    "word": "Sociedade",
+    "difficulty": "hard",
+    "definition": "Sistema organizado de convivência entre seres humanos"
+  },
+  {
+    "word": "Humanidade",
+    "difficulty": "hard",
+    "definition": "O conjunto global de seres humanos e sua natureza compassiva"
+  },
+  {
+    "word": "Fraternidade",
+    "difficulty": "hard",
+    "definition": "União afetiva e solidária entre pessoas como irmãos"
+  },
+  {
+    "word": "Solidariedade",
+    "difficulty": "hard",
+    "definition": "Apoio mútuo e assistência desinteressada ao próximo"
+  },
+  {
+    "word": "Generosidade",
+    "difficulty": "hard",
+    "definition": "Disposição para doar tempo e bens com desprendimento"
+  },
+  {
+    "word": "Benevolência",
+    "difficulty": "hard",
+    "definition": "Vontade favorável e bondosa dirigida aos outros"
+  },
+  {
+    "word": "Magnanimidade",
+    "difficulty": "hard",
+    "definition": "Grandeza de alma inclinada ao perdão e generosidade"
+  },
+  {
+    "word": "Honestidade",
+    "difficulty": "hard",
+    "definition": "Conduta honrada, íntegra e sem dissimulações"
+  },
+  {
+    "word": "Autenticidade",
+    "difficulty": "hard",
+    "definition": "Certeza de que algo é verdadeiro e condiz com a origem"
+  },
+  {
+    "word": "Transparência",
+    "difficulty": "hard",
+    "definition": "Clareza que permite ver tudo sem disfarces"
+  },
+  {
+    "word": "Imparcialidade",
+    "difficulty": "hard",
+    "definition": "Julgamento isento de favoritismos ou paixões"
+  },
+  {
+    "word": "Pontualidade",
+    "difficulty": "hard",
+    "definition": "Hábito rigoroso de cumprir horários estabelecidos"
+  },
+  {
+    "word": "Assiduidade",
+    "difficulty": "hard",
+    "definition": "Presença constante e regular nos compromissos"
+  },
+  {
+    "word": "Serenidade",
+    "difficulty": "hard",
+    "definition": "Tranquilidade da alma diante das vicissitudes"
+  },
+  {
+    "word": "Equanimidade",
+    "difficulty": "hard",
+    "definition": "Constância de ânimo e ânimo sereno em toda sorte"
+  },
+  {
+    "word": "Resiliência",
+    "difficulty": "hard",
+    "definition": "Capacidade de superar traumas e recobrar a forma original"
+  },
+  {
+    "word": "Supercomputador",
+    "difficulty": "hard",
+    "definition": "Computador de altíssima velocidade e processamento massivo"
+  },
+  {
+    "word": "Microprocessador",
+    "difficulty": "hard",
+    "definition": "Circuito integrado que realiza as funções de CPU"
+  },
+  {
+    "word": "Telecomunicação",
+    "difficulty": "hard",
+    "definition": "Transmissão a distância de sinais, voz e dados"
+  },
+  {
+    "word": "Geolocalização",
+    "difficulty": "hard",
+    "definition": "Identificação das coordenadas geográficas de um dispositivo"
+  },
+  {
+    "word": "Cibersegurança",
+    "difficulty": "hard",
+    "definition": "Proteção de redes, computadores e dados contra invasões"
+  },
+  {
+    "word": "Socioambiental",
+    "difficulty": "hard",
+    "definition": "Que combina aspectos sociais humanos com o meio ecológico"
+  },
+  {
+    "word": "Geopolítica",
+    "difficulty": "hard",
+    "definition": "Estudo da influência da geografia na política das nações"
+  },
+  {
+    "word": "Conscientização",
+    "difficulty": "hard",
+    "definition": "Ato de despertar a consciência e clareza sobre fatos"
+  },
+  {
+    "word": "Sensibilização",
+    "difficulty": "hard",
+    "definition": "Processo de tornar indivíduos receptivos e sensíveis"
+  },
+  {
+    "word": "Modernização",
+    "difficulty": "hard",
+    "definition": "Atualização tecnológica e cultural segundo os novos tempos"
+  },
+  {
+    "word": "Industrialização",
+    "difficulty": "hard",
+    "definition": "Expansão massiva da manufatura mecanizada em regiões"
+  },
+  {
+    "word": "Urbanização",
+    "difficulty": "hard",
+    "definition": "Crescimento populacional e estrutural das cidades"
+  },
+  {
+    "word": "Democratização",
+    "difficulty": "hard",
+    "definition": "Ação de tornar o acesso amplo e igualitário a todos"
+  },
+  {
+    "word": "Globalização",
+    "difficulty": "hard",
+    "definition": "Integração econômica, cultural e digital do planeta"
+  },
+  {
+    "word": "Especialização",
+    "difficulty": "hard",
+    "definition": "Aprofundamento técnico em um ramo delimitado do saber"
+  },
+  {
+    "word": "Profissionalismo",
+    "difficulty": "hard",
+    "definition": "Competência ética e técnica no exercício da profissão"
+  },
+  {
+    "word": "Empreendedorismo",
+    "difficulty": "hard",
+    "definition": "Iniciativa de criar projetos e negócios inovadores"
+  },
+  {
+    "word": "Colaboracionismo",
+    "difficulty": "hard",
+    "definition": "Trabalho cooperativo conjunto em prol de um propósito"
+  },
+  {
+    "word": "Cooperativismo",
+    "difficulty": "hard",
+    "definition": "Doutrina que prega a união fraterna para benefício coletivo"
+  },
+  {
+    "word": "Intercomunicação",
+    "difficulty": "hard",
+    "definition": "Comunicação mútua e contínua entre partes"
+  },
+  {
+    "word": "Retrocompatibilidade",
+    "difficulty": "hard",
+    "definition": "Capacidade de sistema novo executar programas antigos"
+  },
+  {
+    "word": "Multiplataforma",
+    "difficulty": "hard",
+    "definition": "Software projetado para operar em múltiplos sistemas"
+  },
+  {
+    "word": "Responsividade",
+    "difficulty": "hard",
+    "definition": "Layout fluido que se ajusta a qualquer tamanho de tela"
+  },
+  {
+    "word": "Descentralizado",
+    "difficulty": "hard",
+    "definition": "Sistema cujas decisões e dados não dependem de nó único"
+  },
+  {
+    "word": "Hiperconvergência",
+    "difficulty": "hard",
+    "definition": "Unificação de computação, rede e storage em uma unidade"
+  },
+  {
+    "word": "Criptoanálise",
+    "difficulty": "hard",
+    "definition": "Estudo de quebra e decodificação de cifras e chaves"
+  },
+  {
+    "word": "Bioinformática",
+    "difficulty": "hard",
+    "definition": "Aplicação da computação à análise de dados biológicos"
+  },
+  {
+    "word": "Aeroespacial",
+    "difficulty": "hard",
+    "definition": "Engenharia de veículos que voam na atmosfera e no espaço"
+  },
+  {
+    "word": "Eletroquímica",
+    "difficulty": "hard",
+    "definition": "Estudo da interconversão entre energia elétrica e química"
+  },
+  {
+    "word": "Fotocondutividade",
+    "difficulty": "hard",
+    "definition": "Aumento da condutividade elétrica induzido pela luz"
+  },
+  {
+    "word": "Supercondutividade",
+    "difficulty": "hard",
+    "definition": "Resistência elétrica nula em materiais ultra-resfriados"
+  },
+  {
+    "word": "Termoelétrico",
+    "difficulty": "hard",
+    "definition": "Dispositivo que converte diferenças térmicas em voltagem"
+  },
+  {
+    "word": "Piezoelétrico",
+    "difficulty": "hard",
+    "definition": "Efeito onde deformação mecânica gera carga elétrica"
+  },
+  {
+    "word": "Fluorescência",
+    "difficulty": "hard",
+    "definition": "Emissão de luz provocada por radiação incidente prévia"
+  },
+  {
+    "word": "Fosforescência",
+    "difficulty": "hard",
+    "definition": "Emissão lenta e prolongada de luz após cessar a excitação"
+  },
+  {
+    "word": "Radiometria",
+    "difficulty": "hard",
+    "definition": "Medição da intensidade de radiação óptica e térmica"
+  },
+  {
+    "word": "Espectrometria",
+    "difficulty": "hard",
+    "definition": "Técnica de medir comprimentos de onda de espectros"
+  },
+  {
+    "word": "Cromatografia",
+    "difficulty": "hard",
+    "definition": "Método químico de separação física de misturas"
+  },
+  {
+    "word": "Ressonância",
+    "difficulty": "hard",
+    "definition": "Amplificação oscilatória quando forças coincidem com fase"
+  },
+  {
+    "word": "Magnetismo",
+    "difficulty": "hard",
+    "definition": "Fenômeno de atração ou repulsão entre polos magnéticos"
+  }
+]

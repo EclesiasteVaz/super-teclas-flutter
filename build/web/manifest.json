@@ -1,0 +1,35 @@
+{
+    "name": "Super Teclas — Jogo de Digitação Rápida",
+    "short_name": "Super Teclas",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#034983",
+    "theme_color": "#034983",
+    "description": "Jogo de digitação rápida contra o tempo com ranking online. Digite palavras em português e inglês antes do tempo acabar.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
