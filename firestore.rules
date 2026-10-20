@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /words/{wordId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /games/{gameId} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /rankings/{rankingId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
