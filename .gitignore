@@ -30,8 +30,8 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-/build/*
-!/build/web/
+/build/
+node_modules/
 
 # Symbolication related
 app.*.symbols
@@ -44,5 +44,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Environment variables
-.env
+# Environment variables and Firebase secrets
+.env*
+!.env.example
+**/firebase_options.dart
+**/google-services.json
+**/GoogleService-Info.plist
+service-account*.json

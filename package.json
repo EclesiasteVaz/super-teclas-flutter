@@ -1,0 +1,11 @@
+{
+  "name": "super-teclas-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "firebase-admin": "^12.6.0"
+  },
+  "scripts": {
+    "seed:words": "node scripts/seed_words.mjs"
+  }
+}
