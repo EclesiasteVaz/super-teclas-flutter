@@ -35,11 +35,13 @@ Challenge yourself to type words accurately before time runs out. Compete on the
 
 ## Screenshots
 
-<!-- Add your screenshots here -->
+| Home & Real-time Ranking | Active Gameplay | End Game & Performance |
+|:---:|:---:|:---:|
+| ![Home](docs/screenshots/home.png) | ![Game](docs/screenshots/game.png) | ![End Game](docs/screenshots/end.png) |
 
-| Home | Gameplay | End Game |
-|:----:|:--------:|:--------:|
-| ![Home](docs/screenshots/home.png) | ![Game](docs/screenshots/game.png) | ![End](docs/screenshots/end.png) |
+| Vocabulary Dictionary | Global Ranking Modal |
+|:---:|:---:|
+| ![Dictionary](docs/screenshots/dictionary.png) | ![Ranking Modal](docs/screenshots/ranking_modal.png) |
 
 ---
 
