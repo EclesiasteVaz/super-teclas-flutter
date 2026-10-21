@@ -189,6 +189,16 @@ class RankingCard extends StatelessWidget {
             ),
           ),
           Text(
+            '$score pts',
+            style: TextStyle(
+              fontFamily: 'monospace',
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: isTop ? AppColors.accentYellow : AppColors.textMuted,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Text(
             '${accuracy.toStringAsFixed(0)}%',
             style: TextStyle(
               fontFamily: 'monospace',

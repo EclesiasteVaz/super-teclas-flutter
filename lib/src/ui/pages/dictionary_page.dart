@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/data/models/word_model.dart';
 import 'package:super_teclas/src/data/words/word_bank.dart';
@@ -15,6 +16,21 @@ class _DictionaryPageState extends State<DictionaryPage> {
   final _searchController = TextEditingController();
   String _selectedDifficulty = 'all';
   String _searchQuery = '';
+  String? _loadedLang;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final lang = Localizations.localeOf(context).languageCode;
+    if (_loadedLang != lang) {
+      _loadedLang = lang;
+      WordBank.load(languageCode: lang).then((_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -278,7 +294,7 @@ class _DictionaryPageState extends State<DictionaryPage> {
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
-                        '${word.text.length} letras',
+                        '${word.text.length} ${AppStrings.from(context).isPortuguese ? 'letras' : 'letters'}',
                         style: const TextStyle(
                           fontFamily: 'monospace',
                           fontSize: 10,

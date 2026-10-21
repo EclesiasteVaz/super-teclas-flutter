@@ -148,7 +148,7 @@ async function loadWordsForLanguage(db, rawLang) {
   } catch (_) {}
 
   try {
-    const filePath = path.join(process.cwd(), 'assets', 'words', `${language}.json`);
+    const filePath = path.join(process.cwd(), 'scripts', 'words', `${language}.json`);
     const rawJson = fs.readFileSync(filePath, 'utf8');
     const parsed = JSON.parse(rawJson);
     if (Array.isArray(parsed)) {
@@ -169,6 +169,26 @@ async function loadWordsForLanguage(db, rawLang) {
   return fallback;
 }
 
+function canSessionUpdateRanking(existingData, game) {
+  if (!existingData) return true;
+  const existingSessionId = String(existingData.sessionId || '').trim();
+  const gameSessionId = String(game.sessionId || '').trim();
+  if (existingSessionId && gameSessionId) {
+    return existingSessionId === gameSessionId;
+  }
+  const existingUserId = String(existingData.userId || '').trim();
+  const gameUserId = String(game.userId || '').trim();
+  if (
+    existingUserId &&
+    existingUserId !== 'anonymous' &&
+    gameUserId &&
+    gameUserId !== 'anonymous'
+  ) {
+    return existingUserId === gameUserId;
+  }
+  return true;
+}
+
 async function promoteScoreToRankingIfEligible(db, game, finalScore) {
   const username = String(game.username || '').trim();
   const score = Number(finalScore ?? game.score ?? 0);
@@ -177,12 +197,19 @@ async function promoteScoreToRankingIfEligible(db, game, finalScore) {
   const rankingId = username.toLowerCase();
   const rankingRef = db.collection('rankings').doc(rankingId);
   const existingSnap = await rankingRef.get();
+  const existingData = existingSnap.exists ? existingSnap.data() : null;
 
-  if (!existingSnap.exists || Number(existingSnap.data().score || 0) < score) {
+  if (!canSessionUpdateRanking(existingData, game)) {
+    return;
+  }
+
+  if (!existingSnap.exists || Number(existingData.score || 0) < score) {
     await rankingRef.set(
       {
+        sessionId: String(game.sessionId || game.userId || 'anonymous'),
         userId: game.userId || 'anonymous',
         username,
+        usernameLower: rankingId,
         score,
         words_completed: Number(game.wordsCompleted || 0),
         accuracy: Number(game.accuracy ?? 100),
@@ -326,9 +353,14 @@ async function handler(req, res) {
     if (action === 'start') {
       const languageCode = body.languageCode === 'en' ? 'en' : 'pt';
       const username = String(body.username || '').trim();
+      const sessionId = String(body.sessionId || verifiedUid || '').trim();
+      const initialWordId = String(body.initialWordId || '').trim();
       const wordsPool = await loadWordsForLanguage(db, languageCode);
+      const matchedInitialWord = initialWordId
+        ? wordsPool.find((w) => w.id === initialWordId || w.text === initialWordId)
+        : null;
       const randomIndex = Math.floor(Math.random() * wordsPool.length);
-      const firstWord = wordsPool[randomIndex];
+      const firstWord = matchedInitialWord || wordsPool[randomIndex];
       const allowedTimeMs = getAllowedWordTimeMs(firstWord.text);
       const wordDeadlineAtMs = nowMs + allowedTimeMs;
       const wordStartedAtIso = new Date(nowMs).toISOString();
@@ -337,8 +369,10 @@ async function handler(req, res) {
       const gameRef = db.collection('games').doc();
       const gameDoc = {
         gameId: gameRef.id,
+        sessionId: sessionId || verifiedUid,
         userId: verifiedUid,
         username,
+        usernameLower: username.toLowerCase(),
         languageCode,
         status: 'running',
         isWin: false,

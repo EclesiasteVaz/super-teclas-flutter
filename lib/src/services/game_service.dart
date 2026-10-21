@@ -76,13 +76,24 @@ class GameService extends ChangeNotifier {
     }
     totalWordsPool = words.length;
     currentIndex = random.nextInt(words.length);
-    indexWordUseds.add(currentIndex);
+    indexWordUseds
+      ..clear()
+      ..add(currentIndex);
     currentWord = words[currentIndex];
     status = GameStatus.running;
     final now = DateTime.now();
     startTime = now;
     _currentWordStartTime = now;
     notifyListeners();
+  }
+
+  void setLanguage(String newLanguageCode) {
+    final normalized = newLanguageCode == 'en' ? 'en' : 'pt';
+    if (languageCode == normalized && words.isNotEmpty) return;
+    languageCode = normalized;
+    if (!isServerAuthoritative && totalWordsCompleted == 0) {
+      _init(normalized);
+    }
   }
 
   DateTime _computeClientDeadline(ServerGameStepResult result, DateTime now) {

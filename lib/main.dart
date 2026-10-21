@@ -34,6 +34,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Env.load();
+  await SharedPreferences.getInstance();
+  await RankingService.ensureAuthenticatedUser();
 
   if (Env.isFirebaseConfigured) {
     try {
@@ -58,9 +60,8 @@ void main() async {
     } catch (_) {}
   }
 
-  await SharedPreferences.getInstance();
-
-  await WordBank.load(languageCode: 'pt');
+  final initialLocale = _MyAppState._detectLocale();
+  await WordBank.load(languageCode: initialLocale.languageCode);
 
   runApp(const MyApp());
 }

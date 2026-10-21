@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Env {
@@ -57,7 +56,6 @@ class Env {
       firebaseProjectId.isNotEmpty;
 
   static Future<void> load() async {
-    if (kIsWeb) return;
     try {
       await dotenv.load(fileName: '.env');
     } catch (_) {}

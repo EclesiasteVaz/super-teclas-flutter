@@ -74,21 +74,26 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   }
 
   Future<void> _initRemoteGameSession() async {
-    final storedUser = await StorageService.getUsername();
+    final sessionId = await StorageService.getOrCreateSessionId();
+    final storedUser = await RankingService.getSessionUsername();
     final uid = await RankingService.ensureAuthenticatedUser();
-    _userId = uid;
+    _userId = uid.isNotEmpty ? uid : sessionId;
     _username = storedUser ?? '';
+    final previousWordText = gameService.currentWord.text;
 
     final stepResult = await RankingService.startServerGameSession(
       languageCode: gameService.languageCode,
       username: _username,
+      initialWordId: gameService.currentWord.id,
     );
     if (!mounted || _isNavigating) return;
 
     if (stepResult != null && stepResult.gameId.isNotEmpty) {
       gameService.applyServerStart(stepResult);
       _lastKnownIndex = gameService.currentIndex;
-      _controllerInput.clear();
+      if (stepResult.currentWord?.text != previousWordText) {
+        _controllerInput.clear();
+      }
       _time = gameService.getTimeForWord();
 
       await _gameSessionSubscription?.cancel();
@@ -317,7 +322,7 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final localeCode = Localizations.localeOf(context).languageCode;
-    gameService.languageCode = localeCode == 'en' ? 'en' : 'pt';
+    gameService.setLanguage(localeCode);
   }
 
   @override

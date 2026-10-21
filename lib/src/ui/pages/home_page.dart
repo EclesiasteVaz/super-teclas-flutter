@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:super_teclas/main.dart';
@@ -25,9 +27,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _highScore = 0;
   String? _username;
+  bool _isSavingUsername = false;
   final _usernameController = TextEditingController();
   List<RankingEntry> _rankings = [];
   List<RankingEntry> _recentGames = [];
+  StreamSubscription<List<RankingEntry>>? _rankingsSubscription;
+  StreamSubscription<List<RankingEntry>>? _recentGamesSubscription;
   int _currentBottomNavIndex = 0;
 
   @override
@@ -36,24 +41,45 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadUsername();
       _loadRankings();
+      _subscribeToRankings();
     });
   }
 
   @override
   void dispose() {
+    _rankingsSubscription?.cancel();
+    _recentGamesSubscription?.cancel();
     _usernameController.dispose();
     super.dispose();
   }
 
   Future<void> _loadUsername() async {
-    final username = await StorageService.getUsername();
+    await StorageService.getOrCreateSessionId();
+    final storedHighScore = await StorageService.getHighScore();
+    final username = await RankingService.getSessionUsername();
     if (mounted) {
       setState(() {
+        _highScore = storedHighScore;
         _username = username;
-        if (username != null) {
+        if (username != null && _usernameController.text.trim().isEmpty) {
           _usernameController.text = username;
         }
       });
+    }
+  }
+
+  Future<void> _syncHighScoreFromEntries(List<RankingEntry> entries) async {
+    final currentUser = _username?.trim().toLowerCase() ?? '';
+    if (currentUser.isEmpty) return;
+    for (final entry in entries) {
+      if (entry.username.trim().toLowerCase() == currentUser &&
+          entry.score > _highScore) {
+        await StorageService.saveHighScore(entry.score);
+        if (mounted) {
+          setState(() => _highScore = entry.score);
+        }
+        break;
+      }
     }
   }
 
@@ -65,33 +91,65 @@ class _HomePageState extends State<HomePage> {
         _rankings = rankings;
         _recentGames = recentGames;
       });
+      await _syncHighScoreFromEntries(rankings);
     }
   }
 
-  Future<void> _saveUsername() async {
+  void _subscribeToRankings() {
+    if (!RankingService.isAvailable) return;
+    _rankingsSubscription?.cancel();
+    _rankingsSubscription = RankingService.watchRankings()?.listen((entries) {
+      if (mounted) {
+        setState(() => _rankings = entries);
+        _syncHighScoreFromEntries(entries);
+      }
+    });
+    _recentGamesSubscription?.cancel();
+    _recentGamesSubscription =
+        RankingService.watchRecentGames(limit: 2)?.listen((entries) {
+      if (mounted) {
+        setState(() => _recentGames = entries);
+      }
+    });
+  }
+
+  Future<bool> _saveUsername({bool showSavedSnackBar = true}) async {
     final name = _usernameController.text.trim();
-    if (name.isEmpty) return;
+    if (name.isEmpty) return true;
+    if (_isSavingUsername) return false;
 
-    final strings = AppStrings.from(context);
-    final exists = await RankingService.checkUsernameExists(name);
-    if (exists && name != _username && mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(strings.usernameTaken)),
-      );
-      return;
-    }
+    _isSavingUsername = true;
+    try {
+      final strings = AppStrings.from(context);
+      final saved = await RankingService.registerUsernameForSession(name);
+      if (!saved) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(strings.usernameTaken)),
+          );
+        }
+        return false;
+      }
 
-    await RankingService.ensureAuthenticatedUser();
-    await StorageService.saveUsername(name);
-    if (mounted) {
-      setState(() => _username = name);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(strings.save)),
-      );
+      if (mounted) {
+        setState(() => _username = name);
+        if (showSavedSnackBar) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(strings.save)),
+          );
+        }
+      }
+      await _loadRankings();
+      return true;
+    } finally {
+      _isSavingUsername = false;
     }
   }
 
   void _updateHighScore(int? score) async {
+    if (score != null && score > 0) {
+      await StorageService.saveHighScore(score);
+    }
     if (mounted == false) {
       await Future.delayed(const Duration(milliseconds: 500));
     }
@@ -100,7 +158,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _startGame() {
+  Future<void> _startGame() async {
+    final pendingName = _usernameController.text.trim();
+    if (pendingName.isNotEmpty) {
+      final ok = await _saveUsername(showSavedSnackBar: false);
+      if (!ok || !mounted) return;
+    }
+
+    if (!mounted) return;
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => GamePage(

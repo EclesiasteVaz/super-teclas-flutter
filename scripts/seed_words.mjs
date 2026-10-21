@@ -44,8 +44,8 @@ async function main() {
     process.exit(1);
   }
 
-  await seedLanguage(apiBaseUrl, adminToken, 'pt', 'assets/words/pt.json');
-  await seedLanguage(apiBaseUrl, adminToken, 'en', 'assets/words/en.json');
+  await seedLanguage(apiBaseUrl, adminToken, 'pt', 'scripts/words/pt.json');
+  await seedLanguage(apiBaseUrl, adminToken, 'en', 'scripts/words/en.json');
 }
 
 main().catch((err) => {

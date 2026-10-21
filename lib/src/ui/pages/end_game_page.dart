@@ -72,15 +72,14 @@ class _EndGamePageState extends State<EndGamePage>
   }
 
   Future<void> _submitRanking() async {
-    final username = await StorageService.getUsername();
-    if (username == null && widget.gameSession == null) {
-      debugPrint('[EndGamePage] Username and session not set, skipping ranking');
-      return;
-    }
+    await StorageService.saveHighScore(widget.level);
+    final sessionId = await StorageService.getOrCreateSessionId();
+    final username = await RankingService.getSessionUsername();
+    final resolvedUsername =
+        username ?? widget.gameSession?.username ?? '';
 
-    final resolvedUsername = username ?? widget.gameSession?.username ?? '';
     debugPrint(
-      '[EndGamePage] Submitting ranking for $resolvedUsername: '
+      '[EndGamePage] Submitting ranking for session=$sessionId user=$resolvedUsername: '
       'score=${widget.level}, words=${widget.totalWordsCompleted}, '
       'accuracy=${widget.accuracy}',
     );
@@ -308,7 +307,7 @@ class _EndGamePageState extends State<EndGamePage>
             children: [
               Expanded(
                 child: _buildMetricItem(
-                  label: 'Precisão',
+                  label: strings.accuracy,
                   value: '${widget.accuracy.toStringAsFixed(0)}%',
                   color: AppColors.accentGreen,
                 ),
@@ -316,7 +315,7 @@ class _EndGamePageState extends State<EndGamePage>
               Container(width: 1, height: 40, color: AppColors.surfaceBorder),
               Expanded(
                 child: _buildMetricItem(
-                  label: 'Palavras',
+                  label: strings.isPortuguese ? 'Palavras' : 'Words',
                   value: '${widget.totalWordsCompleted}',
                   color: AppColors.primary,
                 ),
@@ -324,7 +323,7 @@ class _EndGamePageState extends State<EndGamePage>
               Container(width: 1, height: 40, color: AppColors.surfaceBorder),
               Expanded(
                 child: _buildMetricItem(
-                  label: 'Tempo Médio',
+                  label: strings.averageTime,
                   value: '${widget.averageSpeed.toStringAsFixed(1)}${strings.secondsUnit}',
                   color: AppColors.accentYellow,
                 ),
@@ -458,7 +457,7 @@ class _EndGamePageState extends State<EndGamePage>
           width: double.infinity,
           height: 48,
           child: ButtonCustomWidget(
-            onPressed: () => _navigateTo(const GamePage()),
+            onPressed: () => _navigateTo(GamePage(onGameEnd: widget.onGameEnd)),
             text: strings.restart,
           ),
         ),

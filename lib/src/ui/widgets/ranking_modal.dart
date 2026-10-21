@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/ui/theme/app_colors.dart';
@@ -304,7 +305,7 @@ class _RankingModalState extends State<RankingModal> {
                 Row(
                   children: [
                     Text(
-                      '${entry.accuracy.toStringAsFixed(0)}% precisão',
+                      '${entry.accuracy.toStringAsFixed(0)}% ${strings.accuracy.toLowerCase()}',
                       style: const TextStyle(
                         fontFamily: 'monospace',
                         fontSize: 12,
@@ -333,7 +334,7 @@ class _RankingModalState extends State<RankingModal> {
               border: Border.all(color: AppColors.primary.withAlpha(70)),
             ),
             child: Text(
-              '${entry.score}%',
+              '${entry.score} ${strings.scorePoints}',
               style: const TextStyle(
                 fontFamily: 'monospace',
                 fontSize: 15,

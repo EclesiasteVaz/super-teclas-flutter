@@ -107,10 +107,30 @@ module.exports = async function handler(req, res) {
     }
 
     const resolvedUsername = String(body.username || game.username || '').trim();
+    const resolvedSessionId = String(body.sessionId || game.sessionId || game.userId || verifiedUid || 'anonymous').trim();
     const resolvedAccuracy =
       body.accuracy !== undefined
         ? Number(body.accuracy)
         : Number(game.accuracy ?? 100);
+
+    const canUpdateRanking = (existingData) => {
+      if (!existingData) return true;
+      const existingSessionId = String(existingData.sessionId || '').trim();
+      if (existingSessionId && resolvedSessionId && resolvedSessionId !== 'anonymous') {
+        return existingSessionId === resolvedSessionId;
+      }
+      const existingUserId = String(existingData.userId || '').trim();
+      const gameUserId = String(game.userId || verifiedUid || '').trim();
+      if (
+        existingUserId &&
+        existingUserId !== 'anonymous' &&
+        gameUserId &&
+        gameUserId !== 'anonymous'
+      ) {
+        return existingUserId === gameUserId;
+      }
+      return true;
+    };
 
     if (game.validated === true) {
       const existingScore = Number(game.validatedScore ?? game.score ?? 0);
@@ -123,7 +143,13 @@ module.exports = async function handler(req, res) {
 
       if (resolvedUsername || body.accuracy !== undefined) {
         await gameRef.update({
-          ...(resolvedUsername ? { username: resolvedUsername } : {}),
+          ...(resolvedUsername
+            ? {
+                username: resolvedUsername,
+                usernameLower: resolvedUsername.toLowerCase(),
+              }
+            : {}),
+          sessionId: resolvedSessionId,
           accuracy: validAccuracy,
           updatedAt: admin.firestore.FieldValue.serverTimestamp(),
         });
@@ -135,14 +161,17 @@ module.exports = async function handler(req, res) {
         const existingSnap = await rankingRef.get();
         const existingData = existingSnap.exists ? existingSnap.data() : null;
         if (
-          !existingSnap.exists ||
-          Number(existingData.score || 0) < existingScore ||
-          existingData.gameId === gameId
+          canUpdateRanking(existingData) &&
+          (!existingSnap.exists ||
+            Number(existingData.score || 0) < existingScore ||
+            existingData.gameId === gameId)
         ) {
           await rankingRef.set(
             {
+              sessionId: resolvedSessionId,
               userId: game.userId || verifiedUid || 'anonymous',
               username: resolvedUsername,
+              usernameLower: rankingId,
               score: existingScore,
               words_completed: Number(game.wordsCompleted || 0),
               accuracy: validAccuracy,
@@ -182,7 +211,9 @@ module.exports = async function handler(req, res) {
       game.status = 'finished';
       await gameRef.update({
         status: 'finished',
+        sessionId: resolvedSessionId,
         username: resolvedUsername || game.username || '',
+        usernameLower: (resolvedUsername || game.username || '').toLowerCase(),
         accuracy: Number.isNaN(resolvedAccuracy) ? 100 : resolvedAccuracy,
         wordDeadlineAt: null,
         wordDeadlineAtMs: null,
@@ -282,7 +313,9 @@ module.exports = async function handler(req, res) {
         : 0;
 
     await gameRef.update({
+      sessionId: resolvedSessionId,
       username: resolvedUsername,
+      usernameLower: resolvedUsername.toLowerCase(),
       accuracy,
       validated: true,
       validatedScore: recalculatedScore,
@@ -295,12 +328,18 @@ module.exports = async function handler(req, res) {
       const rankingId = username.toLowerCase();
       const rankingRef = db.collection('rankings').doc(rankingId);
       const existingSnap = await rankingRef.get();
+      const existingData = existingSnap.exists ? existingSnap.data() : null;
 
-      if (!existingSnap.exists || Number(existingSnap.data().score || 0) < recalculatedScore) {
+      if (
+        canUpdateRanking(existingData) &&
+        (!existingSnap.exists || Number(existingData.score || 0) < recalculatedScore)
+      ) {
         await rankingRef.set(
           {
+            sessionId: resolvedSessionId,
             userId: game.userId || verifiedUid || 'anonymous',
             username,
+            usernameLower: rankingId,
             score: recalculatedScore,
             words_completed: wordsCompleted,
             accuracy,
