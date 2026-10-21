@@ -71,7 +71,7 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Words array is required and cannot be empty' });
     }
 
-    const validWords = [];
+    const byId = new Map();
     for (const item of rawWords) {
       const text = String(item.word || item.text || '').trim();
       if (!text) continue;
@@ -85,9 +85,11 @@ module.exports = async function handler(req, res) {
         typeof item.expectedDurationMs === 'number' && item.expectedDurationMs > 0
           ? item.expectedDurationMs
           : calculateExpectedDurationMs(text, difficulty);
+      const id = sanitizeDocId(language, text);
 
-      validWords.push({
-        id: sanitizeDocId(language, text),
+      byId.set(id, {
+        id,
+        word: text,
         text,
         difficulty,
         definition,
@@ -97,6 +99,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
+    const validWords = Array.from(byId.values());
     const chunkSize = 450;
     let registeredCount = 0;
 
@@ -108,6 +111,8 @@ module.exports = async function handler(req, res) {
         batch.set(
           ref,
           {
+            id: wordObj.id,
+            word: wordObj.text,
             text: wordObj.text,
             difficulty: wordObj.difficulty,
             definition: wordObj.definition,

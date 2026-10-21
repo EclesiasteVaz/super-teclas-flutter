@@ -6,6 +6,8 @@
     "firebase-admin": "^12.6.0"
   },
   "scripts": {
-    "seed:words": "node scripts/seed_words.mjs"
+    "seed:words": "node scripts/seed_words.mjs",
+    "build:web": "flutter build web --release --no-wasm-dry-run",
+    "deploy": "flutter build web --release --no-wasm-dry-run && npx vercel --prod"
   }
 }
