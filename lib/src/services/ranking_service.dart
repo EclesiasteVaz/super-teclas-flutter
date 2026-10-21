@@ -48,15 +48,15 @@ class RankingEntry {
       username: (map['username'] as String?) ?? '',
       score: (map['score'] as num?)?.toInt() ?? 0,
       wordsCompleted:
-          ((map['words_completed'] ?? map['wordsCompleted']) as num?)?.toInt() ??
+          ((map['words_completed'] ?? map['wordsCompleted']) as num?)
+                  ?.toInt() ??
               0,
       accuracy: (map['accuracy'] as num?)?.toDouble() ?? 0.0,
       averageSpeed:
           ((map['average_speed'] ?? map['averageSpeed']) as num?)?.toDouble() ??
               0.0,
       createdAt: parsedDate,
-      sessionId:
-          ((map['sessionId'] ?? map['userId']) as String?)?.trim() ?? '',
+      sessionId: ((map['sessionId'] ?? map['userId']) as String?)?.trim() ?? '',
     );
   }
 }
@@ -221,8 +221,7 @@ class RankingService {
     }
 
     try {
-      final docSnap =
-          await db.collection(_rankingsCollection).doc(lower).get();
+      final docSnap = await db.collection(_rankingsCollection).doc(lower).get();
       if (docSnap.exists && docSnap.data() != null) {
         if (!belongsToSession(
           docSnap.data()!,
@@ -917,7 +916,7 @@ class RankingService {
               pausedDurationMs;
       final remainingWordTimeMs =
           ((game['remainingWordTimeMs'] as num?)?.toInt() ?? 8000)
-               .clamp(1000, 15000);
+              .clamp(1000, 15000);
       final newDeadlineAtMs = nowMs + remainingWordTimeMs;
       final newDeadlineAtIso =
           DateTime.fromMillisecondsSinceEpoch(newDeadlineAtMs)
@@ -1039,10 +1038,9 @@ class RankingService {
       );
 
       final wordsPool = WordBank.getWords(languageCode);
-      final usedWordIds = (game['usedWordIds'] as List?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          <String>[activeWord.id];
+      final usedWordIds =
+          (game['usedWordIds'] as List?)?.map((e) => e.toString()).toList() ??
+              <String>[activeWord.id];
       if (!usedWordIds.contains(activeWord.id)) {
         usedWordIds.add(activeWord.id);
       }
@@ -1261,7 +1259,8 @@ class RankingService {
           }
         }
       } catch (e) {
-        debugPrint('[RankingService] HTTP game action fallback to Firestore: $e');
+        debugPrint(
+            '[RankingService] HTTP game action fallback to Firestore: $e');
       }
     }
 
@@ -1534,10 +1533,9 @@ class RankingService {
       if (isAvailable) {
         final db = FirebaseFirestore.instance;
         final userId = await ensureAuthenticatedUser();
-        final resolvedGameId =
-            (targetGameId != null && targetGameId.isNotEmpty)
-                ? targetGameId
-                : 'game_${DateTime.now().millisecondsSinceEpoch}';
+        final resolvedGameId = (targetGameId != null && targetGameId.isNotEmpty)
+            ? targetGameId
+            : 'game_${DateTime.now().millisecondsSinceEpoch}';
 
         final alreadyFinalizedInMemory =
             _activeFirestoreGames[resolvedGameId]?['validated'] == true;
@@ -1603,7 +1601,8 @@ class RankingService {
     }
   }
 
-  static Stream<List<RankingEntry>>? watchRankings({int limit = _maxRetrieved}) {
+  static Stream<List<RankingEntry>>? watchRankings(
+      {int limit = _maxRetrieved}) {
     if (!isAvailable) return null;
     try {
       return FirebaseFirestore.instance

@@ -49,7 +49,8 @@ void main() {
       expect(mediumWord.basePoints, 150);
       expect(hardWord.basePoints, 200);
       expect(easyWord.expectedDurationMs, greaterThanOrEqualTo(1200));
-      expect(hardWord.expectedDurationMs, greaterThan(easyWord.expectedDurationMs));
+      expect(hardWord.expectedDurationMs,
+          greaterThan(easyWord.expectedDurationMs));
     });
 
     test('calculates speed bonus points when faster than expected', () {

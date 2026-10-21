@@ -13,7 +13,8 @@ class WordBank {
   static String _activeLanguage = 'pt';
 
   static List<WordModel> get words =>
-      _wordsByLanguage[_activeLanguage] ?? _buildCatalogForLanguage(_activeLanguage);
+      _wordsByLanguage[_activeLanguage] ??
+      _buildCatalogForLanguage(_activeLanguage);
 
   static const _catalogPt = <Map<String, String>>[
     {
@@ -94,7 +95,8 @@ class WordBank {
     {
       'text': 'Bioquímica',
       'difficulty': 'medium',
-      'definition': 'Ciência que estuda os processos químicos nos organismos vivos',
+      'definition':
+          'Ciência que estuda os processos químicos nos organismos vivos',
     },
     {
       'text': 'Algoritmo',
@@ -227,7 +229,8 @@ class WordBank {
     {
       'text': 'Biochemistry',
       'difficulty': 'medium',
-      'definition': 'Branch of science exploring chemical processes in organisms',
+      'definition':
+          'Branch of science exploring chemical processes in organisms',
     },
     {
       'text': 'Algorithm',
@@ -237,17 +240,20 @@ class WordBank {
     {
       'text': 'Architecture',
       'difficulty': 'medium',
-      'definition': 'The art or practice of designing and constructing buildings',
+      'definition':
+          'The art or practice of designing and constructing buildings',
     },
     {
       'text': 'Photosynthesis',
       'difficulty': 'hard',
-      'definition': 'Process by which green plants synthesize nutrients from light',
+      'definition':
+          'Process by which green plants synthesize nutrients from light',
     },
     {
       'text': 'Entrepreneurship',
       'difficulty': 'hard',
-      'definition': 'The activity of setting up a business taking financial risks',
+      'definition':
+          'The activity of setting up a business taking financial risks',
     },
     {
       'text': 'Responsibility',
@@ -262,7 +268,8 @@ class WordBank {
     {
       'text': 'Ultraviolet',
       'difficulty': 'hard',
-      'definition': 'Electromagnetic radiation with wavelength shorter than light',
+      'definition':
+          'Electromagnetic radiation with wavelength shorter than light',
     },
     {
       'text': 'Electroencephalogram',
@@ -272,7 +279,8 @@ class WordBank {
     {
       'text': 'Idiosyncrasy',
       'difficulty': 'hard',
-      'definition': 'A mode of behavior or way of thought peculiar to an individual',
+      'definition':
+          'A mode of behavior or way of thought peculiar to an individual',
     },
   ];
 

@@ -67,7 +67,8 @@ void main() {
 
     test('registers username and binds it to local session', () async {
       final sessionId = await StorageService.getOrCreateSessionId();
-      final ok = await RankingService.registerUsernameForSession('  SuperDev  ');
+      final ok =
+          await RankingService.registerUsernameForSession('  SuperDev  ');
 
       expect(ok, isTrue);
       expect(await StorageService.getUsername(), 'SuperDev');
@@ -122,7 +123,9 @@ void main() {
       expect(exists, isFalse);
     });
 
-    test('executes start, submit, pause, resume, and timeout via server handler', () async {
+    test(
+        'executes start, submit, pause, resume, and timeout via server handler',
+        () async {
       final capturedActions = <String>[];
       RankingService.customActionHandler = (payload) async {
         final action = payload['action'] as String;
@@ -285,7 +288,9 @@ void main() {
       );
     });
 
-    test('handleAuthoritativeGameAction manages full lifecycle and enforces max 3 pauses', () async {
+    test(
+        'handleAuthoritativeGameAction manages full lifecycle and enforces max 3 pauses',
+        () async {
       RankingService.resetTestState();
 
       final started = await RankingService.handleAuthoritativeGameAction({
@@ -357,4 +362,3 @@ void main() {
     });
   });
 }
-

@@ -112,6 +112,5 @@ class AppStrings {
   String get gameRunningStatus => isPortuguese ? 'Decorrendo' : 'Running';
   String get gamePausedStatus => isPortuguese ? 'Pausado' : 'Paused';
   String get gameFinishedStatus => isPortuguese ? 'Terminado' : 'Finished';
-  String get pausedWordHidden =>
-      isPortuguese ? 'JOGO PAUSADO' : 'GAME PAUSED';
+  String get pausedWordHidden => isPortuguese ? 'JOGO PAUSADO' : 'GAME PAUSED';
 }

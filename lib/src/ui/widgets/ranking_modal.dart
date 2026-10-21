@@ -109,7 +109,8 @@ class _RankingModalState extends State<RankingModal> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -143,12 +144,14 @@ class _RankingModalState extends State<RankingModal> {
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: AppColors.textSecondary),
+                      icon: const Icon(Icons.close,
+                          color: AppColors.textSecondary),
                       style: IconButton.styleFrom(
                         backgroundColor: AppColors.surfaceElevated,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          side: const BorderSide(color: AppColors.surfaceBorder),
+                          side:
+                              const BorderSide(color: AppColors.surfaceBorder),
                         ),
                       ),
                       onPressed: () => Navigator.of(context).pop(),
@@ -312,7 +315,8 @@ class _RankingModalState extends State<RankingModal> {
                         color: AppColors.textSecondary,
                       ),
                     ),
-                    const Text(' · ', style: TextStyle(color: AppColors.textMuted)),
+                    const Text(' · ',
+                        style: TextStyle(color: AppColors.textMuted)),
                     Text(
                       '${entry.averageSpeed.toStringAsFixed(1)}${strings.secondsUnit}',
                       style: const TextStyle(

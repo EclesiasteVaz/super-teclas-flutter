@@ -96,7 +96,8 @@ void main() {
           StreamController<Map<String, dynamic>>.broadcast();
       final submittedWords = <String>[];
 
-      RankingService.customSnapshotStreamFactory = (_) => snapshotController.stream;
+      RankingService.customSnapshotStreamFactory =
+          (_) => snapshotController.stream;
       RankingService.customActionHandler = (payload) async {
         final action = payload['action'] as String;
         if (action == 'start') {

@@ -75,8 +75,7 @@ class _EndGamePageState extends State<EndGamePage>
     await StorageService.saveHighScore(widget.level);
     final sessionId = await StorageService.getOrCreateSessionId();
     final username = await RankingService.getSessionUsername();
-    final resolvedUsername =
-        username ?? widget.gameSession?.username ?? '';
+    final resolvedUsername = username ?? widget.gameSession?.username ?? '';
 
     debugPrint(
       '[EndGamePage] Submitting ranking for session=$sessionId user=$resolvedUsername: '
@@ -324,7 +323,8 @@ class _EndGamePageState extends State<EndGamePage>
               Expanded(
                 child: _buildMetricItem(
                   label: strings.averageTime,
-                  value: '${widget.averageSpeed.toStringAsFixed(1)}${strings.secondsUnit}',
+                  value:
+                      '${widget.averageSpeed.toStringAsFixed(1)}${strings.secondsUnit}',
                   color: AppColors.accentYellow,
                 ),
               ),
@@ -474,7 +474,8 @@ class _EndGamePageState extends State<EndGamePage>
                     ),
                   );
                 },
-                icon: const Icon(Icons.book, size: 18, color: AppColors.textPrimary),
+                icon: const Icon(Icons.book,
+                    size: 18, color: AppColors.textPrimary),
                 label: Text(
                   strings.dictionary,
                   style: const TextStyle(color: AppColors.textPrimary),
@@ -493,7 +494,8 @@ class _EndGamePageState extends State<EndGamePage>
             Expanded(
               child: OutlinedButton.icon(
                 onPressed: () => _navigateTo(const HomePage()),
-                icon: const Icon(Icons.home, size: 18, color: AppColors.textPrimary),
+                icon: const Icon(Icons.home,
+                    size: 18, color: AppColors.textPrimary),
                 label: Text(
                   strings.home,
                   style: const TextStyle(color: AppColors.textPrimary),

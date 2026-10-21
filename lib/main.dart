@@ -48,9 +48,8 @@ void main() async {
           storageBucket: Env.firebaseStorageBucket.isNotEmpty
               ? Env.firebaseStorageBucket
               : null,
-          authDomain: Env.firebaseAuthDomain.isNotEmpty
-              ? Env.firebaseAuthDomain
-              : null,
+          authDomain:
+              Env.firebaseAuthDomain.isNotEmpty ? Env.firebaseAuthDomain : null,
           measurementId: Env.firebaseMeasurementId.isNotEmpty
               ? Env.firebaseMeasurementId
               : null,

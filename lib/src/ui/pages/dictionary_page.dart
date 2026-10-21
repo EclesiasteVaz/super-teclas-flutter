@@ -93,7 +93,8 @@ class _DictionaryPageState extends State<DictionaryPage> {
             padding: const EdgeInsets.only(right: 16),
             child: Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: AppColors.badgeBackground,
                   borderRadius: BorderRadius.circular(8),
@@ -157,10 +158,12 @@ class _DictionaryPageState extends State<DictionaryPage> {
         decoration: InputDecoration(
           hintText: strings.searchHint,
           hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 14),
-          prefixIcon: const Icon(Icons.search, color: AppColors.primary, size: 20),
+          prefixIcon:
+              const Icon(Icons.search, color: AppColors.primary, size: 20),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: const Icon(Icons.clear, color: AppColors.textSecondary, size: 18),
+                  icon: const Icon(Icons.clear,
+                      color: AppColors.textSecondary, size: 18),
                   onPressed: () {
                     _searchController.clear();
                     setState(() => _searchQuery = '');
@@ -208,7 +211,8 @@ class _DictionaryPageState extends State<DictionaryPage> {
       selectedColor: activeColor.withAlpha(45),
       checkmarkColor: activeColor,
       side: BorderSide(
-        color: isSelected ? activeColor.withAlpha(180) : AppColors.surfaceBorder,
+        color:
+            isSelected ? activeColor.withAlpha(180) : AppColors.surfaceBorder,
         width: 1,
       ),
       shape: RoundedRectangleBorder(
@@ -288,7 +292,8 @@ class _DictionaryPageState extends State<DictionaryPage> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
                         color: AppColors.surfaceElevated,
                         borderRadius: BorderRadius.circular(6),

@@ -168,7 +168,8 @@ class ServerGameStepResult {
       if (rawDeadline is num) {
         parsedDeadlineMs = rawDeadline.toInt();
       } else if (rawDeadline is String) {
-        parsedDeadlineMs = DateTime.tryParse(rawDeadline)?.millisecondsSinceEpoch;
+        parsedDeadlineMs =
+            DateTime.tryParse(rawDeadline)?.millisecondsSinceEpoch;
       }
     }
 
@@ -318,7 +319,8 @@ class GameSessionModel {
         return const GameValidationResult(
           isValid: false,
           recalculatedScore: 0,
-          rejectionReason: 'Word registered while game was not in running state',
+          rejectionReason:
+              'Word registered while game was not in running state',
         );
       }
 

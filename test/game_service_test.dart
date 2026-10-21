@@ -420,7 +420,9 @@ void main() {
       expect(result.isValid, isFalse);
     });
 
-    test('rejects session if total session duration is shorter than word and pause times', () {
+    test(
+        'rejects session if total session duration is shorter than word and pause times',
+        () {
       final start = DateTime.now();
       final finish = start.add(const Duration(seconds: 1));
       final session = GameSessionModel(
@@ -476,8 +478,9 @@ void main() {
         'totalWordsPool': 250,
         'allowedTimeMs': 10000,
         'remainingTimeMs': 10000,
-        'wordDeadlineAtMs':
-            DateTime.now().add(const Duration(seconds: 10)).millisecondsSinceEpoch,
+        'wordDeadlineAtMs': DateTime.now()
+            .add(const Duration(seconds: 10))
+            .millisecondsSinceEpoch,
         'score': 0,
         'wordsCompleted': 0,
         'pauseCount': 0,
@@ -494,7 +497,8 @@ void main() {
       expect(gs.getRemainingSecondsFromDeadline(), inInclusiveRange(9, 10));
     });
 
-    test('applyServerStep advances to next server word and logs completed word', () {
+    test('applyServerStep advances to next server word and logs completed word',
+        () {
       final gs = GameService();
       gs.applyServerStart(
         ServerGameStepResult.fromMap({
@@ -578,7 +582,9 @@ void main() {
       expect(gs.wordDeadlineAt, isNull);
     });
 
-    test('applyServerStart resets pre-start keystrokes and handles server clock skew', () {
+    test(
+        'applyServerStart resets pre-start keystrokes and handles server clock skew',
+        () {
       final gs = GameService();
       gs.recordKeystroke();
       gs.recordKeystroke();

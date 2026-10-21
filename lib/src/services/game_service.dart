@@ -53,8 +53,9 @@ class GameService extends ChangeNotifier {
 
   int get remainingPauses => (maxPauses - pauseCount).clamp(0, maxPauses);
 
-  int get sessionTotalWords =>
-      totalWordsPool > 0 ? totalWordsPool : (words.isNotEmpty ? words.length : 200);
+  int get sessionTotalWords => totalWordsPool > 0
+      ? totalWordsPool
+      : (words.isNotEmpty ? words.length : 200);
 
   List<GameWordLog> get wordsLog => List.unmodifiable(_wordsLog);
 

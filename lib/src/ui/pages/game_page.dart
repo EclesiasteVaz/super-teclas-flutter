@@ -577,10 +577,9 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
                 tooltip: _isMuted ? strings.soundOff : strings.soundOn,
               ),
               IconButton(
-                onPressed:
-                    (gameService.isPaused || gameService.canPause)
-                        ? _togglePause
-                        : null,
+                onPressed: (gameService.isPaused || gameService.canPause)
+                    ? _togglePause
+                    : null,
                 icon: Icon(
                   gameService.isPaused ? Icons.play_arrow : Icons.pause,
                   color: (gameService.isPaused || gameService.canPause)

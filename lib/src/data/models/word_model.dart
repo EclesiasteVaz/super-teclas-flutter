@@ -61,8 +61,7 @@ class WordModel {
       return basePoints;
     }
     final maxBonus = basePoints ~/ 2;
-    final ratio =
-        (expectedDurationMs - actualDurationMs) / expectedDurationMs;
+    final ratio = (expectedDurationMs - actualDurationMs) / expectedDurationMs;
     final bonus = (ratio * maxBonus).round().clamp(0, maxBonus);
     return basePoints + bonus;
   }
