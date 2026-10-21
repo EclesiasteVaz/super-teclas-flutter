@@ -7,7 +7,8 @@
   },
   "scripts": {
     "seed:words": "node scripts/seed_words.mjs",
-    "build:web": "flutter build web --release --no-wasm-dry-run",
-    "deploy": "flutter build web --release --no-wasm-dry-run && npx vercel --prod"
+    "run:web": "flutter run -d chrome --dart-define-from-file=.env",
+    "build:web": "flutter build web --release --no-wasm-dry-run --dart-define-from-file=.env",
+    "deploy": "flutter build web --release --no-wasm-dry-run --dart-define-from-file=.env && npx vercel --prod"
   }
 }

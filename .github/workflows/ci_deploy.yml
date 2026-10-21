@@ -20,9 +20,6 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Ensure .env placeholder exists
-        run: touch .env
-
       - name: Install dependencies
         run: flutter pub get
 
