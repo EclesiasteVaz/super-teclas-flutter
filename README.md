@@ -6,10 +6,12 @@
 
 Challenge yourself to type words accurately before time runs out. Compete on the global online ranking, improve your speed and precision, and master words in both **Portuguese** and **English**.
 
+[![Play Online](https://img.shields.io/badge/🎮%20Play%20Online-super--teclas--flutter.vercel.app-0070F3?style=for-the-badge)](https://super-teclas-flutter.vercel.app/)
+
 [![Flutter](https://img.shields.io/badge/Flutter-3.38+-02569B?logo=flutter)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.5+-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20Web%20|%20Linux%20|%20Windows-lightgrey)]()
+[![Platforms](https://img.shields.io/badge/Platforms-Android%20|%20iOS%20|%20Web%20|%20Linux%20|%20Windows-lightgrey)]()
 
 </div>
 
