@@ -147,11 +147,11 @@ startTime: DateTime?                # Início da partida
 
 ### Cálculos
 
-- **Score:** `switch(indexWordUseds.length)` — 0→0, 1→0, último→100, senão `(n/words.length)*100`
+- **Score:** Pontuação unificada baseada na dificuldade da palavra (`easy = 100`, `medium = 150`, `hard = 200`) somada a bônus de velocidade quando `actualDurationMs < expectedDurationMs` (máximo de até +50% de bônus).
 - **Acurácia:** `(correctKeystrokes / totalKeystrokes) * 100` (default 100 se 0)
 - **Palavras/minuto:** `(totalWordsCompleted / elapsedSeconds) * 60`
 - **Tempo por palavra:** `currentWord.text.length.clamp(8, 15)` segundos
-- **Nível:** `score` (passado como `level` para `EndGamePage`)
+- **Nível:** `score` acumulado no servidor / partida
 - **Cor do timer:** verde (>5s), laranja (>3s), vermelho (≤3s)
 
 ### Observações Importantes

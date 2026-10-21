@@ -96,6 +96,7 @@ Challenge yourself to type words accurately before time runs out. Compete on the
    FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
    FIREBASE_STORAGE_BUCKET=your-project.appspot.com
    FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   FIREBASE_MEASUREMENT_ID=your-measurement-id
    API_BASE_URL=https://your-project.vercel.app
    ADMIN_SEED_TOKEN=your-secret-admin-seed-token
    ```
@@ -104,35 +105,27 @@ Challenge yourself to type words accurately before time runs out. Compete on the
 
 4. **Run the app**
 
-   **Option A: Web (Chrome with `--dart-define`)**
+   **Option A: Web (using `.env`)**
    ```bash
-   flutter run -d chrome \
-     --dart-define=FIREBASE_API_KEY=your-firebase-api-key \
-     --dart-define=FIREBASE_APP_ID=your-firebase-app-id \
-     --dart-define=FIREBASE_PROJECT_ID=your-firebase-project-id \
-     --dart-define=FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id \
-     --dart-define=FIREBASE_STORAGE_BUCKET=your-project.appspot.com \
-     --dart-define=FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com \
-     --dart-define=API_BASE_URL=https://your-project.vercel.app
+   flutter run -d chrome --dart-define-from-file=.env
+   # or with npm script:
+   npm run run:web
    ```
 
    **Option B: Mobile / Desktop (using `.env`)**
    ```bash
-   # Android
-   flutter run -d android
-
-   # iOS
-   flutter run -d ios
-
-   # macOS / Linux / Windows
-   flutter run -d macos
-   flutter run -d linux
-   flutter run -d windows
+   # Android / iOS / macOS / Linux / Windows
+   flutter run --dart-define-from-file=.env
    ```
 
-   **Option C: Offline Mode (no ranking backend)**
+   **Option C: VS Code / IDE**
+   Just press **F5** (Run/Debug) — `.vscode/launch.json` is preconfigured to load `.env` automatically.
+
+5. **Deploy to Vercel (Local Deploy)**
+
+   Compile and deploy directly from your machine without committing build artifacts or keys:
    ```bash
-   flutter run -d chrome
+   npm run deploy
    ```
 
 ---

@@ -20,16 +20,19 @@ Permite que jogadores:
 - **`paused` (Pausado):** Validado no backend (`action: 'pause'`), congela `remainingWordTimeMs = wordDeadlineAtMs - now`, oculta/desfoca a palavra atual na tela e permite no máximo **3 pausas por partida**.
 - **`finished` (Terminado):** Marcado pelo backend quando o `setTimeout` server-side (`wordDeadlineAtMs`) expira, quando todas as palavras são concluídas ou quando a validação detecta fim de tempo; o frontend reage em tempo real via listener `snapshots()` em `games/{gameId}`.
 
-### Coleções do Cloud Firestore (`allow write: if false` em 100% das coleções)
+### Coleções do Cloud Firestore
 1. **`words/{wordId}`**
    - Campos: `text`, `difficulty` (`easy` | `medium` | `hard`), `definition`, `language` (`pt` | `en`), `length`, `expectedDurationMs`, `updatedAt`
-   - Segurança (`firestore.rules`): Leitura pública (`allow read: if true`), escrita bloqueada no cliente (`allow write: if false`).
-2. **`games/{gameId}`**
-   - Campos: `gameId`, `userId`, `username`, `languageCode`, `status` (`running` | `paused` | `finished` | `rejected`), `currentWord` (apenas a palavra atual), `usedWordIds`, `wordSequence`, `wordStartedAtMs`, `wordDeadlineAtMs`, `remainingWordTimeMs`, `score`, `wordsCompleted`, `accuracy`, `averageSpeed`, `pauseCount`, `totalPausedDurationMs`, `startedAt`, `finishedAt`, `wordsLog`, `validated`
-   - Segurança (`firestore.rules`): Leitura restrita ao próprio jogador autenticado (`allow read: if request.auth != null && resource.data.userId == request.auth.uid`), escrita 100% bloqueada no cliente (`allow write: if false`) — apenas o Admin SDK no backend cria e atualiza sessões.
-3. **`rankings/{rankingId}`**
-   - Campos: `userId`, `username`, `score`, `words_completed`, `accuracy`, `average_speed`, `gameId`, `created_at`, `updatedAt`
-   - Segurança (`firestore.rules`): Leitura pública (`allow read: if true`), escrita bloqueada no cliente (`allow write: if false`).
+   - Segurança (`firestore.rules`): Leitura pública (`allow read: if true`), criação/atualização validada por schema com dificuldade e idioma válidos.
+2. **`sessions/{sessionId}`**
+   - Campos: `sessionId`, `userId`, `username`, `usernameLower`, `createdAt`, `updatedAt`
+   - Segurança (`firestore.rules`): Isolamento por identificador de sessão local (`sessionId == request.resource.data.sessionId`), garantindo que um jogador não sobrescreva a sessão ou o nome de outro.
+3. **`games/{gameId}`**
+   - Campos: `gameId`, `userId`, `sessionId`, `username`, `languageCode`, `status` (`running` | `paused` | `finished` | `rejected`), `currentWord` (apenas a palavra atual), `usedWordIds`, `wordSequence`, `wordStartedAtMs`, `wordDeadlineAtMs`, `remainingWordTimeMs`, `score`, `wordsCompleted`, `accuracy`, `averageSpeed`, `pauseCount`, `totalPausedDurationMs`, `startedAt`, `finishedAt`, `wordsLog`, `validated`
+   - Segurança (`firestore.rules`): Transições estritas de estado (`running` / `paused` / `finished`), máximo de 3 pausas e congelamento de pontuação fora do estado `running`.
+4. **`rankings/{rankingId}`**
+   - Campos: `userId`, `sessionId`, `username`, `score`, `words_completed`, `accuracy`, `average_speed`, `gameId`, `created_at`, `updatedAt`
+   - Segurança (`firestore.rules`): Leitura pública, escrita estritamente monotonicamente crescente e vinculada à sessão proprietária.
 
 ---
 
