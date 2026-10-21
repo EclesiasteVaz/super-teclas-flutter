@@ -1,79 +1,79 @@
-# Contribuindo com o Super Teclas 🚀
+# Contributing to Super Teclas 🚀
 
-Obrigado pelo interesse em contribuir com o **Super Teclas**! Este é um projeto de código aberto focado em alta performance, arquitetura limpa e digitação rápida contra o tempo em Flutter.
+Thank you for your interest in contributing to **Super Teclas**! This is an open-source project focused on high performance, clean architecture, and rapid typing against the clock in Flutter.
 
-Toda contribuição — seja reportando um bug, sugerindo novas palavras, melhorando o design ou otimizando código — é muito bem-vinda.
-
----
-
-## 📋 Regras de Ouro do Projeto
-
-Para mantermos a consistência e a excelência técnica da base de código, todas as contribuições devem seguir rigorosamente as convenções abaixo (também descritas em detalhes no [`AGENTS.md`](AGENTS.md)):
-
-1. **Sem Comentários no Código Dart:** O código deve ser autoexplicativo através de nomes claros para classes, métodos e variáveis.
-2. **Imports Absolutos:** Sempre use imports com o prefixo `package:super_teclas/...`. Nunca utilize imports relativos (`../`).
-3. **Sem Gerenciadores de Estado Externos:** O projeto utiliza nativamente `ChangeNotifier` + `ListenableBuilder` + `setState`. Não adicione Provider, Riverpod, Bloc, GetX ou MobX.
-4. **Novas Dependências:** Não adicione novos pacotes ao `pubspec.yaml` sem antes abrir uma issue para discutir a real necessidade com a comunidade.
-5. **Zero Segredos:** Nunca comite arquivos `.env`, chaves de API ou credenciais de serviços no repositório.
+All contributions — whether reporting a bug, proposing new vocabulary, improving the UI/UX, or optimizing code — are warmly welcomed.
 
 ---
 
-## 🛠️ Como Contribuir
+## 📋 Golden Rules of the Project
 
-### 1. Preparando o Ambiente
+To maintain consistency and technical excellence across the codebase, all contributions must strictly adhere to the project conventions (also detailed in [`AGENTS.md`](AGENTS.md)):
 
-1. Faça um Fork do repositório no GitHub.
-2. Clone o seu fork localmente:
+1. **No Comments in Dart Code:** Code must be self-documenting through clear, descriptive names for classes, methods, and variables.
+2. **Absolute Package Imports:** Always use absolute imports with the `package:super_teclas/...` prefix. Never use relative imports (`../`).
+3. **No External State Managers:** The project natively uses `ChangeNotifier` + `ListenableBuilder` + `setState`. Do not introduce Provider, Riverpod, BLoC, GetX, or MobX.
+4. **New Dependencies:** Do not add new third-party packages to `pubspec.yaml` without opening an issue first to discuss the necessity with maintainers.
+5. **Zero Secrets:** Never commit `.env` files, API keys, service account credentials, or build artifacts to the repository.
+
+---
+
+## 🛠️ How to Contribute
+
+### 1. Setting Up the Environment
+
+1. Fork the repository on GitHub.
+2. Clone your fork locally:
    ```bash
-   git clone https://github.com/SEU-USUARIO/super-teclas-flutter.git
+   git clone https://github.com/YOUR_USERNAME/super-teclas-flutter.git
    cd super-teclas-flutter
    ```
-3. Instale as dependências:
+3. Install dependencies:
    ```bash
    flutter pub get
    ```
 
-### 2. Criando uma Branch
+### 2. Creating a Branch
 
-Crie uma branch descritiva a partir da branch ativa de desenvolvimento (`develop` ou `master`):
+Create a descriptive branch off `develop` (or `master`):
 ```bash
-git checkout -b feature/minha-melhoria
-# ou
-git checkout -b fix/correcao-bug
+git checkout -b feature/my-improvement
+# or
+git checkout -b fix/bug-fix
 ```
 
-### 3. Rodando os Testes e Linter
+### 3. Running Lints and Automated Tests
 
-Antes de submeter o seu Pull Request, certifique-se de que o linter e todos os testes automatizados passem com sucesso:
+Before submitting your Pull Request, ensure that the static analyzer and all automated tests pass with zero issues:
 
 ```bash
-# Verificar boas práticas e lints
+# Verify formatting and lints
 flutter analyze
 
-# Rodar todos os testes automatizados
+# Run the complete automated test suite
 flutter test
 ```
 
 ### 4. Commits
 
-Escreva mensagens de commit curtas, claras e no modo imperativo em português (ou inglês):
-- ✅ `Corrige calculo de precisao na tela final`
-- ✅ `Adiciona suporte a novo atalho de teclado`
-- ❌ `arrumei um bug`
+Write concise, clear commit messages in the imperative mood:
+- ✅ `Fix accuracy calculation on end game page`
+- ✅ `Add keyboard shortcut support for mute toggle`
+- ❌ `fixed stuff`
 
-### 5. Abrindo o Pull Request
+### 5. Submitting a Pull Request
 
-1. Faça o push para o seu fork:
+1. Push the changes to your fork:
    ```bash
-   git push origin feature/minha-melhoria
+   git push origin feature/my-improvement
    ```
-2. Abra um Pull Request no repositório principal descrevendo claramente:
-   - Qual problema o PR resolve.
-   - O que foi alterado.
-   - Confirmação de que `flutter analyze` e `flutter test` passaram sem erros.
+2. Open a Pull Request on the main repository clearly detailing:
+   - What problem this PR solves.
+   - What was changed.
+   - Confirmation that `flutter analyze` and `flutter test` pass with 0 errors.
 
 ---
 
-## 💬 Dúvidas ou Sugestões?
+## 💬 Questions or Suggestions?
 
-Abra uma [Issue no GitHub](https://github.com/eclesiastes-vaz/super-teclas-flutter/issues) para compartilhar ideias ou tirar dúvidas sobre a arquitetura.
+Feel free to open an [Issue on GitHub](https://github.com/eclesiastes-vaz/super-teclas-flutter/issues) to discuss ideas, feedback, or technical questions about the architecture.
