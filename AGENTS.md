@@ -22,6 +22,7 @@ lib/
     ├── config/
     │   └── env.dart                  # Configuração de ambiente (.env)
     ├── data/
+    │   ├── contributors/             # Lista de colaboradores open source e design
     │   ├── i18n/app_strings.dart     # Strings PT/EN com AppStrings
     │   ├── models/word_model.dart    # WordModel (faz trim no construtor)
     │   └── words/word_bank.dart      # Palavras PT e EN
@@ -31,6 +32,7 @@ lib/
     │   └── storage_service.dart      # Persistência local (SharedPreferences)
     └── ui/
         ├── pages/
+        │   ├── contributors_page.dart # Página de colaboradores open source e design
         │   ├── dictionary_page.dart  # Consulta de vocabulário
         │   ├── home_page.dart        # Tela inicial com high score
         │   ├── game_page.dart        # Tela principal do jogo

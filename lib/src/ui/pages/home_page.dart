@@ -6,6 +6,7 @@ import 'package:super_teclas/main.dart';
 import 'package:super_teclas/src/data/i18n/app_strings.dart';
 import 'package:super_teclas/src/services/ranking_service.dart';
 import 'package:super_teclas/src/services/storage_service.dart';
+import 'package:super_teclas/src/ui/pages/contributors_page.dart';
 import 'package:super_teclas/src/ui/pages/dictionary_page.dart';
 import 'package:super_teclas/src/ui/pages/game_page.dart';
 import 'package:super_teclas/src/ui/theme/app_colors.dart';
@@ -183,6 +184,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _openContributors() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ContributorsPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final strings = AppStrings.from(context);
@@ -196,6 +205,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             NavHeaderWidget(
               onDictionaryTap: _openDictionary,
+              onContributorsTap: _openContributors,
               currentRoute: 'home',
             ),
             Expanded(
@@ -206,7 +216,9 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 36),
                     _buildDashboardSection(strings, isWide),
                     const SizedBox(height: 60),
-                    const FooterWidget(),
+                    FooterWidget(
+                      onContributorsTap: _openContributors,
+                    ),
                   ],
                 ),
               ),
@@ -545,6 +557,15 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.of(context).pop();
                     _openDictionary();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.people, color: AppColors.primary),
+                  title: Text(strings.contributors,
+                      style: const TextStyle(color: AppColors.textPrimary)),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _openContributors();
                   },
                 ),
                 if (localeProvider != null) ...[

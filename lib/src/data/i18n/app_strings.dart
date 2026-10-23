@@ -113,4 +113,27 @@ class AppStrings {
   String get gamePausedStatus => isPortuguese ? 'Pausado' : 'Paused';
   String get gameFinishedStatus => isPortuguese ? 'Terminado' : 'Finished';
   String get pausedWordHidden => isPortuguese ? 'JOGO PAUSADO' : 'GAME PAUSED';
+  String get contributors => isPortuguese ? 'Colaboradores' : 'Contributors';
+  String get contributorsTitle =>
+      isPortuguese ? 'Colaboradores do Jogo' : 'Game Contributors';
+  String get contributorsSubtitle => isPortuguese
+      ? 'Agradecimento especial a todos que ajudam a construir o Super Teclas com código open source e design.'
+      : 'Special thanks to everyone building Super Teclas through open-source code and design.';
+  String get contribute =>
+      isPortuguese ? 'Quero Contribuir' : 'Want to Contribute?';
+  String get contributeSubtitle => isPortuguese
+      ? 'Contribua com código, ideias de design ou vocabulário através do nosso repositório no GitHub.'
+      : 'Contribute code, design ideas, or vocabulary via our GitHub repository.';
+  String get openSource => 'Open Source';
+  String get design => 'Design';
+  String get viewProfile => isPortuguese ? 'Ver Perfil' : 'View Profile';
+  String get nextContributorTitle =>
+      isPortuguese ? 'Próximo Colaborador' : 'Next Contributor';
+  String get nextContributorSubtitle => isPortuguese
+      ? 'Pode ser você! Junte-se a nós com código, design ou ideias e deixe sua marca no jogo.'
+      : 'It could be you! Join us with code, design, or ideas and leave your mark on the game.';
+  String get nextContributorBadge =>
+      isPortuguese ? 'Seu Lugar Aqui' : 'Your Spot';
+  String get joinTheTeam =>
+      isPortuguese ? 'Juntar-se ao Projeto' : 'Join the Project';
 }

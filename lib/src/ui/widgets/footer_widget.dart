@@ -4,7 +4,12 @@ import 'package:super_teclas/src/ui/theme/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FooterWidget extends StatelessWidget {
-  const FooterWidget({super.key});
+  const FooterWidget({
+    super.key,
+    this.onContributorsTap,
+  });
+
+  final VoidCallback? onContributorsTap;
 
   static const _githubUrl =
       'https://github.com/EclesiasteVaz/super-teclas-flutter';
@@ -45,7 +50,7 @@ class FooterWidget extends StatelessWidget {
         runSpacing: 16,
         children: [
           _buildBrand(strings),
-          _buildLinks(),
+          _buildLinks(strings),
         ],
       ),
     );
@@ -77,11 +82,13 @@ class FooterWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildLinks() {
+  Widget _buildLinks(AppStrings strings) {
     final links = [
-      ('GitHub', _githubUrl),
-      ('Facebook', _facebookUrl),
-      ('Suporte', _supportUrl),
+      ('GitHub', () => _openUrl(_githubUrl)),
+      if (onContributorsTap != null)
+        (strings.contributors, onContributorsTap!),
+      ('Facebook', () => _openUrl(_facebookUrl)),
+      ('Suporte', () => _openUrl(_supportUrl)),
     ];
 
     return Wrap(
@@ -89,7 +96,7 @@ class FooterWidget extends StatelessWidget {
       runSpacing: 10,
       children: links.map((link) {
         return InkWell(
-          onTap: () => _openUrl(link.$2),
+          onTap: link.$2,
           borderRadius: BorderRadius.circular(4),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),

@@ -8,10 +8,12 @@ class NavHeaderWidget extends StatelessWidget {
   const NavHeaderWidget({
     super.key,
     this.onDictionaryTap,
+    this.onContributorsTap,
     this.currentRoute = 'home',
   });
 
   final VoidCallback? onDictionaryTap;
+  final VoidCallback? onContributorsTap;
   final String currentRoute;
 
   @override
@@ -72,6 +74,12 @@ class NavHeaderWidget extends StatelessWidget {
                   strings.leaderboard,
                   currentRoute == 'leaderboard',
                   () => RankingModal.show(context),
+                ),
+                const SizedBox(width: 20),
+                _buildNavLink(
+                  strings.contributors,
+                  currentRoute == 'contributors',
+                  onContributorsTap,
                 ),
                 const SizedBox(width: 24),
               ],
