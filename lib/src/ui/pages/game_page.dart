@@ -57,13 +57,13 @@ class _GamePageState extends State<GamePage> with WidgetsBindingObserver {
       _initRemoteGameSession();
       await _audioPlayer.setVolume(0.3);
       await _audioPlayer
-          .setSource(AssetSource('audios/stranger-things-124008.mp3'));
+          .setSource(AssetSource('audios/stranger-things-124008.m4a'));
       await _audioPlayer.resume();
       _playerCompleteSubscription =
           _audioPlayer.onPlayerComplete.listen((_) async {
         if (_isNavigating) return;
         await _audioPlayer
-            .setSource(AssetSource('audios/stranger-things-124008.mp3'));
+            .setSource(AssetSource('audios/stranger-things-124008.m4a'));
         await _audioPlayer.resume();
       });
     });

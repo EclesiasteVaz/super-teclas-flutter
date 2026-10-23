@@ -188,9 +188,9 @@ startTime: DateTime?                # Início da partida
 ### Arquivos
 | Arquivo | Tamanho | Uso | Tipo |
 |---------|---------|-----|------|
-| `stranger-things-124008.mp3` | 5.0 MB | Música de fundo (loop) | `AssetSource` |
-| `brass-fanfare-*.mp3` | 327 KB | Vitória (one-shot) | `AssetSource` |
-| `fail-144746.mp3` | 130 KB | Derrota (one-shot) | `AssetSource` |
+| `stranger-things-124008.m4a` | 1.2 MB | Música de fundo (loop) | `AssetSource` |
+| `brass-fanfare-*.m4a` | 79 KB | Vitória (one-shot) | `AssetSource` |
+| `fail-144746.m4a` | 18 KB | Derrota (one-shot) | `AssetSource` |
 
 ### Configuração
 - **Background music:** `setSource + resume`, reinicia em `onPlayerComplete` (loop manual)
@@ -297,7 +297,7 @@ vercel --prod
 1. **Persistência de High Score:** High score local é em memória (`_highScore` em `_HomePageState`) — o ranking persistido é validado pelo backend e salvo no Firestore.
 2. **Sem tratamento de erro de áudio:** Se `audioplayers` falha ao carregar asset, o erro é silencioso.
 3. **Confete:** Animação customizada com `CustomPainter` (60 partículas), sem pacote externo.
-4. **Música de fundo (5MB):** Pode impactar tempo de carregamento inicial, especialmente na Web.
+4. **Música de fundo:** Otimizada em AAC (.m4a ~1.2MB) para carregamento rápido em redes fracas.
 5. **Navegação com `pushReplacement`** — não há pilha de navegação principal, transições de partida substituem a rota atual.
 
 ---

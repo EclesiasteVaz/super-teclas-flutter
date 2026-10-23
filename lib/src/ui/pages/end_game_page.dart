@@ -62,10 +62,10 @@ class _EndGamePageState extends State<EndGamePage>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (widget.isWin) {
         await audioPlayer.setSource(AssetSource(
-            "audios/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.mp3"));
+            "audios/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.m4a"));
         _confettiController.forward();
       } else {
-        await audioPlayer.setSource(AssetSource("audios/fail-144746.mp3"));
+        await audioPlayer.setSource(AssetSource("audios/fail-144746.m4a"));
       }
       await audioPlayer.resume();
     });

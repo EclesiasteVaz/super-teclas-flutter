@@ -117,7 +117,9 @@ class RankingService {
       final auth = FirebaseAuth.instance;
       var user = auth.currentUser;
       if (user == null) {
-        final credential = await auth.signInAnonymously();
+        final credential = await auth
+            .signInAnonymously()
+            .timeout(const Duration(seconds: 4));
         user = credential.user;
       }
       final uid = (user?.uid != null && user!.uid.trim().isNotEmpty)
@@ -146,7 +148,8 @@ class RankingService {
       final doc = await FirebaseFirestore.instance
           .collection(_sessionsCollection)
           .doc(sessionId)
-          .get();
+          .get()
+          .timeout(const Duration(seconds: 4));
       if (doc.exists && doc.data() != null) {
         final remoteName = (doc.data()!['username'] as String?)?.trim();
         if (remoteName != null && remoteName.isNotEmpty) {
@@ -1589,7 +1592,8 @@ class RankingService {
           .collection(_rankingsCollection)
           .orderBy('score', descending: true)
           .limit(_maxRetrieved)
-          .get();
+          .get()
+          .timeout(const Duration(seconds: 4));
 
       return snapshot.docs
           .map((doc) => RankingEntry.fromMap(doc.data()))
@@ -1638,7 +1642,8 @@ class RankingService {
           .collection(_rankingsCollection)
           .orderBy('score', descending: true)
           .limit(offset + limit)
-          .get();
+          .get()
+          .timeout(const Duration(seconds: 4));
 
       final validDocs = snapshot.docs
           .map((doc) => RankingEntry.fromMap(doc.data()))
@@ -1663,7 +1668,8 @@ class RankingService {
           .collection(_rankingsCollection)
           .orderBy('created_at', descending: true)
           .limit(limit)
-          .get();
+          .get()
+          .timeout(const Duration(seconds: 4));
 
       final entries = snapshot.docs
           .map((doc) => RankingEntry.fromMap(doc.data()))
